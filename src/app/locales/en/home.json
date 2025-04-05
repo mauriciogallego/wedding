@@ -1,6 +1,4 @@
 {
-  "title": "Welcome to Zazu",
-  "description": "Zazu is a tool for managing bookings efficiently. Ideal for any business, it helps schedule appointments and track availability effortlessly.",
-  "button": "Get Started",
-  "updateCookiePreferences": "Update Cookie Preferences"
+  "welcomeEnter": "Welcome to",
+  "weddingEnter": "Mauricio & Kiana's wedding"
 }
