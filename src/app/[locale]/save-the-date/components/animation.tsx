@@ -3,12 +3,14 @@
 import ProgressBar from "@/components/client/progress-bar/__test__/progress-bar";
 import { useCallback, useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
+import { useGlitch } from "react-powerglitch";
 import Typewriter from "typewriter-effect";
 
 const TOTAL_SEGMENT = 20;
 
 export const Animation = () => {
   const { t } = useTranslation();
+  const glitch = useGlitch();
   const intervalRef = useRef<number | null>(null);
   const [segments, setSegments] = useState(0);
 
@@ -39,7 +41,7 @@ export const Animation = () => {
   }, []);
 
   return (
-    <div className="flex justify-center text-center items-center w-[300px]">
+    <div className="flex justify-center text-center items-center w-[400px]">
       {!segments ? (
         <Typewriter
           onInit={(typewriter) => {
@@ -55,10 +57,12 @@ export const Animation = () => {
           }}
         />
       ) : (
-        <ProgressBar
-          completedSegments={segments}
-          totalSegments={TOTAL_SEGMENT}
-        />
+        <div ref={glitch.ref} className="!w-full">
+          <ProgressBar
+            completedSegments={segments}
+            totalSegments={TOTAL_SEGMENT}
+          />
+        </div>
       )}
     </div>
   );
