@@ -1,3 +1,7 @@
 {
-  "weddingEnter": "Mauricio & Kiana's wedding"
+  "continue": "Continue",
+  "labelName": "Enter your name and last name",
+  "name": "Name",
+  "placeholderName": "Type here..",
+  "weddingEnter": "Mauricio and Kiana's wedding"
 }

@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import ProgressBar from "./__test__/progress-bar";
+import ProgressBar from "./progress-bar";
 
 describe("ProgressBar", () => {
   it("renders with default props", () => {

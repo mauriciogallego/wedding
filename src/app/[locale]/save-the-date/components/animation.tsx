@@ -1,6 +1,6 @@
 "use client";
 
-import ProgressBar from "@/components/client/progress-bar/__test__/progress-bar";
+import ProgressBar from "@/components/client/progress-bar/progress-bar";
 import { useCallback, useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useGlitch } from "react-powerglitch";
@@ -8,7 +8,11 @@ import Typewriter from "typewriter-effect";
 
 const TOTAL_SEGMENT = 20;
 
-export const Animation = () => {
+interface AnimationProps {
+  animationEnded: (value: boolean) => void;
+}
+
+export const Animation = ({ animationEnded }: AnimationProps) => {
   const { t } = useTranslation();
   const glitch = useGlitch();
   const intervalRef = useRef<number | null>(null);
@@ -20,13 +24,14 @@ export const Animation = () => {
         if (intervalRef.current) {
           clearInterval(intervalRef.current);
           intervalRef.current = null;
+          animationEnded(true);
         }
         return prevSegments;
       } else {
         return prevSegments + 1;
       }
     });
-  }, []);
+  }, [animationEnded]);
 
   const executeTimer = () => {
     intervalRef.current = window.setInterval(internalCallback, 500);
@@ -36,6 +41,7 @@ export const Animation = () => {
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
+        intervalRef.current = null;
       }
     };
   }, []);
@@ -48,8 +54,8 @@ export const Animation = () => {
             typewriter.callFunction(executeTimer);
           }}
           options={{
-            wrapperClassName: "text-7xl font-bold",
-            cursorClassName: "text-7xl font-thin",
+            wrapperClassName: "text-7xl font-mono font-bold",
+            cursorClassName: "text-7xl font-mono font-thin",
             strings: [t("weddingEnter")],
             autoStart: true,
             loop: false,
