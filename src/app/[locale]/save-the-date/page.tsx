@@ -1,7 +1,7 @@
 import type { I18nParamProps } from "@/../@types/i18next";
 import initTranslations from "../../i18n";
 import TranslationsProvider from "@/providers/translation-provider";
-import { Animation } from "./components/animation";
+import { SaveTheDateContent } from "./components/save-the-date-content";
 
 const i18nNamespaces = ["home"];
 
@@ -18,9 +18,7 @@ export default async function SaveTheDate({
       resources={resources}
     >
       <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-        <main className="flex flex-col gap-[32px] row-start-2 items-center">
-          <Animation />
-        </main>
+        <SaveTheDateContent />
       </div>
     </TranslationsProvider>
   );
