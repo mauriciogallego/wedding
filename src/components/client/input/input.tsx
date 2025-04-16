@@ -8,7 +8,10 @@ interface Props {
 
 export const Input = ({ register, label, placeholder }: Props) => {
   return (
-    <div className="w-[400px] bg-[#23252590] backdrop-blur-md rounded-xl shadow-md overflow-hidden">
+    <div
+      data-testid="input-container"
+      className="w-[400px] bg-[#23252590] backdrop-blur-md rounded-xl shadow-md overflow-hidden"
+    >
       <div className="bg-[#23252590] p-[10px_15px] flex items-center">
         <span className="text-white text-sm font-semibold flex items-center gap-2">
           <svg
@@ -36,7 +39,10 @@ export const Input = ({ register, label, placeholder }: Props) => {
               placeholder={placeholder}
               className="bg-transparent border-none text-[#5689c0] font-mono text-sm outline-none w-full pr-[10px] placeholder:text-white/50"
             />
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-[15px] bg-white animate-[blink_1s_step-end_infinite]"></div>
+            <div
+              data-testid="blinking-cursor"
+              className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-[15px] bg-white animate-[blink_1s_step-end_infinite]"
+            ></div>
           </div>
         </div>
       </div>

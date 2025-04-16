@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import ProgressBar from "./progress-bar";
+import ProgressBar from "../progress-bar";
 
 describe("ProgressBar", () => {
   it("renders with default props", () => {
@@ -10,7 +10,7 @@ describe("ProgressBar", () => {
 
     expect(segments).toHaveLength(5); // default totalSegments
     expect(
-      segments.filter((segment) => segment.className.includes("bg-green-500"))
+      segments.filter((segment) => segment.className.includes("bg-white"))
     ).toHaveLength(2); // default completedSegments
   });
 
@@ -22,7 +22,7 @@ describe("ProgressBar", () => {
 
     expect(segments).toHaveLength(4);
     expect(
-      segments.filter((segment) => segment.className.includes("bg-green-500"))
+      segments.filter((segment) => segment.className.includes("bg-white"))
     ).toHaveLength(3);
   });
 
@@ -33,10 +33,10 @@ describe("ProgressBar", () => {
       .filter((element) => element.className.includes("flex-1"));
 
     // Check completed segments
-    expect(segments[0]).toHaveClass("bg-green-500");
-    expect(segments[1]).toHaveClass("bg-green-500");
+    expect(segments[0]).toHaveClass("bg-white");
+    expect(segments[1]).toHaveClass("bg-white");
 
     // Check incomplete segment
-    expect(segments[2]).toHaveClass("bg-white");
+    expect(segments[2]).toHaveClass("bg-transparent");
   });
 });

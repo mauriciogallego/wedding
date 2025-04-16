@@ -8,8 +8,8 @@ const ProgressBar = ({ completedSegments = 2, totalSegments = 5 }) => {
           key={index}
           className={`flex-1 h-10 transition-all duration-300 ${
             index < completedSegments
-              ? "bg-green-500 border-2 border-green-500"
-              : "bg-white border-2 border-white"
+              ? "bg-white border-2 border-white"
+              : "bg-transparent border-2 border-transparent"
           }`}
         ></div>
       ))}
