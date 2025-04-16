@@ -18,7 +18,7 @@ export const GuestForm = () => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
-  }, []);
+  }, [inputRef]);
 
   const onSubmit = (data: FormInputs) => {
     console.log(data);
