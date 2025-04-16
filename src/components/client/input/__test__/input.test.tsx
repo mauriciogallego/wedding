@@ -72,7 +72,7 @@ describe("Input", () => {
       "-translate-y-1/2",
       "w-2",
       "h-[15px]",
-      "bg-white",
+      "bg-[#ffffff]",
       "animate-[blink_1s_step-end_infinite]"
     );
   });

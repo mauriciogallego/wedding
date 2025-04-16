@@ -10,7 +10,7 @@ describe("ProgressBar", () => {
 
     expect(segments).toHaveLength(5); // default totalSegments
     expect(
-      segments.filter((segment) => segment.className.includes("bg-white"))
+      segments.filter((segment) => segment.className.includes("bg-[#ffffff]"))
     ).toHaveLength(2); // default completedSegments
   });
 
@@ -22,7 +22,7 @@ describe("ProgressBar", () => {
 
     expect(segments).toHaveLength(4);
     expect(
-      segments.filter((segment) => segment.className.includes("bg-white"))
+      segments.filter((segment) => segment.className.includes("bg-[#ffffff]"))
     ).toHaveLength(3);
   });
 
@@ -33,8 +33,8 @@ describe("ProgressBar", () => {
       .filter((element) => element.className.includes("flex-1"));
 
     // Check completed segments
-    expect(segments[0]).toHaveClass("bg-white");
-    expect(segments[1]).toHaveClass("bg-white");
+    expect(segments[0]).toHaveClass("bg-[#ffffff]");
+    expect(segments[1]).toHaveClass("bg-[#ffffff]");
 
     // Check incomplete segment
     expect(segments[2]).toHaveClass("bg-transparent");

@@ -31,7 +31,7 @@ export const GuestForm = () => {
       </div>
       <button
         type="submit"
-        className="w-full px-4 py-2 font-mono text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors"
+        className="w-full px-4 py-2 font-mono text-[#ffffff] bg-primary rounded-lg hover:bg-primary/90 transition-colors"
       >
         {t("continue")}
       </button>

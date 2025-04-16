@@ -13,7 +13,7 @@ export const Input = ({ register, label, placeholder }: Props) => {
       className="w-[400px] bg-[#23252590] backdrop-blur-md rounded-xl shadow-md overflow-hidden"
     >
       <div className="bg-[#23252590] p-[10px_15px] flex items-center">
-        <span className="text-white text-sm font-semibold flex items-center gap-2">
+        <span className="text-[#ffffff] text-sm font-semibold flex items-center gap-2">
           <svg
             className="text-[#5689c0]"
             width="16"
@@ -30,18 +30,18 @@ export const Input = ({ register, label, placeholder }: Props) => {
           {label}
         </span>
       </div>
-      <div className="bg-[#23252590] text-white p-[15px] font-mono">
+      <div className="bg-[#23252590] text-[#ffffff] p-[15px] font-mono">
         <div className="flex items-center">
-          <span className="text-white mr-[10px]">{register.name}:</span>
+          <span className="text-[#ffffff] mr-[10px]">{register.name}:</span>
           <div className="relative flex-grow">
             <input
               {...register}
               placeholder={placeholder}
-              className="bg-transparent border-none text-[#5689c0] font-mono text-sm outline-none w-full pr-[10px] placeholder:text-white/50"
+              className="bg-transparent border-none text-[#5689c0] font-mono text-sm outline-none w-full pr-[10px] placeholder:text-[#ffffff]/50"
             />
             <div
               data-testid="blinking-cursor"
-              className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-[15px] bg-white animate-[blink_1s_step-end_infinite]"
+              className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-[15px] bg-[#ffffff] animate-[blink_1s_step-end_infinite]"
             ></div>
           </div>
         </div>

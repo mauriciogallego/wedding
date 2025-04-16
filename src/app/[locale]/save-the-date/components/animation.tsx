@@ -76,8 +76,8 @@ export const Animation = ({ animationEnded }: AnimationProps) => {
             typewriter.callFunction(executeTimer);
           }}
           options={{
-            wrapperClassName: "text-7xl font-mono font-bold",
-            cursorClassName: "text-7xl font-mono font-thin",
+            wrapperClassName: "text-7xl font-mono font-bold text-[#ffffff]",
+            cursorClassName: "text-7xl font-mono font-thin text-[#ffffff]",
             strings: [t("weddingEnter")],
             autoStart: true,
             loop: false,
@@ -98,7 +98,7 @@ export const Animation = ({ animationEnded }: AnimationProps) => {
               completedSegments={segments}
               totalSegments={TOTAL_SEGMENT}
             />
-            <p className="text-white p-[15px] font-mono">loading..</p>
+            <p className="text-[#ffffff] p-[15px] font-mono">loading..</p>
           </div>
         </>
       )}
