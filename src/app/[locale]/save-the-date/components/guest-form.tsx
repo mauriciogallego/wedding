@@ -3,6 +3,7 @@
 import { Input } from "@/components/client/input/input";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useEffect, useRef } from "react";
 
 type FormInputs = {
   name: string;
@@ -10,8 +11,14 @@ type FormInputs = {
 
 export const GuestForm = () => {
   const { t } = useTranslation();
-
+  const inputRef = useRef<HTMLInputElement>(null);
   const { register, handleSubmit } = useForm<FormInputs>();
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   const onSubmit = (data: FormInputs) => {
     console.log(data);
@@ -27,6 +34,7 @@ export const GuestForm = () => {
           label={t("labelName")}
           placeholder={t("placeholderName")}
           register={register("name")}
+          inputRef={inputRef}
         />
       </div>
       <button

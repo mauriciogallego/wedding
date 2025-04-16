@@ -4,9 +4,10 @@ interface Props {
   register: UseFormRegisterReturn<string>;
   label: string;
   placeholder: string;
+  inputRef: React.RefObject<HTMLInputElement | null>;
 }
 
-export const Input = ({ register, label, placeholder }: Props) => {
+export const Input = ({ register, label, placeholder, inputRef }: Props) => {
   return (
     <div
       data-testid="input-container"
@@ -36,6 +37,7 @@ export const Input = ({ register, label, placeholder }: Props) => {
           <div className="relative flex-grow">
             <input
               {...register}
+              ref={inputRef}
               placeholder={placeholder}
               className="bg-transparent border-none text-[#5689c0] font-mono text-sm outline-none w-full pr-[10px] placeholder:text-[#ffffff]/50"
             />
