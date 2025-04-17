@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { render, screen, act } from "@testing-library/react";
 import { Animation } from "../animation";
 import { useTranslation } from "react-i18next";
@@ -20,35 +19,29 @@ jest.mock("next/image", () => ({
   default: (props: any) => <img {...props} />,
 }));
 
-interface TypewriterProps {
-  onInit: (typewriter: { callFunction: (fn: () => void) => void }) => void;
-  options: {
-    strings: string[];
-    autoStart: boolean;
-    loop: boolean;
-    deleteSpeed: number;
-    delay: number;
-    typeSpeed: number;
-    wrapperClassName: string;
-    cursorClassName: string;
-  };
-}
-
 // Mock the typewriter-effect component
 jest.mock("typewriter-effect", () => {
-  return function MockTypewriter({ onInit, options }: TypewriterProps) {
-    // Call onInit immediately instead of using useEffect
+  return function MockTypewriter({ onInit, options }: any) {
+    // Call onInit immediately to simulate the typewriter initialization
     onInit({
-      callFunction: (fn: () => void) => fn(),
+      typeString: () => ({
+        deleteAll: () => ({
+          callFunction: (fn: () => void) => {
+            fn();
+            return { start: () => {} };
+          },
+        }),
+      }),
     });
 
-    return <div data-testid="typewriter">{options.strings[0]}</div>;
+    return <div data-testid="typewriter">{options.wrapperClassName}</div>;
   };
 });
 
 describe("Animation", () => {
   const mockStartGlitch = jest.fn();
   const mockAnimationEnded = jest.fn();
+  const mockRef = { current: null };
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -58,7 +51,7 @@ describe("Animation", () => {
     });
     // Setup glitch mock
     (useGlitch as jest.Mock).mockReturnValue({
-      ref: { current: null },
+      ref: mockRef,
       startGlitch: mockStartGlitch,
     });
     // Mock window.setInterval
@@ -70,64 +63,67 @@ describe("Animation", () => {
     jest.useRealTimers();
   });
 
-  it("renders Typewriter initially", () => {
-    render(<Animation animationEnded={mockAnimationEnded} />);
-    expect(screen.getByTestId("typewriter")).toBeInTheDocument();
-  });
-
-  it("transitions to ProgressBar after Typewriter initialization", () => {
+  it("renders the component with initial elements", () => {
     render(<Animation animationEnded={mockAnimationEnded} />);
 
-    // Initially shows Typewriter
-    expect(screen.getByTestId("typewriter")).toBeInTheDocument();
-
-    // Fast-forward timers to trigger segment updates
-    act(() => {
-      jest.advanceTimersByTime(500);
-    });
-
-    // Should now show ProgressBar
-    expect(screen.getByText("loading..")).toBeInTheDocument();
-  });
-
-  it("shows image when segments start incrementing", () => {
-    render(<Animation animationEnded={mockAnimationEnded} />);
-
-    act(() => {
-      jest.advanceTimersByTime(500);
-    });
-
+    // Check if the image is rendered
     const image = screen.getByAltText("Wedding Save the Date");
     expect(image).toBeInTheDocument();
     expect(image).toHaveAttribute("src", "/assets/wedding.jpeg");
+
+    // Check if the typewriter is rendered
+    expect(screen.getByTestId("typewriter")).toBeInTheDocument();
+
+    // Check if the progress bar container is rendered
+    expect(screen.getByText("loading..")).toBeInTheDocument();
   });
 
-  it("triggers glitch effect when segments reach halfway", () => {
+  it("increments segments over time", () => {
     render(<Animation animationEnded={mockAnimationEnded} />);
 
-    // Fast-forward to just over half of TOTAL_SEGMENT
+    // Initially segments should be 0
+    const initialSegments = screen
+      .getAllByRole("generic")
+      .filter((element) => element.className.includes("bg-[#ffffff]"));
+    expect(initialSegments).toHaveLength(0);
+
+    // Advance time to see segments increment
     act(() => {
-      for (let i = 0; i <= 11; i++) {
-        jest.advanceTimersByTime(500);
+      jest.advanceTimersByTime(700);
+    });
+
+    const updatedSegments = screen
+      .getAllByRole("generic")
+      .filter((element) => element.className.includes("bg-[#ffffff]"));
+    expect(updatedSegments.length).toBeGreaterThan(0);
+  });
+
+  it("triggers glitch effect when segments reach threshold", () => {
+    render(<Animation animationEnded={mockAnimationEnded} />);
+
+    // Advance time past the threshold (SEGMENT_COMPLETED = 8)
+    act(() => {
+      for (let i = 0; i < 9; i++) {
+        jest.advanceTimersByTime(700);
       }
     });
 
     expect(mockStartGlitch).toHaveBeenCalled();
   });
 
-  it("calls animationEnded when segments complete", () => {
+  it("calls animationEnded after glitch effect", () => {
     render(<Animation animationEnded={mockAnimationEnded} />);
 
-    // Fast-forward past SEGMENT_COMPLETED
+    // Advance time past the threshold
     act(() => {
-      for (let i = 0; i <= 11; i++) {
-        jest.advanceTimersByTime(500);
+      for (let i = 0; i < 9; i++) {
+        jest.advanceTimersByTime(700);
       }
     });
 
     // Wait for the timeout that triggers animationEnded
     act(() => {
-      jest.advanceTimersByTime(4000);
+      jest.advanceTimersByTime(2000);
     });
 
     expect(mockAnimationEnded).toHaveBeenCalledWith(true);
@@ -140,7 +136,7 @@ describe("Animation", () => {
 
     // Start the interval
     act(() => {
-      jest.advanceTimersByTime(500);
+      jest.advanceTimersByTime(700);
     });
 
     // Unmount the component
@@ -148,10 +144,38 @@ describe("Animation", () => {
 
     // Advance timer again
     act(() => {
-      jest.advanceTimersByTime(500);
+      jest.advanceTimersByTime(700);
     });
 
     // Check that no more segments were added after unmount
     expect(mockAnimationEnded).not.toHaveBeenCalled();
+  });
+
+  it("stops incrementing segments after reaching threshold", () => {
+    render(<Animation animationEnded={mockAnimationEnded} />);
+
+    // Advance time past the threshold
+    act(() => {
+      for (let i = 0; i < 9; i++) {
+        jest.advanceTimersByTime(700);
+      }
+    });
+
+    // Get the number of segments at threshold
+    const segmentsAtThreshold = screen
+      .getAllByRole("generic")
+      .filter((element) => element.className.includes("bg-[#ffffff]")).length;
+
+    // Advance time further
+    act(() => {
+      jest.advanceTimersByTime(700);
+    });
+
+    // Check that segments haven't increased
+    const segmentsAfterThreshold = screen
+      .getAllByRole("generic")
+      .filter((element) => element.className.includes("bg-[#ffffff]")).length;
+
+    expect(segmentsAfterThreshold).toBe(segmentsAtThreshold);
   });
 });

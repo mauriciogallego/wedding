@@ -21,7 +21,7 @@ export const Animation = ({ animationEnded }: AnimationProps) => {
     createContainers: true,
     hideOverflow: false,
     timing: {
-      duration: 3000,
+      duration: 1000,
       iterations: 3,
     },
     glitchTimeSpan: {
@@ -47,10 +47,11 @@ export const Animation = ({ animationEnded }: AnimationProps) => {
   }, []);
 
   const executeTimer = () => {
-    intervalRef.current = window.setInterval(internalCallback, 500);
+    intervalRef.current = window.setInterval(internalCallback, 700);
   };
 
   useEffect(() => {
+    executeTimer();
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
@@ -64,44 +65,49 @@ export const Animation = ({ animationEnded }: AnimationProps) => {
       glitch.startGlitch();
       setTimeout(() => {
         animationEnded(true);
-      }, 4000);
+      }, 2000);
     }
   }, [segments, glitch, animationEnded]);
 
   return (
-    <div className="flex justify-center text-center items-center w-[400px]">
-      {!segments ? (
+    <section className="flex flex-col justify-center text-center items-center w-[400px] space-y-2">
+      <Image
+        src="/assets/wedding.jpeg"
+        alt="Wedding Save the Date"
+        fill
+        className="object-cover absolute w-full blur-sm opacity-30"
+      />
+      <div className="absolute top-1/6 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <Typewriter
           onInit={(typewriter) => {
-            typewriter.callFunction(executeTimer);
+            typewriter
+              .typeString(t("weddingEnter"))
+              .deleteAll()
+              .callFunction(() => {
+                const cursor = document.querySelector(".Typewriter");
+                if (cursor) {
+                  cursor.remove();
+                }
+              })
+              .start();
           }}
           options={{
-            wrapperClassName: "text-7xl font-mono font-bold text-[#ffffff]",
-            cursorClassName: "text-7xl font-mono font-thin text-[#ffffff]",
-            strings: [t("weddingEnter")],
-            autoStart: true,
+            wrapperClassName: "text-xl font-mono font-bold text-[#ffffff]",
+            cursorClassName: "text-xl font-mono font-thin text-[#ffffff]",
+            autoStart: false,
             loop: false,
             deleteSpeed: 50,
-            delay: 80,
+            delay: 100,
           }}
         />
-      ) : (
-        <>
-          <Image
-            src="/assets/wedding.jpeg" // Replace with your image path
-            alt="Wedding Save the Date"
-            fill
-            className="object-cover absolute w-full blur-sm opacity-30"
-          />
-          <div ref={glitch.ref} className="!w-full">
-            <ProgressBar
-              completedSegments={segments}
-              totalSegments={TOTAL_SEGMENT}
-            />
-            <p className="text-[#ffffff] p-[15px] font-mono">loading..</p>
-          </div>
-        </>
-      )}
-    </div>
+      </div>
+      <div ref={glitch.ref}>
+        <ProgressBar
+          completedSegments={segments}
+          totalSegments={TOTAL_SEGMENT}
+        />
+        <p className="text-[#ffffff] p-[15px] font-mono">loading..</p>
+      </div>
+    </section>
   );
 };
