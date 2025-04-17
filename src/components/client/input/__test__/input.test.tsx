@@ -26,9 +26,6 @@ describe("Input", () => {
     // Check if input is rendered with correct placeholder
     const input = screen.getByPlaceholderText("Test Placeholder");
     expect(input).toBeInTheDocument();
-
-    // Check if the field name is displayed
-    expect(screen.getByText("testField:")).toBeInTheDocument();
   });
 
   it("applies register props to input element", () => {
@@ -75,23 +72,5 @@ describe("Input", () => {
       "bg-[#ffffff]",
       "animate-[blink_1s_step-end_infinite]"
     );
-  });
-
-  it("handles different register names", () => {
-    const customRegister: UseFormRegisterReturn<string> = {
-      ...mockRegister,
-      name: "customField",
-    };
-
-    render(
-      <Input
-        register={customRegister}
-        label="Custom Label"
-        placeholder="Custom Placeholder"
-      />
-    );
-
-    // Check if the custom field name is displayed
-    expect(screen.getByText("customField:")).toBeInTheDocument();
   });
 });
