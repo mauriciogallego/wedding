@@ -11,7 +11,7 @@ const TOTAL_SEGMENT = 20;
 const SEGMENT_COMPLETED = TOTAL_SEGMENT / 2.5;
 
 interface AnimationProps {
-  animationEnded: (value: boolean) => void;
+  animationEnded: () => void;
 }
 
 export const Animation = ({ animationEnded }: AnimationProps) => {
@@ -64,7 +64,7 @@ export const Animation = ({ animationEnded }: AnimationProps) => {
     if (segments > SEGMENT_COMPLETED) {
       glitch.startGlitch();
       setTimeout(() => {
-        animationEnded(true);
+        animationEnded();
       }, 2000);
     }
   }, [segments, glitch, animationEnded]);
