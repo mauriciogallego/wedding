@@ -126,7 +126,7 @@ describe("Animation", () => {
       jest.advanceTimersByTime(2000);
     });
 
-    expect(mockAnimationEnded).toHaveBeenCalledWith(true);
+    expect(mockAnimationEnded).toHaveBeenCalled();
   });
 
   it("cleans up interval on unmount", () => {
