@@ -1,7 +1,7 @@
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 
 interface Props {
-  register: UseFormRegisterReturn<string>;
+  register: any;
   label: string;
   placeholder: string;
   inputRef?: React.RefObject<HTMLInputElement | null>;
