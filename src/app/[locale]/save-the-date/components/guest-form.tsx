@@ -65,7 +65,7 @@ export const GuestForm = ({ data }: any) => {
     }
   };
 
-  const disabled = getValues("name") === " " || getValues("name") === undefined;
+  const disabled = getValues("name")?.trim() === "" || getValues("name") === undefined;
 
   return (
     <form
