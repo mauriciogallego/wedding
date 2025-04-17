@@ -9,20 +9,63 @@ type FormInputs = {
   name: string;
 };
 
-export const GuestForm = () => {
+export const GuestForm = ({ data }: any) => {
   const { t } = useTranslation();
-  const inputRef = useRef<HTMLInputElement>(null);
-  const { register, handleSubmit } = useForm<FormInputs>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+    getValues,
+    clearErrors,
+  } = useForm<FormInputs>();
+  const invites = data.map((item: any) => item[0]?.split(" "));
+  const nameInputData = register("name");
+  const nameInputRef = useRef<HTMLInputElement | null>(null);
+
+  const nameInput = {
+    ...nameInputData,
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+      nameInputData.onChange(e); // ejecuta la función original
+      clearErrors("name"); // limpia el error al modificar el input
+    },
+    ref: (e: HTMLInputElement) => {
+      nameInputRef.current = e;
+      if (typeof nameInputData.ref === "function") {
+        nameInputData.ref(e);
+      }
+    },
+  };
 
   useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
+    if (nameInputRef.current) {
+      nameInputRef.current.focus();
     }
-  }, [inputRef]);
+  }, []);
 
   const onSubmit = (data: FormInputs) => {
-    console.log(data);
+    const value = data.name.toLowerCase().split(" ");
+    const guestsFinded = [];
+
+    for (const invite of invites) {
+      const matches = invite.filter((word: string) =>
+        value.includes(word.toLowerCase())
+      ).length;
+      if (matches >= 2) {
+        guestsFinded.push(invite.join(" "));
+      }
+    }
+
+    if (guestsFinded.length === 0) {
+      setError("name", {
+        type: "manual",
+        message:
+          "No hemos encontrado tu nombre en la lista de invitados, por favor verifica que lo hayas escrito correctamente.",
+      });
+    }
   };
+
+  const disabled = getValues("name") === " " || getValues("name") === undefined;
 
   return (
     <form
@@ -33,12 +76,13 @@ export const GuestForm = () => {
         <Input
           label={t("labelName")}
           placeholder={t("placeholderName")}
-          register={register("name")}
-          inputRef={inputRef}
+          register={nameInput}
+          error={errors.name}
         />
       </div>
       <button
         type="submit"
+        disabled={disabled}
         className="w-full px-4 py-2 font-mono text-[#ffffff] bg-primary rounded-lg hover:bg-primary/90 transition-colors"
       >
         {t("continue")}

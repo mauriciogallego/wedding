@@ -1,13 +1,20 @@
-import { UseFormRegisterReturn } from "react-hook-form";
+import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 
 interface Props {
   register: UseFormRegisterReturn<string>;
   label: string;
   placeholder: string;
   inputRef?: React.RefObject<HTMLInputElement | null>;
+  error: FieldError | undefined;
 }
 
-export const Input = ({ register, label, placeholder, inputRef }: Props) => {
+export const Input = ({
+  register,
+  label,
+  placeholder,
+  inputRef,
+  error,
+}: Props) => {
   return (
     <div
       data-testid="input-container"
@@ -49,7 +56,6 @@ export const Input = ({ register, label, placeholder, inputRef }: Props) => {
           <div className="relative flex-grow">
             <input
               {...register}
-              ref={inputRef}
               placeholder={placeholder}
               className="bg-transparent border-none text-[#5689c0] font-mono text-sm outline-none w-full pr-[10px] placeholder:text-[#ffffff]/50"
             />
@@ -59,6 +65,7 @@ export const Input = ({ register, label, placeholder, inputRef }: Props) => {
             ></div>
           </div>
         </div>
+        {error && <p className="text-red-500 text-sm mx-10">{error.message}</p>}
       </div>
     </div>
   );
