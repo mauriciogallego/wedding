@@ -4,19 +4,17 @@ import { Input } from "@/components/save-the-date/input";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useEffect, useRef, useState } from "react";
-
-type FormInputs = {
-  name: string;
-  guestSelected: string;
-};
+import Layout from "./layout/layout";
+import { useAppContext } from "@/providers/app-context";
+import { FormInputs } from "@/types";
 
 interface Props {
-  data: string[][];
   moveNextStep: () => void;
 }
 
-export const GuestAuthentication = ({ data, moveNextStep }: Props) => {
+export const GuestAuthentication = ({ moveNextStep }: Props) => {
   const { t } = useTranslation();
+  const { sheetData, setGuest, guest } = useAppContext();
   const [guestFound, setGuestFound] = useState<string[]>();
   const {
     register,
@@ -27,7 +25,7 @@ export const GuestAuthentication = ({ data, moveNextStep }: Props) => {
     clearErrors,
   } = useForm<FormInputs>();
 
-  const invites = data.map((item) => item[0]?.split(" "));
+  const invites = sheetData.map((item) => item[0]?.split(" "));
   const nameInputData = register("name");
   const guestInputData = register("guestSelected");
   const nameInputRef = useRef<HTMLInputElement | null>(null);
@@ -55,7 +53,9 @@ export const GuestAuthentication = ({ data, moveNextStep }: Props) => {
 
   const onSubmit = (data: FormInputs) => {
     if (data.guestSelected) {
-      return moveNextStep();
+      setGuest(data.guestSelected);
+      setTimeout(moveNextStep, 2000);
+      return;
     }
 
     const value = data.name.toLowerCase().split(" ");
@@ -85,27 +85,39 @@ export const GuestAuthentication = ({ data, moveNextStep }: Props) => {
     getValues("name")?.trim() === "" || getValues("name") === undefined;
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="w-full max-w-md space-y-4"
-    >
-      <div className="space-y-2">
-        <Input
-          label={t("labelName")}
-          placeholder={t("placeholderName")}
-          registerName={nameInput}
-          registerGuestSelected={guestInputData}
-          error={errors.name}
-          guestFound={guestFound}
-        />
-      </div>
-      <button
-        type="submit"
-        disabled={disabled}
-        className="w-full px-4 py-2 font-mono text-[#ffffff] bg-primary rounded-lg hover:bg-primary/90 transition-colors cursor-pointer"
+    <Layout>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full max-w-md space-y-6"
       >
-        {guestFound ? t("confirm") : t("continue")}
-      </button>
-    </form>
+        <div className="space-y-4.5">
+          <Input
+            label={t("labelName")}
+            placeholder={t("placeholderName")}
+            registerName={nameInput}
+            registerGuestSelected={guestInputData}
+            error={errors.name}
+            guestFound={guestFound}
+          />
+        </div>
+        {!!guest ? (
+          <div className="flex items-center justify-center mt-12">
+            <div className="bg-transparent border border-[#56c071] p-2">
+              <p className="font-mono text-sm text-[#56c071] font-bold">
+                Autenticado
+              </p>
+            </div>
+          </div>
+        ) : (
+          <button
+            type="submit"
+            disabled={disabled}
+            className="w-full px-4 py-2 font-mono text-[#ffffff] bg-primary rounded-lg hover:bg-primary/90 transition-colors cursor-pointer"
+          >
+            {guestFound ? t("confirm") : t("continue")}
+          </button>
+        )}
+      </form>
+    </Layout>
   );
 };
