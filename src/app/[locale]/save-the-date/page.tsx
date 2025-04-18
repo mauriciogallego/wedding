@@ -1,8 +1,8 @@
 import type { I18nParamProps } from "@/../@types/i18next";
 import initTranslations from "../../i18n";
 import TranslationsProvider from "@/providers/translation-provider";
-import { SaveTheDateContent } from "./components/save-the-date-content";
-import getSheetData from "./google-sheets.action";
+import { SaveTheDateContent } from "@/components/save-the-date/save-the-date-content";
+import getSheetData from "@/services/google-sheets.action";
 
 const i18nNamespaces = ["home"];
 
@@ -20,7 +20,9 @@ export default async function SaveTheDate({
       resources={resources}
     >
       <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen">
-        <SaveTheDateContent data={data} />
+        <main className="flex flex-col gap-[32px] row-start-2 items-center">
+          <SaveTheDateContent data={data} />
+        </main>
       </div>
     </TranslationsProvider>
   );

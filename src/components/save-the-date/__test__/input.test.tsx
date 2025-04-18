@@ -24,7 +24,7 @@ describe("Input", () => {
     placeholder: "Test Placeholder",
     registerGuestSelected: registerGuestSelected,
     error: undefined,
-    guestsFinded: undefined,
+    guestFound: undefined,
   };
 
   it("renders with all required props", () => {

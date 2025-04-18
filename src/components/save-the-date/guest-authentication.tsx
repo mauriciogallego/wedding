@@ -1,7 +1,7 @@
 "use client";
 
-import { Input } from "@/components/client/input/input";
-import { set, useForm } from "react-hook-form";
+import { Input } from "@/components/save-the-date/input";
+import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useEffect, useRef, useState } from "react";
 
@@ -10,9 +10,14 @@ type FormInputs = {
   guestSelected: string;
 };
 
-export const GuestForm = ({ data }: any) => {
+interface Props {
+  data: string[][];
+  moveNextStep: () => void;
+}
+
+export const GuestAuthentication = ({ data, moveNextStep }: Props) => {
   const { t } = useTranslation();
-  const [guestsFinded, setGuestsFinded] = useState<string[]>();
+  const [guestFound, setGuestFound] = useState<string[]>();
   const {
     register,
     handleSubmit,
@@ -21,7 +26,8 @@ export const GuestForm = ({ data }: any) => {
     getValues,
     clearErrors,
   } = useForm<FormInputs>();
-  const invites = data.map((item: any) => item[0]?.split(" "));
+
+  const invites = data.map((item) => item[0]?.split(" "));
   const nameInputData = register("name");
   const guestInputData = register("guestSelected");
   const nameInputRef = useRef<HTMLInputElement | null>(null);
@@ -31,7 +37,7 @@ export const GuestForm = ({ data }: any) => {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
       nameInputData.onChange(e); // ejecuta la función original
       clearErrors("name"); // limpia el error al modificar el input
-      setGuestsFinded(undefined); // limpia los invitados encontrados
+      setGuestFound(undefined); // limpia los invitados encontrados
     },
     ref: (e: HTMLInputElement) => {
       nameInputRef.current = e;
@@ -49,29 +55,29 @@ export const GuestForm = ({ data }: any) => {
 
   const onSubmit = (data: FormInputs) => {
     if (data.guestSelected) {
-      // TODO: que siguiente paso
-      return;
+      return moveNextStep();
     }
 
     const value = data.name.toLowerCase().split(" ");
-    const guestsFinded = [];
+    const guestFound = [];
 
     for (const invite of invites) {
       const matches = invite.filter((word: string) =>
         value.includes(word.toLowerCase())
       ).length;
+
       if (matches >= 2) {
-        guestsFinded.push(invite.join(" "));
+        guestFound.push(invite.join(" "));
       }
     }
 
-    if (guestsFinded.length === 0) {
+    if (guestFound.length === 0) {
       setError("name", {
         type: "manual",
         message: t("formErrorMessage"),
       });
     } else {
-      setGuestsFinded(guestsFinded);
+      setGuestFound(guestFound);
     }
   };
 
@@ -90,7 +96,7 @@ export const GuestForm = ({ data }: any) => {
           registerName={nameInput}
           registerGuestSelected={guestInputData}
           error={errors.name}
-          guestsFinded={guestsFinded}
+          guestFound={guestFound}
         />
       </div>
       <button
@@ -98,7 +104,7 @@ export const GuestForm = ({ data }: any) => {
         disabled={disabled}
         className="w-full px-4 py-2 font-mono text-[#ffffff] bg-primary rounded-lg hover:bg-primary/90 transition-colors cursor-pointer"
       >
-        {guestsFinded ? t("confirm") : t("continue")}
+        {guestFound ? t("confirm") : t("continue")}
       </button>
     </form>
   );

@@ -1,4 +1,4 @@
-import { FieldError, UseFormRegisterReturn } from "react-hook-form";
+import { FieldError } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 interface Props {
@@ -8,16 +8,15 @@ interface Props {
   placeholder: string;
   inputRef?: React.RefObject<HTMLInputElement | null>;
   error: FieldError | undefined;
-  guestsFinded: string[] | undefined;
+  guestFound: string[] | undefined;
 }
 
 export const Input = ({
   registerName,
   label,
   placeholder,
-  inputRef,
   error,
-  guestsFinded,
+  guestFound,
   registerGuestSelected,
 }: Props) => {
   const { t } = useTranslation();
@@ -75,7 +74,7 @@ export const Input = ({
 
         {error && <p className="text-red-500 text-sm mx-10">{error.message}</p>}
       </div>
-      {guestsFinded && (
+      {guestFound && (
         <div className="relative  p-[15px]">
           <label className="text-[#ffffff] text-sm font-mono mb-1 block">
             {t("selectYourName")}
@@ -102,7 +101,7 @@ export const Input = ({
               <option value="" disabled>
                 {t("select")}
               </option>
-              {guestsFinded.map((guest, index) => (
+              {guestFound.map((guest, index) => (
                 <option key={index} value={guest}>
                   {guest}
                 </option>

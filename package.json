@@ -11,6 +11,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "framer-motion": "^12.7.4",
     "googleapis": "^148.0.0",
     "i18next": "^24.2.3",
     "i18next-resources-to-backend": "^1.2.1",

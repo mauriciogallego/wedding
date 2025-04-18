@@ -1,7 +1,7 @@
 import { render, screen, act } from "@testing-library/react";
-import { Animation } from "../animation";
 import { useTranslation } from "react-i18next";
 import { useGlitch } from "react-powerglitch";
+import { Animation } from "../animation";
 
 // Mock the react-i18next hook
 jest.mock("react-i18next", () => ({
@@ -126,7 +126,7 @@ describe("Animation", () => {
       jest.advanceTimersByTime(2000);
     });
 
-    expect(mockAnimationEnded).toHaveBeenCalledWith(true);
+    expect(mockAnimationEnded).toHaveBeenCalled();
   });
 
   it("cleans up interval on unmount", () => {

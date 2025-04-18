@@ -1,4 +1,5 @@
 "use server";
+
 import { google } from "googleapis";
 
 export default async function getSheetData() {
@@ -17,10 +18,12 @@ export default async function getSheetData() {
 
   const glSheets = google.sheets({ version: "v4", auth: glAuth });
 
-  const data = await glSheets.spreadsheets.values.get({
+  const { data } = await glSheets.spreadsheets.values.get({
     spreadsheetId: process.env.GOOGLE_SHEET_ID,
     range: "invites!B2:B293",
   });
 
-  return { data: data.data.values };
+  return {
+    data: data.values as string[][],
+  };
 }
