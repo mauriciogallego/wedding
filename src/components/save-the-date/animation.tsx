@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import ProgressBar from "@/components/client/progress-bar/progress-bar";
+import ProgressBar from "@/components/shared/progress-bar/progress-bar";
 import { useCallback, useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useGlitch } from "react-powerglitch";
@@ -46,9 +46,9 @@ export const Animation = ({ animationEnded }: AnimationProps) => {
     });
   }, []);
 
-  const executeTimer = () => {
+  const executeTimer = useCallback(() => {
     intervalRef.current = window.setInterval(internalCallback, 700);
-  };
+  }, [internalCallback]);
 
   useEffect(() => {
     executeTimer();
@@ -58,7 +58,7 @@ export const Animation = ({ animationEnded }: AnimationProps) => {
         intervalRef.current = null;
       }
     };
-  }, []);
+  }, [executeTimer]);
 
   useEffect(() => {
     if (segments > SEGMENT_COMPLETED) {

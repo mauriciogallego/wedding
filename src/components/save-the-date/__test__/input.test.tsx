@@ -4,7 +4,14 @@ import { Input } from "../input";
 import { UseFormRegisterReturn } from "react-hook-form";
 
 describe("Input", () => {
-  const mockRegister: UseFormRegisterReturn<string> = {
+  const registerName: UseFormRegisterReturn<string> = {
+    name: "testField",
+    onChange: jest.fn(),
+    onBlur: jest.fn(),
+    ref: jest.fn(),
+  };
+
+  const registerGuestSelected: UseFormRegisterReturn<string> = {
     name: "testField",
     onChange: jest.fn(),
     onBlur: jest.fn(),
@@ -12,9 +19,12 @@ describe("Input", () => {
   };
 
   const defaultProps = {
-    register: mockRegister,
+    registerName: registerName,
     label: "Test Label",
     placeholder: "Test Placeholder",
+    registerGuestSelected: registerGuestSelected,
+    error: undefined,
+    guestFound: undefined,
   };
 
   it("renders with all required props", () => {

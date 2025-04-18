@@ -1,39 +1,39 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import TranslationsProvider from '../translation-provider';
-import initTranslations from '@/app/i18n';
+import React from "react";
+import { render } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import TranslationsProvider from "../translation-provider";
+import initTranslations from "@/app/i18n";
 
 // Mock the initTranslations function
-jest.mock('@/app/i18n', () => {
-  return jest.fn().mockImplementation((locale, namespaces, i18n, resources) => {
+jest.mock("@/app/i18n", () => {
+  return jest.fn().mockImplementation((locale, namespaces, i18n) => {
     // Mock implementation that just returns the i18n instance
     return Promise.resolve({
       i18n,
       resources: {},
-      t: jest.fn()
+      t: jest.fn(),
     });
   });
 });
 
 // Mock the I18nextProvider component
-jest.mock('react-i18next', () => ({
+jest.mock("react-i18next", () => ({
   I18nextProvider: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="i18next-provider">{children}</div>
-  )
+  ),
 }));
 
-describe('TranslationsProvider', () => {
+describe("TranslationsProvider", () => {
   const mockChildren = <div data-testid="test-child">Test Child</div>;
-  const mockLocale = 'en';
-  const mockNamespaces = ['common'];
+  const mockLocale = "en";
+  const mockNamespaces = ["common"];
   const mockResources = {};
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('renders children correctly', () => {
+  it("renders children correctly", () => {
     const { getByTestId } = render(
       <TranslationsProvider
         locale={mockLocale}
@@ -44,10 +44,10 @@ describe('TranslationsProvider', () => {
       </TranslationsProvider>
     );
 
-    expect(getByTestId('test-child')).toBeInTheDocument();
+    expect(getByTestId("test-child")).toBeInTheDocument();
   });
 
-  it('calls initTranslations with the correct parameters', () => {
+  it("calls initTranslations with the correct parameters", () => {
     render(
       <TranslationsProvider
         locale={mockLocale}
@@ -66,7 +66,7 @@ describe('TranslationsProvider', () => {
     );
   });
 
-  it('renders the I18nextProvider with the i18n instance', () => {
+  it("renders the I18nextProvider with the i18n instance", () => {
     const { getByTestId } = render(
       <TranslationsProvider
         locale={mockLocale}
@@ -77,6 +77,6 @@ describe('TranslationsProvider', () => {
       </TranslationsProvider>
     );
 
-    expect(getByTestId('i18next-provider')).toBeInTheDocument();
+    expect(getByTestId("i18next-provider")).toBeInTheDocument();
   });
-}); 
+});
