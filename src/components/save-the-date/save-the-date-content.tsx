@@ -1,12 +1,12 @@
 "use client";
 
 import { Children, useState } from "react";
-import { Animation } from "../client/animation/animation";
-import { GuestForm } from "./guest-form";
-import { Stepper } from "@/components/client/stepper/stepper";
+import { Animation } from "./animation";
+import { GuestAuthentication } from "./guest-authentication";
+import { Stepper } from "@/components/shared/stepper/stepper";
 import Confirmation from "./confirmation";
 
-export const SaveTheDateContent = () => {
+export const SaveTheDateContent = ({ data }: { data: string[][] }) => {
   const [currentStep, setCurrentStep] = useState(0);
 
   const moveNextStep = () => {
@@ -14,8 +14,8 @@ export const SaveTheDateContent = () => {
   };
 
   const steps = Children.toArray([
-    // <Animation animationEnded={moveNextStep} />,
-    // <GuestForm />,
+    <Animation animationEnded={moveNextStep} />,
+    <GuestAuthentication data={data} moveNextStep={moveNextStep} />,
     <Confirmation />,
   ]);
 
