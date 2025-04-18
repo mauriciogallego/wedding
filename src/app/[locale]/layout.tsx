@@ -1,4 +1,5 @@
 import TranslationsProvider from "@/providers/translation-provider";
+import { AppProvider } from "@/providers/app-context";
 import { dir } from "i18next";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -46,7 +47,7 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen w-screen`}
       >
-        {children}
+        <AppProvider>{children}</AppProvider>
         <TranslationsProvider
           namespaces={i18nNamespaces}
           locale={locale}

@@ -3,6 +3,7 @@ import initTranslations from "../../i18n";
 import TranslationsProvider from "@/providers/translation-provider";
 import { SaveTheDateContent } from "@/components/save-the-date/save-the-date-content";
 import getSheetData from "@/services/google-sheets.action";
+import { AppProvider } from "@/providers/app-context";
 
 const i18nNamespaces = ["home"];
 
@@ -19,9 +20,11 @@ export default async function SaveTheDate({
       locale={locale}
       resources={resources}
     >
-      <main>
-        <SaveTheDateContent data={data} />
-      </main>
+      <AppProvider>
+        <main>
+          <SaveTheDateContent initialData={data} />
+        </main>
+      </AppProvider>
     </TranslationsProvider>
   );
 }
