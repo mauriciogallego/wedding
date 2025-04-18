@@ -1,7 +1,11 @@
 {
   "continue": "Continue",
+  "confirm": "Confirm",
   "labelName": "Enter your name and last name",
+  "formErrorMessage": "We couldn't find your name on the guest list, please check that you have written it correctly.",
   "name": "Name",
   "placeholderName": "Type here..",
-  "weddingEnter": "Mauricio & Kiana"
+  "weddingEnter": "Mauricio & Kiana",
+  "selectYourName": "Select your name from the list",
+  "select": "Select an option"
 }
