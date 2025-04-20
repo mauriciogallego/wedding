@@ -94,12 +94,12 @@ export const Animation = ({ animationEnded }: AnimationProps) => {
                 .start();
             }}
             options={{
-              wrapperClassName: "text-xl font-mono font-bold text-[#ffffff]",
-              cursorClassName: "text-xl font-mono font-thin text-[#ffffff]",
+              wrapperClassName: "text-2xl font-mono font-bold text-[#ffffff]",
+              cursorClassName: "text-2xl font-mono font-thin text-[#ffffff]",
               autoStart: false,
               loop: false,
               deleteSpeed: 50,
-              delay: 100,
+              delay: 150,
             }}
           />
         </div>

@@ -1,11 +1,13 @@
 {
-  "continue": "Continuar",
+  "authenticated": "Autenticado",
   "confirm": "Confirmar",
-  "labelName": "Ingresa tu nombre y apellido",
+  "continue": "Continuar",
   "formErrorMessage": "No hemos encontrado tu nombre en la lista de invitados, por favor verifica que lo hayas escrito correctamente.",
+  "labelName": "Ingresa tu Nombre y Apellido",
+  "loading": "Cargando",
   "name": "Nombre",
   "placeholderName": "Escribe aquí..",
-  "weddingEnter": "Mauricio & Kiana",
+  "select": "Selecciona una opción",
   "selectYourName": "Selecciona tu nombre en la lista",
-  "select": "Selecciona una opción"
+  "weddingEnter": "Mauricio & Kiana"
 }

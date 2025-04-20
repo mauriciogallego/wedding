@@ -1,11 +1,13 @@
 {
-  "continue": "Continue",
+  "authenticated": "Authenticated",
   "confirm": "Confirm",
-  "labelName": "Enter your name and last name",
+  "continue": "Continue",
   "formErrorMessage": "We couldn't find your name on the guest list, please check that you have written it correctly.",
+  "labelName": "Enter your name and last name",
+  "loading": "Loading",
   "name": "Name",
   "placeholderName": "Type here..",
-  "weddingEnter": "Mauricio & Kiana",
+  "select": "Select an option",
   "selectYourName": "Select your name from the list",
-  "select": "Select an option"
+  "weddingEnter": "Mauricio & Kiana"
 }

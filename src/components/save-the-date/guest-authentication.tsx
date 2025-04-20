@@ -102,9 +102,9 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
         </div>
         {!!guest ? (
           <div className="flex items-center justify-center mt-12">
-            <div className="bg-transparent border border-[#56c071] p-2">
+            <div className="bg-transparent border border-[#56c071] py-2 px-3">
               <p className="font-mono text-sm text-[#56c071] font-bold">
-                Autenticado
+                {t("authenticated")}
               </p>
             </div>
           </div>
