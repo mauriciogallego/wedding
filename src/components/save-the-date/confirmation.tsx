@@ -21,7 +21,7 @@ const Confirmation = () => {
         src="/assets/wedding.jpeg"
         alt="Wedding Save the Date"
         fill
-        className="object-cover -z-10 opacity-50"
+        className="object-cover h-screen -z-10 opacity-50"
         priority
       />
       <div id="scroll-save-date" className="h-screen w-full overflow-y-scroll">
