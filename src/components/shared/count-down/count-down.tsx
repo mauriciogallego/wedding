@@ -9,15 +9,14 @@ const Countdown = () => {
       to={weddingDate.getTime()}
       labels={["DAYS", "HOURS", "MINUTES", "SECONDS"]}
       labelStyle={{
-        fontSize: "10px",
-        color: "#f3e8ff",
+        fontSize: "12px",
+        color: "#f3e8ffb3",
       }}
       digitBlockStyle={{
-        width: 40,
-        height: 70,
-        fontSize: 50,
+        width: 32,
+        height: 50,
+        fontSize: 30,
         color: "#ffffff",
-        fontFamily: '"Playfair Display", serif',
       }}
       dividerStyle={{
         color: "transparent",
@@ -25,7 +24,7 @@ const Countdown = () => {
       }}
       separatorStyle={{
         size: "4px",
-        color: "#f3e8ff",
+        color: "#f3e8ffb3",
       }}
     />
   );

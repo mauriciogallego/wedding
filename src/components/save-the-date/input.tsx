@@ -24,7 +24,7 @@ export const Input = ({
   return (
     <div
       data-testid="input-container"
-      className="w-[400px] backdrop-blur-md rounded-xl shadow-md overflow-hidden"
+      className="w-[300px] backdrop-blur-md rounded-xl shadow-md overflow-hidden"
     >
       <div className="pl-[15px] pt-[15px] flex items-center">
         <span className="text-[#ffffff] text-sm font-semibold flex items-center gap-2">

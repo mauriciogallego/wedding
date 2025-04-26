@@ -25,7 +25,7 @@ const Confirmation = () => {
         priority
       />
       <div id="scroll-save-date" className="h-screen w-full overflow-y-scroll">
-        <section className="flex flex-col items-center justify-end h-1/4">
+        <section className="flex flex-col items-center justify-center h-1/3">
           <Typewriter
             onInit={(c) => typingAction(c, "21.03.2026")}
             options={{
@@ -37,7 +37,7 @@ const Confirmation = () => {
           <Typewriter
             onInit={(c) => typingAction(c, t("weddingNames"))}
             options={{
-              wrapperClassName: "text-4xl font-mono font-bold text-[#ffffff]",
+              wrapperClassName: "text-3xl font-mono font-bold text-[#ffffff]",
               cursorClassName: "hidden",
             }}
           />
@@ -51,12 +51,14 @@ const Confirmation = () => {
           />
         </section>
 
-        <section className="flex items-center justify-center h-1/2">
-          <p className="text-7xl font-sisterhood">{t("saveDate")}</p>
+        <section className="flex items-center justify-center h-1/3">
+          <p className="text-6xl font-sisterhood">{t("saveDate")}</p>
         </section>
 
-        <section className="bg-[#ffffff55] w-full grid justify-items-center h-1/4">
-          <Countdown />
+        <section className="w-full flex flex-col justify-end items-center h-1/3">
+          <div className="mb-10">
+            <Countdown />
+          </div>
         </section>
       </div>
     </>

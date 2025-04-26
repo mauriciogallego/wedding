@@ -88,7 +88,7 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
     <Layout>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-md space-y-6"
+        className="w-full max-w-md space-y-6 flex flex-col items-center justify-center"
       >
         <div className="space-y-4.5">
           <Input

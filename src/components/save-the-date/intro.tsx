@@ -79,7 +79,7 @@ export const Intro = ({ animationEnded }: IntroProps) => {
           fill
           className="object-cover absolute w-full blur-sm opacity-30"
         />
-        <div className="absolute top-1/6 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <div className="absolute top-1/6 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full">
           <Typewriter
             onInit={(typewriter) => {
               typewriter
