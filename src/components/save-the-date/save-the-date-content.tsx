@@ -1,7 +1,7 @@
 "use client";
 
 import { Children, useEffect, useState } from "react";
-import { Animation } from "./animation";
+import { Intro } from "./intro";
 import { GuestAuthentication } from "./guest-authentication";
 import { Stepper } from "@/components/shared/stepper/stepper";
 import Confirmation from "./confirmation";
@@ -24,7 +24,7 @@ export const SaveTheDateContent = ({
   };
 
   const steps = Children.toArray([
-    <Animation animationEnded={moveNextStep} />,
+    <Intro animationEnded={moveNextStep} />,
     <GuestAuthentication moveNextStep={moveNextStep} />,
     <Confirmation />,
   ]);

@@ -7,7 +7,8 @@
   "loading": "Loading",
   "name": "Name",
   "placeholderName": "Type here..",
+  "saveDate": "Save the date",
   "select": "Select an option",
   "selectYourName": "Select your name from the list",
-  "weddingEnter": "Mauricio & Kiana"
+  "weddingNames": "Mauricio & Kiana"
 }

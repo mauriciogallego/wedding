@@ -1,13 +1,65 @@
+import Typewriter, { TypewriterClass } from "typewriter-effect";
+import { useTranslation } from "react-i18next";
+import Image from "next/image";
+import Countdown from "../shared/count-down/count-down";
+
 const Confirmation = () => {
+  const { t } = useTranslation();
+
+  const typingAction = (typewriter: TypewriterClass, text: string) => {
+    typewriter
+      .typeString(text)
+      .callFunction((x) => {
+        x.elements.cursor.remove();
+      })
+      .start();
+  };
+
   return (
-    <div className="w-full fixed">
-      <div className="bg-[#5689c0] h-[150px] w-full border-b-2 border-[#ffffff] space-y-2 flex flex-col justify-center items-center">
-        <p className="font-mono font-bold text-3xl text-left">21 de febrero</p>
-        <p className="font-mono font-bold text-3xl text-left">
-          La Paz, Bolivia
-        </p>
+    <>
+      <Image
+        src="/assets/wedding.jpeg"
+        alt="Wedding Save the Date"
+        fill
+        className="object-cover -z-10 opacity-50"
+        priority
+      />
+      <div id="scroll-save-date" className="h-screen w-full overflow-y-scroll">
+        <section className="flex flex-col items-center justify-end h-1/4">
+          <Typewriter
+            onInit={(c) => typingAction(c, "21.03.2026")}
+            options={{
+              wrapperClassName:
+                "text-lg font-mono italic font-thin text-[#ffffff]",
+              cursorClassName: "hidden",
+            }}
+          />
+          <Typewriter
+            onInit={(c) => typingAction(c, t("weddingNames"))}
+            options={{
+              wrapperClassName: "text-4xl font-mono font-bold text-[#ffffff]",
+              cursorClassName: "hidden",
+            }}
+          />
+          <Typewriter
+            onInit={(c) => typingAction(c, "La Paz, Bolivia.")}
+            options={{
+              wrapperClassName:
+                "text-xl font-mono font-semibold italic text-[#ffffff]",
+              cursorClassName: "hidden",
+            }}
+          />
+        </section>
+
+        <section className="flex items-center justify-center h-1/2">
+          <p className="text-7xl font-sisterhood">{t("saveDate")}</p>
+        </section>
+
+        <section className="bg-[#ffffff55] w-full grid justify-items-center h-1/4">
+          <Countdown />
+        </section>
       </div>
-    </div>
+    </>
   );
 };
 

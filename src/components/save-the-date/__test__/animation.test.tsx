@@ -1,7 +1,7 @@
 import { render, screen, act } from "@testing-library/react";
 import { useTranslation } from "react-i18next";
 import { useGlitch } from "react-powerglitch";
-import { Animation } from "../animation";
+import { Animation } from "../intro";
 
 // Mock the react-i18next hook
 jest.mock("react-i18next", () => ({

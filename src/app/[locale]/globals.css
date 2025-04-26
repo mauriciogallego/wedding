@@ -5,3 +5,30 @@ body {
   color: #ffffff;
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@font-face {
+  font-family: "sisterhood";
+  src: url("/fonts/Sisterhood.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@theme inline {
+  --font-sisterhood: "sisterhood";
+}
+
+@layer base {
+  /* width */
+  #scroll-save-date::-webkit-scrollbar {
+    @apply bg-transparent w-2 cursor-pointer;
+  }
+
+  /* Track */
+  #scroll-save-date::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  #scroll-save-date::-webkit-scrollbar-thumb {
+    @apply bg-[#e4eaef] hover:bg-neutral-400 border-0 rounded-lg;
+  }
+}

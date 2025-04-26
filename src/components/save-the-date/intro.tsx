@@ -11,11 +11,11 @@ import Layout from "@/components/save-the-date/layout/layout";
 const TOTAL_SEGMENT = 20;
 const SEGMENT_COMPLETED = TOTAL_SEGMENT / 2.5;
 
-interface AnimationProps {
+interface IntroProps {
   animationEnded: () => void;
 }
 
-export const Animation = ({ animationEnded }: AnimationProps) => {
+export const Intro = ({ animationEnded }: IntroProps) => {
   const { t } = useTranslation();
   const glitch = useGlitch({
     playMode: "manual",
@@ -83,7 +83,7 @@ export const Animation = ({ animationEnded }: AnimationProps) => {
           <Typewriter
             onInit={(typewriter) => {
               typewriter
-                .typeString(t("weddingEnter"))
+                .typeString(t("weddingNames"))
                 .deleteAll()
                 .callFunction(() => {
                   const cursor = document.querySelector(".Typewriter");
@@ -96,10 +96,6 @@ export const Animation = ({ animationEnded }: AnimationProps) => {
             options={{
               wrapperClassName: "text-2xl font-mono font-bold text-[#ffffff]",
               cursorClassName: "text-2xl font-mono font-thin text-[#ffffff]",
-              autoStart: false,
-              loop: false,
-              deleteSpeed: 50,
-              delay: 150,
             }}
           />
         </div>
