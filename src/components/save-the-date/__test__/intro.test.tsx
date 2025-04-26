@@ -1,7 +1,7 @@
 import { render, screen, act } from "@testing-library/react";
 import { useTranslation } from "react-i18next";
 import { useGlitch } from "react-powerglitch";
-import { Animation } from "../intro";
+import { Intro } from "../intro";
 
 // Mock the react-i18next hook
 jest.mock("react-i18next", () => ({
@@ -64,7 +64,7 @@ describe("Animation", () => {
   });
 
   it("renders the component with initial elements", () => {
-    render(<Animation animationEnded={mockAnimationEnded} />);
+    render(<Intro animationEnded={mockAnimationEnded} />);
 
     // Check if the image is rendered
     const image = screen.getByAltText("Wedding Save the Date");
@@ -79,7 +79,7 @@ describe("Animation", () => {
   });
 
   it("increments segments over time", () => {
-    render(<Animation animationEnded={mockAnimationEnded} />);
+    render(<Intro animationEnded={mockAnimationEnded} />);
 
     // Initially segments should be 0
     const initialSegments = screen
@@ -99,7 +99,7 @@ describe("Animation", () => {
   });
 
   it("triggers glitch effect when segments reach threshold", () => {
-    render(<Animation animationEnded={mockAnimationEnded} />);
+    render(<Intro animationEnded={mockAnimationEnded} />);
 
     // Advance time past the threshold (SEGMENT_COMPLETED = 8)
     act(() => {
@@ -112,7 +112,7 @@ describe("Animation", () => {
   });
 
   it("calls animationEnded after glitch effect", () => {
-    render(<Animation animationEnded={mockAnimationEnded} />);
+    render(<Intro animationEnded={mockAnimationEnded} />);
 
     // Advance time past the threshold
     act(() => {
@@ -130,9 +130,7 @@ describe("Animation", () => {
   });
 
   it("cleans up interval on unmount", () => {
-    const { unmount } = render(
-      <Animation animationEnded={mockAnimationEnded} />
-    );
+    const { unmount } = render(<Intro animationEnded={mockAnimationEnded} />);
 
     // Start the interval
     act(() => {
@@ -152,7 +150,7 @@ describe("Animation", () => {
   });
 
   it("stops incrementing segments after reaching threshold", () => {
-    render(<Animation animationEnded={mockAnimationEnded} />);
+    render(<Intro animationEnded={mockAnimationEnded} />);
 
     // Advance time past the threshold
     act(() => {
