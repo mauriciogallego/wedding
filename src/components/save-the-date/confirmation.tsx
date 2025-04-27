@@ -30,14 +30,16 @@ const Confirmation = () => {
             onInit={(c) => typingAction(c, "March 21, 2026")}
             options={{
               wrapperClassName:
-                "text-3xl font-sisterhood font-bold tracking-widest text-[#ffffff]",
+                "text-2xl font-sisterhood font-bold tracking-widest text-[#ffffff]",
               cursorClassName: "hidden",
             }}
           />
         </section>
 
         <section className="flex items-center justify-center h-1/3">
-          <p className="text-6xl font-sisterhood">{t("saveDate")}</p>
+          <p className="text-5xl font-sisterhood text-center">
+            {t("saveDate")}
+          </p>
         </section>
 
         <section className="w-full flex flex-col justify-end items-center h-1/3">
