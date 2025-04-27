@@ -5,10 +5,14 @@
   "formErrorMessage": "We couldn't find your name on the guest list, please check that you have written it correctly.",
   "labelName": "Enter your name and last name",
   "loading": "Loading",
+  "messageDate": "On March 21st, we'll mark the day our <0>yes</0> becomes a <0>forever.</0>",
+  "messageWhere": "Of all the places in the world, <0>La Paz, Bolivia</0> will be the one we remember as the <0>beginning of everything</0>",
   "name": "Name",
   "placeholderName": "Type here..",
   "saveDate": "Save the date",
   "select": "Select an option",
   "selectYourName": "Select your name from the list",
-  "weddingNames": "Mauricio & Kiana"
+  "weGotMarried": "We're Tying the Knot!",
+  "weddingNames": "Mauricio & Kiana",
+  "where": "Where?"
 }

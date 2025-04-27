@@ -5,10 +5,14 @@
   "formErrorMessage": "No hemos encontrado tu nombre en la lista de invitados, por favor verifica que lo hayas escrito correctamente.",
   "labelName": "Ingresa tu Nombre y Apellido",
   "loading": "Cargando",
+  "messageDate": "El 21 de marzo marcaremos el día en que el <0>sí</0> se convertirá en un <0>para siempre.</0>",
+  "messageWhere": "De tantos lugares en el mundo, <0>La Paz. Bolivia</0>, será el que recordemos como el <0>inicio de todo</0>.",
   "name": "Nombre",
   "placeholderName": "Escribe aquí..",
   "saveDate": "Guarda la fecha",
   "select": "Selecciona una opción",
   "selectYourName": "Selecciona tu nombre en la lista",
-  "weddingNames": "Mauricio & Kiana"
+  "weGotMarried": "¡Nos Casamos!",
+  "weddingNames": "Mauricio & Kiana",
+  "where": "¿Donde?"
 }
