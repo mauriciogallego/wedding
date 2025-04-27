@@ -24,10 +24,10 @@ export const Input = ({
   return (
     <div
       data-testid="input-container"
-      className="w-[300px] backdrop-blur-md rounded-xl shadow-md overflow-hidden"
+      className="w-[370px] backdrop-blur-md rounded-xl shadow-md overflow-hidden"
     >
       <div className="pl-[15px] pt-[15px] flex items-center">
-        <span className="text-[#ffffff] text-sm font-semibold flex items-center gap-2">
+        <span className="text-[#ffffff] text-sm font-semibold flex items-center gap-2 tracking-wider">
           <svg
             className="text-[#5689c0]"
             width="16"
@@ -63,7 +63,7 @@ export const Input = ({
             <input
               {...registerName}
               placeholder={placeholder}
-              className="bg-transparent border-none text-[#5689c0] font-mono text-sm outline-none w-full pr-[10px] placeholder:text-[#ffffff]/50"
+              className="tracking-wider bg-transparent border-none text-[#5689c0] font-mono text-sm outline-none w-full pr-[10px] placeholder:text-[#ffffff]/50"
             />
             <div
               data-testid="blinking-cursor"
@@ -76,7 +76,7 @@ export const Input = ({
       </div>
       {guestFound && (
         <div className="relative  p-[15px]">
-          <label className="text-[#ffffff] text-sm font-mono mb-1 block">
+          <label className="text-[#ffffff] text-sm font-mono mb-1 block tracking-wider">
             {t("selectYourName")}
           </label>
           <div className="flex items-center border border-[#5689c0] rounded-md bg-transparent px-2">

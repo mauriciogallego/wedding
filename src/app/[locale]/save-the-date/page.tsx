@@ -21,7 +21,7 @@ export default async function SaveTheDate({
       resources={resources}
     >
       <AppProvider>
-        <main className="h-dvh">
+        <main>
           <SaveTheDateContent initialData={data} />
         </main>
       </AppProvider>

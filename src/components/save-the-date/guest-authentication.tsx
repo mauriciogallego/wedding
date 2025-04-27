@@ -103,7 +103,7 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
         {!!guest ? (
           <div className="flex items-center justify-center mt-12">
             <div className="bg-transparent border border-[#56c071] py-2 px-3">
-              <p className="font-mono text-sm text-[#56c071] font-bold">
+              <p className="tracking-wider font-mono text-sm text-[#56c071] font-bold">
                 {t("authenticated")}
               </p>
             </div>
@@ -112,7 +112,7 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
           <button
             type="submit"
             disabled={disabled}
-            className="w-full px-4 py-2 font-mono text-[#ffffff] bg-primary rounded-lg hover:bg-primary/90 transition-colors cursor-pointer"
+            className="tracking-wider w-full px-4 py-2 font-mono text-[#ffffff] bg-primary rounded-lg hover:bg-primary/90 transition-colors cursor-pointer"
           >
             {guestFound ? t("confirm") : t("continue")}
           </button>
