@@ -1,13 +1,19 @@
 "use client";
 
-import { AppContextState } from "@/types";
+import { AppContextState, Guest } from "@/types";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
 const AppContext = createContext<AppContextState | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [sheetData, setSheetData] = useState<string[][]>([]);
-  const [guest, setGuest] = useState<string>("");
+  const [sheetData, setSheetData] = useState<Guest[]>([]);
+  const [guest, setGuest] = useState<Guest>({
+    name: "",
+    companions: "",
+    plusOne: "",
+    children: "",
+    row: 0,
+  });
 
   const value = {
     sheetData,

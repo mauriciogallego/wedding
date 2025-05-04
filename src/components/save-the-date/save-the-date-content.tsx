@@ -10,7 +10,12 @@ import { useAppContext } from "@/providers/app-context";
 export const SaveTheDateContent = ({
   initialData,
 }: {
-  initialData: string[][];
+  initialData: {
+    name: string;
+    plusOne: string;
+    children: string;
+    companions: string;
+  }[];
 }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const { setSheetData } = useAppContext();

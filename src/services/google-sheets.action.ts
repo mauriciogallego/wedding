@@ -20,10 +20,17 @@ export default async function getSheetData() {
 
   const { data } = await glSheets.spreadsheets.values.get({
     spreadsheetId: process.env.GOOGLE_SHEET_ID,
-    range: "invites!B2:B293",
+    range: "invites!B2:G293",
   });
 
   return {
-    data: data.values as string[][],
+    data:
+      data.values?.map((value, index) => ({
+        name: value[0],
+        plusOne: value[5],
+        children: value[4],
+        companions: value[2],
+        row: index + 2,
+      })) || [],
   };
 }

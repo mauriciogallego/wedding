@@ -7,14 +7,32 @@ export interface AnimationConfig {
   transition: Transition;
 }
 
+export type Guest = {
+  name: string;
+  companions: string;
+  plusOne: string;
+  children: string;
+  row: number;
+};
+
 export interface AppContextState {
-  sheetData: string[][];
-  guest: string;
-  setSheetData: React.Dispatch<React.SetStateAction<string[][]>>;
-  setGuest: React.Dispatch<React.SetStateAction<string>>;
+  sheetData: Guest[];
+  guest: Guest;
+  setSheetData: React.Dispatch<React.SetStateAction<Guest[]>>;
+  setGuest: React.Dispatch<React.SetStateAction<Guest>>;
 }
 
 export type FormInputs = {
   name: string;
   guestSelected: string;
 };
+
+export type SvgProps = {
+  width?: string;
+  height?: string;
+  className?: string;
+  fill?: string;
+  color?: string;
+};
+
+export type StatusGuest = "confirm" | "decline" | "maybe";

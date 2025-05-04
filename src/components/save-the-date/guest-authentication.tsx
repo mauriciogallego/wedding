@@ -25,10 +25,11 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
     clearErrors,
   } = useForm<FormInputs>();
 
-  const invites = sheetData.map((item) => item[0]?.split(" "));
+  const invites = sheetData?.map((item) => item.name.split(" ")) || [];
   const nameInputData = register("name");
   const guestInputData = register("guestSelected");
   const nameInputRef = useRef<HTMLInputElement | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   const nameInput = {
     ...nameInputData,
@@ -49,26 +50,76 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
     if (nameInputRef.current) {
       nameInputRef.current.focus();
     }
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
   }, []);
 
   const onSubmit = (data: FormInputs) => {
     if (data.guestSelected) {
-      setGuest(data.guestSelected);
-      setTimeout(moveNextStep, 2000);
+      const guest = sheetData?.find((item) => item.name === data.guestSelected);
+      if (guest) {
+        setGuest({
+          name: guest.name || "",
+          companions: guest.companions || "",
+          plusOne: guest.plusOne || "",
+          children: guest.children || "",
+          row: guest.row || 0,
+        });
+        timeoutRef.current = setTimeout(moveNextStep, 2000);
+      }
       return;
     }
 
-    const value = data.name.toLowerCase().split(" ");
-    const guestFound = [];
+    const value = data.name.toLowerCase().trim().split(" ").filter(Boolean);
+    if (value.length === 0) return;
+
+    const guestFound: string[] = [];
+    const exactMatches: string[] = [];
 
     for (const invite of invites) {
+      // Check for exact match (case insensitive)
+      const inviteLower = invite.map((word) => word.toLowerCase());
+      const isExactMatch = inviteLower.join(" ") === value.join(" ");
+
+      if (isExactMatch) {
+        exactMatches.push(invite.join(" "));
+        continue;
+      }
+
+      // Check for partial matches
       const matches = invite.filter((word: string) =>
         value.includes(word.toLowerCase())
       ).length;
 
-      if (matches >= 2) {
+      const matchRatio = matches / invite.length;
+
+      if (matches >= 2 && matchRatio >= 0.5) {
         guestFound.push(invite.join(" "));
       }
+    }
+
+    // If we have exact matches, use those instead
+    if (exactMatches.length === 1) {
+      const guestName = exactMatches[0];
+      const guest = sheetData?.find((item) => item.name === guestName);
+      if (guest) {
+        setGuest({
+          name: guest.name || "",
+          companions: guest.companions || "",
+          plusOne: guest.plusOne || "",
+          children: guest.children || "",
+          row: guest.row || 0,
+        });
+        timeoutRef.current = setTimeout(moveNextStep, 2000);
+      }
+      return;
+    } else if (exactMatches.length > 1) {
+      setGuestFound(exactMatches);
+      return;
     }
 
     if (guestFound.length === 0) {
@@ -100,7 +151,7 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
             guestFound={guestFound}
           />
         </div>
-        {!!guest ? (
+        {!!guest.name ? (
           <div className="flex items-center justify-center mt-12">
             <div className="bg-transparent border border-[#56c071] py-2 px-3">
               <p className="tracking-wider font-mono text-sm text-[#56c071] font-bold">

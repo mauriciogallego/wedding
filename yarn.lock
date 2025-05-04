@@ -5200,6 +5200,11 @@ raf@^3.4.1:
   dependencies:
     performance-now "^2.1.0"
 
+react-confetti-boom@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/react-confetti-boom/-/react-confetti-boom-1.1.2.tgz#9a27763c50a6ad25d93d7e40daf0ae9062976011"
+  integrity sha512-JeJojpoIcF5xcNhkM3ifCW+XL6ScTOJUrr4eTLcrwa0rrLqc9hW3DTyn2IJ806PGWJHp2PjpMyWS2h0SAoadzg==
+
 react-dom@^19.0.0:
   version "19.1.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-19.1.0.tgz#133558deca37fa1d682708df8904b25186793623"
