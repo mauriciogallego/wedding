@@ -15,6 +15,7 @@ export const SaveTheDateContent = ({
     plusOne: string;
     children: string;
     companions: string;
+    row: number;
   }[];
 }) => {
   const [currentStep, setCurrentStep] = useState(0);
