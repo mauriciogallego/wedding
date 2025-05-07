@@ -1,5 +1,11 @@
 import { TargetAndTransition, Transition } from "framer-motion";
-
+import {
+  JWT,
+  UserRefreshClient,
+  BaseExternalAccountClient,
+  Impersonated,
+  Compute,
+} from "google-auth-library";
 export interface AnimationConfig {
   initial: TargetAndTransition;
   animate: TargetAndTransition;
@@ -36,3 +42,10 @@ export type SvgProps = {
 };
 
 export type StatusGuest = "confirm" | "decline" | "maybe";
+
+export type GoogleAuth =
+  | JWT
+  | UserRefreshClient
+  | BaseExternalAccountClient
+  | Impersonated
+  | Compute;

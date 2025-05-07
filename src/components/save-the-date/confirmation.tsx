@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import Typewriter, { TypewriterClass } from "typewriter-effect";
 import { Trans, useTranslation } from "react-i18next";
 import Image from "next/image";
@@ -7,15 +8,16 @@ import Ring from "@/svg/ring";
 import Envelop from "@/svg/envelop";
 import { useAppContext } from "@/providers/app-context";
 import { Button } from "../shared/button/Button";
-import { useState, useEffect } from "react";
 import { StatusGuest } from "@/types";
 import Confetti from "react-confetti-boom";
-
+import { updateSheetData } from "@/services/google-sheets.action";
+import { confirmations } from "@/consts/confirmations";
 const Confirmation = () => {
   const { t } = useTranslation();
   const { guest } = useAppContext();
   const [status, setStatus] = useState<StatusGuest | undefined>(undefined);
   const [isExploding, setIsExploding] = useState(false);
+  const statusRef = useRef<HTMLDivElement>(null);
 
   const typingAction = (typewriter: TypewriterClass, text: string) => {
     typewriter
@@ -35,7 +37,18 @@ const Confirmation = () => {
     if (status === "confirm") {
       setIsExploding(true);
     }
+
+    updateSheetData({
+      row: guest.row,
+      status: confirmations[status],
+    });
   };
+
+  useEffect(() => {
+    if (status && statusRef.current) {
+      statusRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [status]);
 
   useEffect(() => {
     if (isExploding) {
@@ -54,15 +67,15 @@ const Confirmation = () => {
   };
 
   return (
-    <>
-      <Image
-        src="/assets/wedding.jpeg"
-        alt="Wedding Save the Date"
-        fill
-        className="object-cover -z-10 opacity-65 fixed inset-0"
-        priority
-      />
-      <div id="scroll-save-date" className="h-dvh w-full overflow-y-scroll">
+    <div id="scroll-save-date" className="h-dvh w-full overflow-y-scroll">
+      <div className="h-[90%] w-full">
+        <Image
+          src="/assets/wedding.jpeg"
+          alt="Wedding Save the Date"
+          fill
+          className="object-cover -z-10 opacity-65 fixed inset-0"
+          priority
+        />
         <section className="flex flex-col items-center justify-center h-1/3">
           <Typewriter
             onInit={(c) => typingAction(c, t("date"))}
@@ -85,62 +98,65 @@ const Confirmation = () => {
             <Countdown />
           </div>
         </section>
-
-        <section className="grid grid-cols-1 justify-items-center gap-2 bg-white opacity-75 pb-10">
-          <p className="text-3xl font-sisterhood font-thin tracking-widest text-black pt-7 pb-2">
-            <Trans i18nKey="weGotMarried" />
-          </p>
-
-          <Ring className="w-5 h-5 my-2" />
-
-          <p className="text-md italic font-sans font-thin tracking-widest text-[#5689c0] p-5 text-center">
-            <Trans i18nKey="messageDate" components={{ bold: <strong /> }} />
-          </p>
-
-          <p className="text-3xl font-sisterhood font-thin tracking-widest text-black pt-7 pb-1">
-            <Trans i18nKey="where" />
-          </p>
-
-          <Location className="w-5 h-5 my-2" />
-
-          <p className="text-md italic font-sans font-thin tracking-widest text-[#5689c0] p-5 text-center">
-            <Trans i18nKey="messageWhere" components={{ bold: <strong /> }} />
-          </p>
-
-          <Envelop className="w-5 h-5 my-2" />
-
-          <p className="text-2xl font-sisterhood text-center font-thin tracking-widest text-black pt-7">
-            <Trans i18nKey="formalInvitation" />
-          </p>
-          <p className="text-6xl font-sisterhood text-center font-thin tracking-widest text-black pt-3 pb-3">
-            <Trans i18nKey="soon" />
-          </p>
-        </section>
-
-        <section className="flex flex-col items-center justify-center bg-white space-y-5 py-5">
-          <p className="text-md italic font-sans tracking-widest text-[#5689c0] p-5 text-center">
-            <Trans
-              i18nKey="formQuestion"
-              values={{ name: getFirstName(guest.name) }}
-              components={{ bold: <strong /> }}
-            />
-          </p>
-
-          {!!status && (
-            <section className="flex flex-col items-center justify-center bg-[#4e4e4ea7] py-1">
-              <p className="text-md italic font-sans tracking-widest text-white p-5 text-center">
-                {statusComponent[status]}
-              </p>
-            </section>
-          )}
-
-          <div className="flex items-center justify-between gap-4">
-            <Button onClick={() => confirm("confirm")}>{t("yes")}</Button>
-            <Button onClick={() => confirm("decline")}>{t("no")}</Button>
-            <Button onClick={() => confirm("maybe")}>{t("maybe")}</Button>
-          </div>
-        </section>
       </div>
+
+      <section className="grid grid-cols-1 justify-items-center gap-2 bg-white opacity-75 pb-10">
+        <p className="text-3xl font-sisterhood font-thin tracking-widest text-black pt-7 pb-2">
+          <Trans i18nKey="weGotMarried" />
+        </p>
+
+        <Ring className="w-5 h-5 my-2" />
+
+        <p className="text-md italic font-sans font-thin tracking-widest text-[#5689c0] p-5 text-center">
+          <Trans i18nKey="messageDate" components={{ bold: <strong /> }} />
+        </p>
+
+        <p className="text-3xl font-sisterhood font-thin tracking-widest text-black pt-7 pb-1">
+          <Trans i18nKey="where" />
+        </p>
+
+        <Location className="w-5 h-5 my-2" />
+
+        <p className="text-md italic font-sans font-thin tracking-widest text-[#5689c0] p-5 text-center">
+          <Trans i18nKey="messageWhere" components={{ bold: <strong /> }} />
+        </p>
+
+        <Envelop className="w-5 h-5 my-2" />
+
+        <p className="text-2xl font-sisterhood text-center font-thin tracking-widest text-black pt-7">
+          <Trans i18nKey="formalInvitation" />
+        </p>
+        <p className="text-6xl font-sisterhood text-center font-thin tracking-widest text-black pt-3 pb-3">
+          <Trans i18nKey="soon" />
+        </p>
+      </section>
+
+      <section className="flex flex-col items-center justify-center bg-white space-y-5 py-5">
+        <p className="text-md italic font-sans tracking-widest text-[#5689c0] p-5 text-center">
+          <Trans
+            i18nKey="formQuestion"
+            values={{ name: getFirstName(guest.name) }}
+            components={{ bold: <strong /> }}
+          />
+        </p>
+
+        {!!status && (
+          <section
+            ref={statusRef}
+            className="flex flex-col items-center justify-center bg-[#4e4e4ea7] py-1 h-[100px] w-full"
+          >
+            <p className="text-md italic font-sans tracking-widest text-white p-5 text-center">
+              {statusComponent[status]}
+            </p>
+          </section>
+        )}
+
+        <div className="flex items-center justify-between gap-4">
+          <Button onClick={() => confirm("confirm")}>{t("yes")}</Button>
+          <Button onClick={() => confirm("decline")}>{t("no")}</Button>
+          <Button onClick={() => confirm("maybe")}>{t("maybe")}</Button>
+        </div>
+      </section>
       {isExploding && (
         <Confetti
           mode="boom"
@@ -153,7 +169,7 @@ const Confirmation = () => {
           effectCount={10}
         />
       )}
-    </>
+    </div>
   );
 };
 
