@@ -1,6 +1,6 @@
 "use client";
 
-import { Input } from "@/components/save-the-date/components/input";
+import { Input } from "@/components/save-the-date/input";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useEffect, useRef, useState } from "react";
