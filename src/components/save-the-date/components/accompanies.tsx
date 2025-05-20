@@ -1,6 +1,11 @@
 import Checkbox from "@/components/shared/checkbox/checkbox";
+import { updateNumberOfPeople } from "@/services/google-sheets.action";
 import { Guest, StatusGuest } from "@/types";
 import { useTranslation } from "react-i18next";
+
+const CONFIRM_GUEST = "Si";
+const NUMBER_OF_PEOPLE = 1;
+const STATUS_CONFIRM = "confirm";
 
 export const Accompanies = ({
   statusRef,
@@ -19,6 +24,13 @@ export const Accompanies = ({
     maybe: t("maybeMessage"),
   };
 
+  const handleNumberOfPeople = (numberOfPeople: any) => {
+    updateNumberOfPeople({
+      row: guest.row,
+      companions: numberOfPeople.toString(),
+    });
+  };
+
   return (
     <section
       ref={statusRef}
@@ -27,30 +39,38 @@ export const Accompanies = ({
       <p className="text-md italic font-sans tracking-widest text-white p-5 text-center">
         {statusComponent[status]}
       </p>
-      <div className="flex items-center justify-around gap-4 my-3">
-        {parseInt(guest.companions) > 1 && (
-          <>
-            <p className="text-md italic font-sans tracking-widest text-white p-2 text-left">
-              Selecciona el número de personas, incluyendote a ti
-            </p>
-            <select>
-              {Array.from({ length: parseInt(guest.companions) }, (_, i) => (
-                <option key={i} value={i + 1}>
-                  {i + 1}
-                </option>
-              ))}
-            </select>
-          </>
-        )}
-        {guest.plusOne === "Si" && (
-          <>
-            <p className="text-md italic font-sans tracking-widest text-white p-2 text-center">
-              Vienes con plus one?
-            </p>
-            <Checkbox label="Plus one? 👀" />
-          </>
-        )}
-      </div>
+      {status === STATUS_CONFIRM && (
+        <div className="flex items-center justify-center-safe gap-4 my-3">
+          {parseInt(guest.companions) > NUMBER_OF_PEOPLE && (
+            <>
+              <p className="text-sm italic font-sans tracking-widest text-white p-2 text-left w-1/2">
+                {t("selectNumberOfPeople")}
+              </p>
+              <select
+                onChange={(e) => handleNumberOfPeople(e.target.value)}
+                className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+              >
+                {Array.from({ length: parseInt(guest.companions) }, (_, i) => (
+                  <>
+                    <option value={undefined}>{t("choose")}</option>
+                    <option key={i} value={i + 1}>
+                      {i + 1}
+                    </option>
+                  </>
+                ))}
+              </select>
+            </>
+          )}
+          {guest.plusOne === CONFIRM_GUEST && (
+            <>
+              <p className="text-sm italic font-sans tracking-widest text-white p-2 text-center">
+                {t("plusOne")}
+              </p>
+              <Checkbox handleChange={handleNumberOfPeople} />
+            </>
+          )}
+        </div>
+      )}
     </section>
   );
 };

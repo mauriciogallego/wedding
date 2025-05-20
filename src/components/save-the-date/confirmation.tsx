@@ -142,13 +142,15 @@ const Confirmation = () => {
           />
         </p>
 
-        {status === "confirm" && (
+        {status && (
           <Accompanies statusRef={statusRef} status={status} guest={guest} />
         )}
 
         <div className="flex items-center justify-between gap-4">
-          <Button onClick={() => confirm("confirm")}>{t("yes")}</Button>
-          <Button onClick={() => confirm("decline")}>{t("no")}</Button>
+          <Button onClick={() => confirm("confirm")}>
+            {t("yesAttending")}
+          </Button>
+          <Button onClick={() => confirm("decline")}>{t("noAttending")}</Button>
           <Button onClick={() => confirm("maybe")}>{t("maybe")}</Button>
         </div>
       </section>

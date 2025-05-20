@@ -13,8 +13,16 @@ body {
   font-style: normal;
 }
 
+@font-face {
+  font-family: "eagle-horizon";
+  src: url("/fonts/EagleHorizonP.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
 @theme inline {
   --font-sisterhood: "sisterhood";
+  --font-eagle-horizon: "eagle-horizon";
 }
 
 @layer base {

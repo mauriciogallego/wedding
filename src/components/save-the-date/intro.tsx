@@ -1,13 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import ProgressBar from "@/components/shared/progress-bar/progress-bar";
 import { useCallback, useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useGlitch } from "react-powerglitch";
 import Typewriter from "typewriter-effect";
 import Layout from "@/components/save-the-date/components/layout/layout";
-
+import { Loading } from "@/components/shared/loading/loading";
 const TOTAL_SEGMENT = 20;
 const SEGMENT_COMPLETED = TOTAL_SEGMENT / 2.5;
 
@@ -64,6 +63,10 @@ export const Intro = ({ animationEnded }: IntroProps) => {
   useEffect(() => {
     if (segments > SEGMENT_COMPLETED) {
       glitch.startGlitch();
+      const cursor = document.querySelector(".Typewriter");
+      if (cursor) {
+        cursor.remove();
+      }
       setTimeout(() => {
         animationEnded();
       }, 2000);
@@ -72,7 +75,10 @@ export const Intro = ({ animationEnded }: IntroProps) => {
 
   return (
     <Layout>
-      <section className="flex flex-col justify-center text-center items-center w-[400px] space-y-2">
+      <section
+        ref={glitch.ref}
+        className="flex flex-col justify-center text-center items-center w-[400px] space-y-2"
+      >
         <Image
           src="/assets/wedding.jpeg"
           alt="Wedding Save the Date"
@@ -84,28 +90,21 @@ export const Intro = ({ animationEnded }: IntroProps) => {
             onInit={(typewriter) => {
               typewriter
                 .typeString(t("weddingNames"))
-                .deleteAll()
-                .callFunction(() => {
-                  const cursor = document.querySelector(".Typewriter");
-                  if (cursor) {
-                    cursor.remove();
-                  }
+                .callFunction((x) => {
+                  x.elements.cursor.remove();
                 })
                 .start();
             }}
             options={{
-              wrapperClassName: "text-2xl font-mono font-bold text-[#ffffff]",
-              cursorClassName: "text-2xl font-mono font-thin text-[#ffffff]",
+              wrapperClassName:
+                "text-3xl font-eagle-horizon font-light tracking-widest text-[#ffffff]",
+              cursorClassName:
+                "text-3xl font-eagle-horizon font-light tracking-widest text-[#ffffff]",
             }}
           />
         </div>
-        <div ref={glitch.ref}>
-          <ProgressBar
-            completedSegments={segments}
-            totalSegments={TOTAL_SEGMENT}
-          />
-          <p className="text-[#ffffff] p-[15px] font-mono">loading..</p>
-        </div>
+
+        <Loading />
       </section>
     </Layout>
   );

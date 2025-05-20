@@ -140,7 +140,7 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
         onSubmit={handleSubmit(onSubmit)}
         className="w-full max-w-lg space-y-6 flex flex-col items-center justify-center"
       >
-        <div className="space-y-4.5">
+        <div className="space-y-4.5 bg-[#171717]">
           <Input
             label={t("labelName")}
             placeholder={t("placeholderName")}
