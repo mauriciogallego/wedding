@@ -38,8 +38,8 @@ export default async function getSheetData() {
     data:
       data.values?.map((value, index) => ({
         name: value[0],
-        plusOne: value[5],
-        children: value[4],
+        plusOne: value[4],
+        children: value[3],
         companions: value[2],
         row: index + 2,
       })) || [],
@@ -54,7 +54,7 @@ export async function updateSheetData(guest: { row: number; status: string }) {
   try {
     await glSheets.spreadsheets.values.update({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: `invites!E${guest.row}:E${guest.row}`,
+      range: `invites!G${guest.row}:G${guest.row}`,
       valueInputOption: "RAW",
       requestBody: { values: [[guest.status]] },
     });

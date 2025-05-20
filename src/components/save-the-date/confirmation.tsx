@@ -12,6 +12,10 @@ import { StatusGuest } from "@/types";
 import Confetti from "react-confetti-boom";
 import { updateSheetData } from "@/services/google-sheets.action";
 import { confirmations } from "@/consts/confirmations";
+import LocationOutline from "@/svg/location-outline";
+import Accompanies from "./components/accompanies";
+import { getFirstName } from "@/utils";
+
 const Confirmation = () => {
   const { t } = useTranslation();
   const { guest } = useAppContext();
@@ -26,10 +30,6 @@ const Confirmation = () => {
         x.elements.cursor.remove();
       })
       .start();
-  };
-
-  const getFirstName = (name: string) => {
-    return name.split(" ")[0];
   };
 
   const confirm = (status: StatusGuest) => {
@@ -60,15 +60,9 @@ const Confirmation = () => {
     }
   }, [isExploding]);
 
-  const statusComponent = {
-    confirm: t("confirmMessage"),
-    decline: t("declineMessage"),
-    maybe: t("maybeMessage"),
-  };
-
   return (
     <div id="scroll-save-date" className="h-dvh w-full overflow-y-scroll">
-      <div className="h-[90%] w-full">
+      <div className="h-[94%] w-full">
         <Image
           src="/assets/wedding.jpeg"
           alt="Wedding Save the Date"
@@ -76,21 +70,23 @@ const Confirmation = () => {
           className="object-cover -z-10 opacity-65 fixed inset-0"
           priority
         />
+        <section className="flex flex-col items-center justify-center h-1/3"></section>
+
         <section className="flex flex-col items-center justify-center h-1/3">
           <Typewriter
             onInit={(c) => typingAction(c, t("date"))}
             options={{
               wrapperClassName:
-                "text-3xl font-sisterhood font-bold tracking-widest text-[#ffffff]",
+                "text-5xl font-sisterhood tracking-widest text-[#ffffff]",
               cursorClassName: "hidden",
             }}
           />
-        </section>
-
-        <section className="flex items-center justify-center h-1/3">
-          <p className="text-5xl font-sisterhood text-center">
-            <Trans i18nKey="saveDate" />
-          </p>
+          <div className="flex items-center space-x-2">
+            <LocationOutline className="w-6 h-6 my-2 fill-white" />
+            <p className="text-xl font-sans font-thin italic tracking-widest text-[#ffffff]">
+              La Paz, Bolivia
+            </p>
+          </div>
         </section>
 
         <section className="w-full flex flex-col justify-end items-center h-1/3">
@@ -105,28 +101,34 @@ const Confirmation = () => {
           <Trans i18nKey="weGotMarried" />
         </p>
 
-        <Ring className="w-5 h-5 my-2" />
+        <Ring className="w-6 h-6 my-2" />
 
-        <p className="text-md italic font-sans font-thin tracking-widest text-[#5689c0] p-5 text-center">
-          <Trans i18nKey="messageDate" components={{ bold: <strong /> }} />
+        <p className="text-md italic font-sans font-light tracking-widest text-[#5689c0] p-5 text-center">
+          <Trans
+            i18nKey="messageDate"
+            components={{ bold: <strong className="font-bold" /> }}
+          />
         </p>
 
         <p className="text-3xl font-sisterhood font-thin tracking-widest text-black pt-7 pb-1">
           <Trans i18nKey="where" />
         </p>
 
-        <Location className="w-5 h-5 my-2" />
+        <Location className="w-6 h-6 my-2" />
 
-        <p className="text-md italic font-sans font-thin tracking-widest text-[#5689c0] p-5 text-center">
-          <Trans i18nKey="messageWhere" components={{ bold: <strong /> }} />
+        <p className="text-md italic font-sans font-light tracking-widest text-[#5689c0] p-5 text-center">
+          <Trans
+            i18nKey="messageWhere"
+            components={{ bold: <strong className="font-bold" /> }}
+          />
         </p>
 
-        <Envelop className="w-5 h-5 my-2" />
+        <Envelop className="w-6 h-6 my-2" />
 
         <p className="text-2xl font-sisterhood text-center font-thin tracking-widest text-black pt-7">
           <Trans i18nKey="formalInvitation" />
         </p>
-        <p className="text-6xl font-sisterhood text-center font-thin tracking-widest text-black pt-3 pb-3">
+        <p className="text-5xl font-sisterhood text-center font-thin tracking-widest text-black pt-3 pb-3">
           <Trans i18nKey="soon" />
         </p>
       </section>
@@ -140,15 +142,8 @@ const Confirmation = () => {
           />
         </p>
 
-        {!!status && (
-          <section
-            ref={statusRef}
-            className="flex flex-col items-center justify-center bg-[#4e4e4ea7] py-1 h-[100px] w-full"
-          >
-            <p className="text-md italic font-sans tracking-widest text-white p-5 text-center">
-              {statusComponent[status]}
-            </p>
-          </section>
+        {status === "confirm" && (
+          <Accompanies statusRef={statusRef} status={status} guest={guest} />
         )}
 
         <div className="flex items-center justify-between gap-4">

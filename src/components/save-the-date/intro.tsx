@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useGlitch } from "react-powerglitch";
 import Typewriter from "typewriter-effect";
-import Layout from "@/components/save-the-date/layout/layout";
+import Layout from "@/components/save-the-date/components/layout/layout";
 
 const TOTAL_SEGMENT = 20;
 const SEGMENT_COMPLETED = TOTAL_SEGMENT / 2.5;

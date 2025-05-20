@@ -7,7 +7,7 @@
   "formQuestion": "<bold>{{name}}</bold>! Although there are many details missing, we want to know if you will attend our wedding.",
   "formalInvitation": "Formal Invitation",
   "soon": "Soon",
-  "labelName": "Enter your name and last name",
+  "labelName": "name and last name",
   "loading": "Loading",
   "maybe": "I don't know yet",
   "messageDate": "On March 21st, we'll mark the day our <bold>yes</bold> becomes a <bold>forever.</bold>",

@@ -1,10 +1,10 @@
 "use client";
 
-import { Input } from "@/components/save-the-date/input";
+import { Input } from "@/components/save-the-date/components/input";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useEffect, useRef, useState } from "react";
-import Layout from "./layout/layout";
+import Layout from "./components/layout/layout";
 import { useAppContext } from "@/providers/app-context";
 import { FormInputs } from "@/types";
 
@@ -25,7 +25,7 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
     clearErrors,
   } = useForm<FormInputs>();
 
-  const invites = sheetData?.map((item) => item.name.split(" ")) || [];
+  const invites = sheetData?.map((item) => item.name?.split(" ")) || [];
   const nameInputData = register("name");
   const guestInputData = register("guestSelected");
   const nameInputRef = useRef<HTMLInputElement | null>(null);
@@ -69,7 +69,7 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
           children: guest.children || "",
           row: guest.row || 0,
         });
-        timeoutRef.current = setTimeout(moveNextStep, 2000);
+        timeoutRef.current = setTimeout(moveNextStep, 500);
       }
       return;
     }
@@ -81,7 +81,7 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
     const exactMatches: string[] = [];
 
     for (const invite of invites) {
-      // Check for exact match (case insensitive)
+      if (!invite) continue;
       const inviteLower = invite.map((word) => word.toLowerCase());
       const isExactMatch = inviteLower.join(" ") === value.join(" ");
 
@@ -90,7 +90,6 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
         continue;
       }
 
-      // Check for partial matches
       const matches = invite.filter((word: string) =>
         value.includes(word.toLowerCase())
       ).length;
@@ -139,7 +138,7 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
     <Layout>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-md space-y-6 flex flex-col items-center justify-center"
+        className="w-full max-w-lg space-y-6 flex flex-col items-center justify-center"
       >
         <div className="space-y-4.5">
           <Input
