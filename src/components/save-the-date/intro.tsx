@@ -79,11 +79,13 @@ export const Intro = ({ animationEnded }: IntroProps) => {
         ref={glitch.ref}
         className="flex flex-col justify-center text-center items-center w-[400px] space-y-2"
       >
+        <Loading />
+
         <Image
           src="/assets/wedding.jpeg"
           alt="Wedding Save the Date"
           fill
-          className="object-cover absolute w-full blur-sm opacity-30"
+          className="object-cover absolute w-full blur-sm -z-10"
         />
         <div className="absolute top-1/6 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full">
           <Typewriter
@@ -103,8 +105,6 @@ export const Intro = ({ animationEnded }: IntroProps) => {
             }}
           />
         </div>
-
-        <Loading />
       </section>
     </Layout>
   );

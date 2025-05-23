@@ -44,19 +44,19 @@ export const Accompanies = ({
           {parseInt(guest.companions) > NUMBER_OF_PEOPLE && (
             <>
               <p className="text-sm italic font-sans tracking-widest text-white p-2 text-left w-1/2">
-                {t("selectNumberOfPeople")}
+                {t("selectNumberOfPeople", {
+                  people: guest.companions,
+                })}
               </p>
               <select
                 onChange={(e) => handleNumberOfPeople(e.target.value)}
                 className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
               >
+                <option value={undefined}>{t("choose")}</option>
                 {Array.from({ length: parseInt(guest.companions) }, (_, i) => (
-                  <>
-                    <option value={undefined}>{t("choose")}</option>
-                    <option key={i} value={i + 1}>
-                      {i + 1}
-                    </option>
-                  </>
+                  <option key={i} value={i + 1}>
+                    {i + 1}
+                  </option>
                 ))}
               </select>
             </>

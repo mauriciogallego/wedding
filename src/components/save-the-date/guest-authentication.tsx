@@ -1,12 +1,12 @@
 "use client";
 
-import { Input } from "@/components/save-the-date/input";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useEffect, useRef, useState } from "react";
 import Layout from "./components/layout/layout";
 import { useAppContext } from "@/providers/app-context";
 import { FormInputs } from "@/types";
+import Typewriter from "typewriter-effect";
 
 interface Props {
   moveNextStep: () => void;
@@ -14,8 +14,9 @@ interface Props {
 
 export const GuestAuthentication = ({ moveNextStep }: Props) => {
   const { t } = useTranslation();
-  const { sheetData, setGuest, guest } = useAppContext();
+  const { sheetData, setGuest } = useAppContext();
   const [guestFound, setGuestFound] = useState<string[]>();
+  const [showInput, setShowInput] = useState(false);
   const {
     register,
     handleSubmit,
@@ -34,9 +35,9 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
   const nameInput = {
     ...nameInputData,
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-      nameInputData.onChange(e); // ejecuta la función original
-      clearErrors("name"); // limpia el error al modificar el input
-      setGuestFound(undefined); // limpia los invitados encontrados
+      nameInputData.onChange(e);
+      clearErrors("name");
+      setGuestFound(undefined);
     },
     ref: (e: HTMLInputElement) => {
       nameInputRef.current = e;
@@ -47,7 +48,7 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
   };
 
   useEffect(() => {
-    if (nameInputRef.current) {
+    if (nameInputRef.current && showInput) {
       nameInputRef.current.focus();
     }
 
@@ -56,7 +57,7 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, []);
+  }, [showInput]);
 
   const onSubmit = (data: FormInputs) => {
     if (data.guestSelected) {
@@ -101,7 +102,6 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
       }
     }
 
-    // If we have exact matches, use those instead
     if (exactMatches.length === 1) {
       const guestName = exactMatches[0];
       const guest = sheetData?.find((item) => item.name === guestName);
@@ -135,38 +135,114 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
     getValues("name")?.trim() === "" || getValues("name") === undefined;
 
   return (
-    <Layout>
+    <Layout className="bg-[#e8e8e8]">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-lg space-y-6 flex flex-col items-center justify-center"
+        className="w-full space-y-6 flex flex-col items-center justify-center"
       >
-        <div className="space-y-4.5 bg-[#171717]">
-          <Input
-            label={t("labelName")}
-            placeholder={t("placeholderName")}
-            registerName={nameInput}
-            registerGuestSelected={guestInputData}
-            error={errors.name}
-            guestFound={guestFound}
-          />
-        </div>
-        {!!guest.name ? (
-          <div className="flex items-center justify-center mt-12">
-            <div className="bg-transparent border border-[#56c071] py-2 px-3">
-              <p className="tracking-wider font-mono text-sm text-[#56c071] font-bold">
-                {t("authenticated")}
-              </p>
+        <div className="m-auto w-full">
+          <aside className="bg-black text-white p-6 rounded-lg w-[98%] max-w-lg font-mono min-h-[250px] flex flex-col justify-between mx-1">
+            <div className="flex justify-between items-center">
+              <div className="flex space-x-2 text-red-500">
+                <div className="w-3 h-3 rounded-full bg-red-500" />
+                <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                <div className="w-3 h-3 rounded-full bg-green-500" />
+              </div>
+              <p className="text-sm">bash</p>
             </div>
-          </div>
-        ) : (
-          <button
-            type="submit"
-            disabled={disabled}
-            className="tracking-wider w-full px-4 py-2 font-mono text-[#ffffff] bg-primary rounded-lg hover:bg-primary/90 transition-colors cursor-pointer"
-          >
-            {guestFound ? t("confirm") : t("continue")}
-          </button>
-        )}
+            <div className="mt-4">
+              <p className="text-[#5689c0] font-bold -mb-5">
+                ~/Desktop/project/wedding
+              </p>
+              <Typewriter
+                onInit={(typewriter) => {
+                  typewriter
+                    .pauseFor(200)
+                    .typeString(
+                      '<br/><span class="text-green-500">$ npm install save-the-date</span>'
+                    )
+                    .pauseFor(1000)
+                    .typeString(
+                      '<br/><span class="text-white"><span class="text-green-300">success</span> installed save-the-date</span>'
+                    )
+                    .pauseFor(500)
+                    .typeString(
+                      '<br/><span class="text-white"><span class="text-amber-300">⚠️ important</span> type your name and last name ✨</span>'
+                    )
+                    .callFunction(() => {
+                      setShowInput(true);
+                    })
+                    .start();
+                }}
+                options={{
+                  delay: 50,
+                  cursor: "█",
+                  cursorClassName: "text-white",
+                }}
+              />
+              {showInput && (
+                <input
+                  {...nameInput}
+                  className="bg-black w-full h-10 font-semibold text-white outline-none placeholder:text-[#989898] mt-1"
+                  placeholder={t("placeholderName")}
+                />
+              )}
+
+              {errors.name && (
+                <p className="text-red-500 font-semibold">
+                  {errors.name.message}
+                </p>
+              )}
+
+              {guestFound && (
+                <div className="relative">
+                  <label className="text-amber-300 text-sm mb-1 block tracking-wider">
+                    {t("selectYourName")}
+                  </label>
+                  <div className="flex items-center border border-[#5689c0] rounded-md bg-transparent px-2 mt-2">
+                    <svg
+                      className="text-[#5689c0] mr-2"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M4 17l6-6-6-6M12 19h8"></path>
+                    </svg>
+                    <select
+                      {...guestInputData}
+                      className="bg-transparent border-none text-[#5689c0] font-mono text-sm outline-none w-full p-2"
+                      defaultValue=""
+                    >
+                      <option value="" disabled>
+                        {t("select")}
+                      </option>
+                      {guestFound.map((guest, index) => (
+                        <option key={index} value={guest}>
+                          {guest}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              )}
+
+              {!!guestFound && (
+                <button
+                  type="submit"
+                  disabled={disabled}
+                  className="tracking-wider w-full px-4 py-2 mt-6 text-[#ffffff] bg-primary rounded-lg hover:bg-primary/90 transition-colors cursor-pointer"
+                >
+                  {t("confirm")}
+                </button>
+              )}
+            </div>
+          </aside>
+        </div>
       </form>
     </Layout>
   );

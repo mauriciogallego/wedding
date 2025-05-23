@@ -3,7 +3,6 @@ import Typewriter, { TypewriterClass } from "typewriter-effect";
 import { Trans, useTranslation } from "react-i18next";
 import Image from "next/image";
 import Countdown from "../shared/count-down/count-down";
-import Location from "@/svg/location";
 import Ring from "@/svg/ring";
 import Envelop from "@/svg/envelop";
 import { useAppContext } from "@/providers/app-context";
@@ -14,7 +13,6 @@ import { updateSheetData } from "@/services/google-sheets.action";
 import { confirmations } from "@/consts/confirmations";
 import LocationOutline from "@/svg/location-outline";
 import Accompanies from "./components/accompanies";
-import { getFirstName } from "@/utils";
 
 const Confirmation = () => {
   const { t } = useTranslation();
@@ -70,7 +68,7 @@ const Confirmation = () => {
           className="object-cover -z-10 opacity-65 fixed inset-0"
           priority
         />
-        <section className="flex flex-col items-center justify-center h-1/3"></section>
+        <section className="flex flex-col items-center justify-center h-1/3" />
 
         <section className="flex flex-col items-center justify-center h-1/3">
           <Typewriter
@@ -84,7 +82,7 @@ const Confirmation = () => {
           <div className="flex items-center space-x-2">
             <LocationOutline className="w-6 h-6 my-2 fill-white" />
             <p className="text-xl font-sans font-thin italic tracking-widest text-[#ffffff]">
-              La Paz, Bolivia
+              {t("location")}
             </p>
           </div>
         </section>
@@ -110,17 +108,8 @@ const Confirmation = () => {
           />
         </p>
 
-        <p className="text-3xl font-sisterhood font-thin tracking-widest text-black pt-7 pb-1">
-          <Trans i18nKey="where" />
-        </p>
-
-        <Location className="w-6 h-6 my-2" />
-
         <p className="text-md italic font-sans font-light tracking-widest text-[#5689c0] p-5 text-center">
-          <Trans
-            i18nKey="messageWhere"
-            components={{ bold: <strong className="font-bold" /> }}
-          />
+          <Trans i18nKey="message" />
         </p>
 
         <Envelop className="w-6 h-6 my-2" />
@@ -128,18 +117,22 @@ const Confirmation = () => {
         <p className="text-2xl font-sisterhood text-center font-thin tracking-widest text-black pt-7">
           <Trans i18nKey="formalInvitation" />
         </p>
-        <p className="text-5xl font-sisterhood text-center font-thin tracking-widest text-black pt-3 pb-3">
+        <p className="text-5xl font-sisterhood text-center font-thin tracking-widest text-black pt-4 pb-3">
           <Trans i18nKey="soon" />
+        </p>
+
+        <p className="text-3xl font-sisterhood font-thin text-center tracking-widest text-black pt-1 pb-3">
+          <Trans
+            i18nKey="addressToSend"
+            values={{ name: guest.name }}
+            components={{ font: <p className="font-sans text-xl" /> }}
+          />
         </p>
       </section>
 
       <section className="flex flex-col items-center justify-center bg-white space-y-5 py-5">
         <p className="text-md italic font-sans tracking-widest text-[#5689c0] p-5 text-center">
-          <Trans
-            i18nKey="formQuestion"
-            values={{ name: getFirstName(guest.name) }}
-            components={{ bold: <strong /> }}
-          />
+          <Trans i18nKey="formQuestion" components={{ bold: <strong /> }} />
         </p>
 
         {status && (
