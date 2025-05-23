@@ -14,7 +14,7 @@ interface Props {
 
 export const GuestAuthentication = ({ moveNextStep }: Props) => {
   const { t } = useTranslation();
-  const { sheetData, setGuest } = useAppContext();
+  const { sheetData, setGuest, guest } = useAppContext();
   const [guestFound, setGuestFound] = useState<string[]>();
   const [showInput, setShowInput] = useState(false);
   const {
@@ -231,13 +231,23 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
                 </div>
               )}
 
-              {!!guestFound && (
+              {!!guest?.name && (
+                <div className="flex items-center justify-center mt-12">
+                  <div className="bg-transparent border border-[#56c071] py-2 px-3">
+                    <p className="tracking-wider font-mono text-sm text-[#56c071] font-bold">
+                      {t("authenticated")}
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {showInput && !guest?.name && (
                 <button
                   type="submit"
                   disabled={disabled}
-                  className="tracking-wider w-full px-4 py-2 mt-6 text-[#ffffff] bg-primary rounded-lg hover:bg-primary/90 transition-colors cursor-pointer"
+                  className="tracking-wider w-full px-4 py-2 font-mono text-[#ffffff] bg-primary rounded-lg hover:bg-primary/90 transition-colors cursor-pointer"
                 >
-                  {t("confirm")}
+                  {guestFound ? t("confirm") : t("continue")}
                 </button>
               )}
             </div>
