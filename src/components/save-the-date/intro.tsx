@@ -87,7 +87,7 @@ export const Intro = ({ animationEnded }: IntroProps) => {
           fill
           className="object-cover absolute w-full blur-sm -z-10"
         />
-        <div className="absolute top-1/6 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full">
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full">
           <Typewriter
             onInit={(typewriter) => {
               typewriter
@@ -99,9 +99,9 @@ export const Intro = ({ animationEnded }: IntroProps) => {
             }}
             options={{
               wrapperClassName:
-                "text-3xl font-eagle-horizon font-light tracking-widest text-[#ffffff]",
+                "text-5xl font-whispering-signature font-light text-[#ffffff]",
               cursorClassName:
-                "text-3xl font-eagle-horizon font-light tracking-widest text-[#ffffff]",
+                "text-5xl font-whispering-signature font-light text-[#ffffff]",
             }}
           />
         </div>

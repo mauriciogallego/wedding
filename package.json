@@ -13,10 +13,12 @@
   },
   "dependencies": {
     "@leenguyen/react-flip-clock-countdown": "^1.6.1",
+    "@radix-ui/react-select": "^2.2.5",
     "framer-motion": "^12.7.4",
     "googleapis": "^148.0.0",
     "i18next": "^24.2.3",
     "i18next-resources-to-backend": "^1.2.1",
+    "lucide-react": "^0.511.0",
     "next": "15.2.2",
     "next-i18n-router": "^5.5.1",
     "react": "^19.0.0",
@@ -25,6 +27,7 @@
     "react-hook-form": "^7.55.0",
     "react-i18next": "^15.4.1",
     "react-powerglitch": "^1.1.0",
+    "tailwind-merge": "^3.3.0",
     "typewriter-effect": "^2.21.0"
   },
   "devDependencies": {

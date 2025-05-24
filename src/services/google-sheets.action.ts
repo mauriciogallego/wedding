@@ -82,3 +82,23 @@ export async function updateNumberOfPeople(guest: {
     console.error(error);
   }
 }
+
+export async function updateNumberOfChildren(guest: {
+  row: number;
+  children: string;
+}) {
+  const glAuth = await getGlAuth();
+
+  const glSheets = google.sheets({ version: "v4", auth: glAuth });
+
+  try {
+    await glSheets.spreadsheets.values.update({
+      spreadsheetId: process.env.GOOGLE_SHEET_ID,
+      range: `invites!I${guest.row}:I${guest.row}`,
+      valueInputOption: "RAW",
+      requestBody: { values: [[guest.children]] },
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}

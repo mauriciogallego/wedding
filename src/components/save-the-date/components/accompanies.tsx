@@ -1,7 +1,20 @@
 import Checkbox from "@/components/shared/checkbox/checkbox";
-import { updateNumberOfPeople } from "@/services/google-sheets.action";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/shared/select/select";
+import { confirmations, statusComponent } from "@/consts/confirmations";
+import {
+  updateNumberOfChildren,
+  updateNumberOfPeople,
+} from "@/services/google-sheets.action";
 import { Guest, StatusGuest } from "@/types";
-import { useTranslation } from "react-i18next";
+import { getFirstName } from "@/utils";
+import { Calendar, Terminal } from "lucide-react";
+import { Trans, useTranslation } from "react-i18next";
 
 const CONFIRM_GUEST = "Si";
 const NUMBER_OF_PEOPLE = 1;
@@ -18,53 +31,99 @@ export const Accompanies = ({
 }) => {
   const { t } = useTranslation();
 
-  const statusComponent = {
-    confirm: t("confirmMessage"),
-    decline: t("declineMessage"),
-    maybe: t("maybeMessage"),
-  };
-
-  const handleNumberOfPeople = (numberOfPeople: any) => {
+  const handleNumberOfPeople = (numberOfPeople: any) =>
     updateNumberOfPeople({
       row: guest.row,
       companions: numberOfPeople.toString(),
     });
-  };
+
+  const handleNumberOfChildren = (numberOfChildren: any) =>
+    updateNumberOfChildren({
+      row: guest.row,
+      children: numberOfChildren.toString(),
+    });
 
   return (
-    <section
-      ref={statusRef}
-      className="flex flex-col items-center justify-center p-2 bg-sky-800/50 w-full"
-    >
-      <p className="text-md italic font-sans tracking-widest text-white p-5 text-center">
-        {statusComponent[status]}
-      </p>
+    <section ref={statusRef}>
+      <div className="bg-gray-600 p-6 rounded-lg border border-gray-200 m-2">
+        <div className="flex items-center justify-between space-x-2 mb-2">
+          <Terminal className="w-4 h-4 text-white " />
+          <p className="text-white font-thin italic text-base text-center">
+            {confirmations[status]}
+          </p>
+        </div>
+        <p className="text-white font-bold text-base text-center tracking-wide">
+          {t(statusComponent[status])}
+        </p>
+      </div>
       {status === STATUS_CONFIRM && (
-        <div className="flex items-center justify-center-safe gap-4 my-3">
+        <div className="flex flex-col items-center justify-between my-8 mx-4 space-y-4">
           {parseInt(guest.companions) > NUMBER_OF_PEOPLE && (
             <>
-              <p className="text-sm italic font-sans tracking-widest text-white p-2 text-left w-1/2">
-                {t("selectNumberOfPeople", {
-                  people: guest.companions,
-                })}
-              </p>
-              <select
-                onChange={(e) => handleNumberOfPeople(e.target.value)}
-                className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-              >
-                <option value={undefined}>{t("choose")}</option>
-                {Array.from({ length: parseInt(guest.companions) }, (_, i) => (
-                  <option key={i} value={i + 1}>
-                    {i + 1}
-                  </option>
-                ))}
-              </select>
+              <div className="flex justify-center items-center space-x-3">
+                <Calendar className="w-5 h-5 text-gray-500" />
+                <p className="text-gray-700 font-mono text-md">
+                  <Trans
+                    i18nKey="numberOfPeople"
+                    components={{
+                      bold: (
+                        <strong className="font-sisterhood text-5xl text-gray-700" />
+                      ),
+                    }}
+                    values={{
+                      people:
+                        parseInt(guest.companions) + parseInt(guest.children),
+                    }}
+                  />
+                </p>
+              </div>
+
+              <Select onValueChange={handleNumberOfPeople}>
+                <SelectTrigger className="h-10 text-base text-black bg-gray-100">
+                  <SelectValue placeholder={t("selectNumberOfPeople")} />
+                </SelectTrigger>
+                <SelectContent className="text-black bg-gray-100">
+                  {Array.from(
+                    { length: parseInt(guest.companions) },
+                    (_, i) => (
+                      <SelectItem key={i} value={(i + 1).toString()}>
+                        {i + 1} persona
+                      </SelectItem>
+                    )
+                  )}
+                </SelectContent>
+              </Select>
+              {guest.children.length > 0 && (
+                <Select onValueChange={handleNumberOfChildren}>
+                  <SelectTrigger className="h-10 text-base text-black bg-gray-100">
+                    <SelectValue placeholder={t("selectNumberOfChildren")} />
+                  </SelectTrigger>
+                  <SelectContent className="text-black bg-gray-100">
+                    {Array.from(
+                      { length: parseInt(guest.children) },
+                      (_, i) => (
+                        <SelectItem key={i} value={(i + 1).toString()}>
+                          {i + 1} niño
+                        </SelectItem>
+                      )
+                    )}
+                  </SelectContent>
+                </Select>
+              )}
             </>
           )}
           {guest.plusOne === CONFIRM_GUEST && (
             <>
-              <p className="text-sm italic font-sans tracking-widest text-white p-2 text-center">
-                {t("plusOne")}
+              <p className="text-md italic font-sans tracking-widest text-gray-700 p-2 text-center">
+                <Trans
+                  i18nKey="plusOne"
+                  components={{
+                    bold: (
+                      <strong className="font-sisterhood font-medium tracking-widest text-gray-700 text-2xl" />
+                    ),
+                  }}
+                  values={{ name: getFirstName(guest.name) }}
+                />
               </p>
               <Checkbox handleChange={handleNumberOfPeople} />
             </>

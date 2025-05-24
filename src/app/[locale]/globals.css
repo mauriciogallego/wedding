@@ -14,15 +14,15 @@ body {
 }
 
 @font-face {
-  font-family: "eagle-horizon";
-  src: url("/fonts/EagleHorizonP.ttf") format("truetype");
+  font-family: "whispering-signature";
+  src: url("/fonts/WhisperingSignature.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }
 
 @theme inline {
   --font-sisterhood: "sisterhood";
-  --font-eagle-horizon: "eagle-horizon";
+  --font-whispering-signature: "whispering-signature";
 }
 
 @layer base {

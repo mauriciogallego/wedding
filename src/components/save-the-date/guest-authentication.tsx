@@ -167,7 +167,9 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
                     )
                     .pauseFor(500)
                     .typeString(
-                      '<br/><span class="text-white"><span class="text-amber-300">⚠️ important</span> type your name and last name ✨</span>'
+                      `<br/><span class="text-white"><span class="text-amber-300">⚠️ important</span> ${t(
+                        "labelName"
+                      )} ✨</span>`
                     )
                     .callFunction(() => {
                       setShowInput(true);
@@ -245,7 +247,7 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
                 <button
                   type="submit"
                   disabled={disabled}
-                  className="tracking-wider w-full px-4 py-2 font-mono text-[#ffffff] bg-primary rounded-lg hover:bg-primary/90 transition-colors cursor-pointer"
+                  className="tracking-wider w-full mt-12 px-4 py-2 font-mono text-[#ffffff] bg-primary rounded-lg hover:bg-primary/90 transition-colors cursor-pointer"
                 >
                   {guestFound ? t("confirm") : t("continue")}
                 </button>

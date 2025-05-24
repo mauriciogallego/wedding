@@ -65,7 +65,7 @@ const Confirmation = () => {
           src="/assets/wedding.jpeg"
           alt="Wedding Save the Date"
           fill
-          className="object-cover -z-10 opacity-65 fixed inset-0"
+          className="object-cover -z-10 opacity-85 fixed inset-0"
           priority
         />
         <section className="flex flex-col items-center justify-center h-1/3" />
@@ -94,7 +94,7 @@ const Confirmation = () => {
         </section>
       </div>
 
-      <section className="grid grid-cols-1 justify-items-center gap-2 bg-white opacity-75 pb-10">
+      <section className="grid grid-cols-1 justify-items-center gap-2 bg-white opacity-85 py-5">
         <p className="text-3xl font-sisterhood font-thin tracking-widest text-black pt-7 pb-2">
           <Trans i18nKey="weGotMarried" />
         </p>
@@ -107,11 +107,14 @@ const Confirmation = () => {
             components={{ bold: <strong className="font-bold" /> }}
           />
         </p>
-
         <p className="text-md italic font-sans font-light tracking-widest text-[#5689c0] p-5 text-center">
           <Trans i18nKey="message" />
         </p>
+      </section>
 
+      <div className="h-[185px]"></div>
+
+      <section className="grid grid-cols-1 justify-items-center gap-2 bg-white opacity-85 py-5">
         <Envelop className="w-6 h-6 my-2" />
 
         <p className="text-2xl font-sisterhood text-center font-thin tracking-widest text-black pt-7">
@@ -130,14 +133,26 @@ const Confirmation = () => {
         </p>
       </section>
 
-      <section className="flex flex-col items-center justify-center bg-white space-y-5 py-5">
-        <p className="text-md italic font-sans tracking-widest text-[#5689c0] p-5 text-center">
-          <Trans i18nKey="formQuestion" components={{ bold: <strong /> }} />
-        </p>
+      <div className="h-[185px]"></div>
 
-        {status && (
-          <Accompanies statusRef={statusRef} status={status} guest={guest} />
-        )}
+      <section className="flex flex-col items-center justify-center bg-white opacity-85 space-y-5 py-5">
+        <div>
+          <p className="text-md font-semibold font-sans tracking-widest text-[#5689c0] p-5 text-center">
+            <Trans
+              i18nKey="formQuestion"
+              components={{
+                bold: <strong className="font-bold" />,
+              }}
+            />
+          </p>
+
+          <p className="text-xs font-light font-sans tracking-wider text-[#5689c0] italic text-center px-1">
+            <Trans
+              i18nKey="remember"
+              components={{ bold: <strong className="font-bold" /> }}
+            />
+          </p>
+        </div>
 
         <div className="flex items-center justify-between gap-4">
           <Button onClick={() => confirm("confirm")}>
@@ -146,6 +161,10 @@ const Confirmation = () => {
           <Button onClick={() => confirm("decline")}>{t("noAttending")}</Button>
           <Button onClick={() => confirm("maybe")}>{t("maybe")}</Button>
         </div>
+
+        {status && (
+          <Accompanies statusRef={statusRef} status={status} guest={guest} />
+        )}
       </section>
       {isExploding && (
         <Confetti
