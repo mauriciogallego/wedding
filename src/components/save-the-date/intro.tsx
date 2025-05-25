@@ -89,24 +89,26 @@ export const Intro = ({ animationEnded }: IntroProps) => {
           quality={80}
           className="object-cover absolute w-full blur-sm -z-10"
         />
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full">
-          <Typewriter
-            onInit={(typewriter) => {
-              typewriter
-                .typeString(t("weddingNames"))
-                .callFunction((x) => {
-                  x.elements.cursor.remove();
-                })
-                .start();
-            }}
-            options={{
-              wrapperClassName:
-                "text-5xl font-whispering-signature font-light text-[#ffffff]",
-              cursorClassName:
-                "text-5xl font-whispering-signature font-light text-[#ffffff]",
-            }}
-          />
-        </div>
+        {segments <= SEGMENT_COMPLETED && (
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full">
+            <Typewriter
+              onInit={(typewriter) => {
+                typewriter
+                  .typeString(t("weddingNames"))
+                  .callFunction((x) => {
+                    x.elements.cursor.remove();
+                  })
+                  .start();
+              }}
+              options={{
+                wrapperClassName:
+                  "text-5xl font-whispering-signature font-light text-[#ffffff]",
+                cursorClassName:
+                  "text-5xl font-whispering-signature font-light text-[#ffffff]",
+              }}
+            />
+          </div>
+        )}
       </section>
     </Layout>
   );
