@@ -15,6 +15,7 @@ import { Guest, StatusGuest } from "@/types";
 import { getFirstName } from "@/utils";
 import { Calendar, Terminal } from "lucide-react";
 import { Trans, useTranslation } from "react-i18next";
+import { safeTrack } from "@/utils/mixpanel";
 
 const CONFIRM_GUEST = "Si";
 const NUMBER_OF_PEOPLE = 1;
@@ -31,17 +32,27 @@ export const Accompanies = ({
 }) => {
   const { t } = useTranslation();
 
-  const handleNumberOfPeople = (numberOfPeople: any) =>
-    updateNumberOfPeople({
+  const handleNumberOfPeople = (numberOfPeople: any) => {
+    safeTrack("Attend with a plus - Number of people updated", {
+      guest: guest.name,
+      numberOfPeople: numberOfPeople.toString(),
+    });
+    return updateNumberOfPeople({
       row: guest.row,
       companions: numberOfPeople.toString(),
     });
+  };
 
-  const handleNumberOfChildren = (numberOfChildren: any) =>
-    updateNumberOfChildren({
+  const handleNumberOfChildren = (numberOfChildren: any) => {
+    safeTrack("Attend with a plus - Number of children updated", {
+      guest: guest.name,
+      numberOfChildren: numberOfChildren.toString(),
+    });
+    return updateNumberOfChildren({
       row: guest.row,
       children: numberOfChildren.toString(),
     });
+  };
 
   return (
     <section ref={statusRef}>

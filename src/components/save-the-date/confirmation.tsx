@@ -13,6 +13,8 @@ import { updateSheetData } from "@/services/google-sheets.action";
 import { confirmations } from "@/consts/confirmations";
 import LocationOutline from "@/svg/location-outline";
 import Accompanies from "./components/accompanies";
+import { motion, useInView } from "framer-motion";
+import { safeTrack } from "@/utils/mixpanel";
 
 const Confirmation = () => {
   const { t } = useTranslation();
@@ -20,6 +22,18 @@ const Confirmation = () => {
   const [status, setStatus] = useState<StatusGuest | undefined>(undefined);
   const [isExploding, setIsExploding] = useState(false);
   const statusRef = useRef<HTMLDivElement>(null);
+
+  const weGotMarriedRef = useRef(null);
+  const isWeGotMarriedInView = useInView(weGotMarriedRef, {
+    once: true,
+    amount: 0.6,
+  });
+
+  const formalInvitationRef = useRef(null);
+  const isFormalInvitationInView = useInView(formalInvitationRef, {
+    once: true,
+    amount: 0.6,
+  });
 
   const typingAction = (typewriter: TypewriterClass, text: string) => {
     typewriter
@@ -33,7 +47,25 @@ const Confirmation = () => {
   const confirm = (status: StatusGuest) => {
     setStatus(status);
     if (status === "confirm") {
+      safeTrack("I will attend", {
+        guest: guest?.name,
+        status,
+      });
       setIsExploding(true);
+    }
+
+    if (status === "decline") {
+      safeTrack("I will not attend", {
+        guest: guest?.name,
+        status,
+      });
+    }
+
+    if (status === "maybe") {
+      safeTrack("I don't know yet", {
+        guest: guest?.name,
+        status,
+      });
     }
 
     updateSheetData({
@@ -58,15 +90,29 @@ const Confirmation = () => {
     }
   }, [isExploding]);
 
+  useEffect(() => {
+    if (guest?.name) {
+      safeTrack("Confirmation rendered", { guest: guest.name });
+    }
+  }, [guest?.name]);
+
   return (
-    <div id="scroll-save-date" className="h-dvh w-full overflow-y-scroll">
+    <motion.div
+      id="scroll-save-date"
+      className="h-dvh w-full overflow-y-scroll"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="h-[94%] w-full">
         <Image
-          src="/assets/wedding.jpeg"
+          src="/assets/wedding.webp"
           alt="Wedding Save the Date"
           fill
           className="object-cover -z-10 opacity-85 fixed inset-0"
           priority
+          sizes="(max-width: 640px) 640px, (max-width: 1280px) 1280px, 1920px"
+          quality={80}
         />
         <section className="flex flex-col items-center justify-center h-1/3" />
 
@@ -94,7 +140,20 @@ const Confirmation = () => {
         </section>
       </div>
 
-      <section className="grid grid-cols-1 justify-items-center gap-2 bg-white opacity-85 py-5">
+      <motion.section
+        ref={weGotMarriedRef}
+        className="grid grid-cols-1 justify-items-center gap-2 bg-white opacity-85 py-5"
+        initial={{ opacity: 0, y: 50 }}
+        animate={
+          isWeGotMarriedInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }
+        }
+        transition={{
+          duration: 0.5,
+          ease: "easeInOut",
+          opacity: { duration: 0.6 },
+          y: { duration: 0.6, delay: 0.3 },
+        }}
+      >
         <p className="text-3xl font-sisterhood font-thin tracking-widest text-black pt-7 pb-2">
           <Trans i18nKey="weGotMarried" />
         </p>
@@ -110,11 +169,26 @@ const Confirmation = () => {
         <p className="text-md italic font-sans font-light tracking-widest text-[#5689c0] p-5 text-center">
           <Trans i18nKey="message" />
         </p>
-      </section>
+      </motion.section>
 
       <div className="h-[185px]"></div>
 
-      <section className="grid grid-cols-1 justify-items-center gap-2 bg-white opacity-85 py-5">
+      <motion.section
+        ref={formalInvitationRef}
+        className="grid grid-cols-1 justify-items-center gap-2 bg-white opacity-85 py-5"
+        initial={{ opacity: 0, y: 50 }}
+        animate={
+          isFormalInvitationInView
+            ? { opacity: 1, y: 0 }
+            : { opacity: 0, y: 50 }
+        }
+        transition={{
+          duration: 0.5,
+          ease: "easeInOut",
+          opacity: { duration: 0.6 },
+          y: { duration: 0.6, delay: 0.3 },
+        }}
+      >
         <Envelop className="w-6 h-6 my-2" />
 
         <p className="text-2xl font-sisterhood text-center font-thin tracking-widest text-black pt-7">
@@ -128,10 +202,10 @@ const Confirmation = () => {
           <Trans
             i18nKey="addressToSend"
             values={{ name: guest.name }}
-            components={{ font: <p className="font-sans text-xl" /> }}
+            components={{ font: <span className="font-sans text-xl" /> }}
           />
         </p>
-      </section>
+      </motion.section>
 
       <div className="h-[185px]"></div>
 
@@ -178,7 +252,7 @@ const Confirmation = () => {
           effectCount={10}
         />
       )}
-    </div>
+    </motion.div>
   );
 };
 

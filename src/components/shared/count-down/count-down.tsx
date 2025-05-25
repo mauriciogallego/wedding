@@ -1,12 +1,22 @@
+import { useEffect, useState } from "react";
 import FlipClockCountdown from "@leenguyen/react-flip-clock-countdown";
 import "@leenguyen/react-flip-clock-countdown/dist/index.css";
 
 const Countdown = () => {
-  const weddingDate = new Date("2026-03-21T16:00:00-04:00");
+  const [targetDate, setTargetDate] = useState<number | null>(null);
+
+  useEffect(() => {
+    const weddingDate = new Date("2026-03-21T16:00:00-04:00");
+    setTargetDate(weddingDate.getTime());
+  }, []);
+
+  if (!targetDate) {
+    return null; // o un placeholder mientras se carga
+  }
 
   return (
     <FlipClockCountdown
-      to={weddingDate.getTime()}
+      to={targetDate}
       labels={["DAYS", "HOURS", "MINUTES", "SECONDS"]}
       labelStyle={{
         fontSize: "12px",
