@@ -7,6 +7,7 @@ import Layout from "./components/layout/layout";
 import { useAppContext } from "@/providers/app-context";
 import { FormInputs } from "@/types";
 import Typewriter from "typewriter-effect";
+import { safeTrack } from "@/utils/mixpanel";
 
 interface Props {
   moveNextStep: () => void;
@@ -67,12 +68,19 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
     };
   }, [showInput]);
 
+  useEffect(() => {
+    safeTrack("Guest Authentication rendered");
+  }, []);
+
   const onSubmit = (data: FormInputs) => {
     if (data.guestSelected) {
       const normalizedGuestSelected = normalizeName(data.guestSelected);
       const guest = sheetData?.find(
         (item) => normalizeName(item.name) === normalizedGuestSelected
       );
+      safeTrack("Guest selected", {
+        guest: guest?.name,
+      });
       if (guest) {
         setGuest({
           name: guest.name || "",
@@ -85,6 +93,10 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
       }
       return;
     }
+
+    safeTrack("Find guest", {
+      name: data.name,
+    });
 
     const normalizedName = normalizeName(data.name);
     const value = normalizedName.trim().split(" ").filter(Boolean);

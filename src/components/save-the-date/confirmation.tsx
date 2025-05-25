@@ -14,6 +14,7 @@ import { confirmations } from "@/consts/confirmations";
 import LocationOutline from "@/svg/location-outline";
 import Accompanies from "./components/accompanies";
 import { motion, useInView } from "framer-motion";
+import { safeTrack } from "@/utils/mixpanel";
 
 const Confirmation = () => {
   const { t } = useTranslation();
@@ -46,7 +47,25 @@ const Confirmation = () => {
   const confirm = (status: StatusGuest) => {
     setStatus(status);
     if (status === "confirm") {
+      safeTrack("I will attend", {
+        guest: guest?.name,
+        status,
+      });
       setIsExploding(true);
+    }
+
+    if (status === "decline") {
+      safeTrack("I will not attend", {
+        guest: guest?.name,
+        status,
+      });
+    }
+
+    if (status === "maybe") {
+      safeTrack("I don't know yet", {
+        guest: guest?.name,
+        status,
+      });
     }
 
     updateSheetData({
@@ -70,6 +89,12 @@ const Confirmation = () => {
       return () => clearTimeout(timer);
     }
   }, [isExploding]);
+
+  useEffect(() => {
+    if (guest?.name) {
+      safeTrack("Confirmation rendered", { guest: guest.name });
+    }
+  }, [guest?.name]);
 
   return (
     <motion.div
