@@ -1,14 +1,16 @@
 import "i18next";
 
 import type home from "@/app/locales/en/home.json";
+import type error from "@/app/locales/en/error.json";
 
 export interface I18nNamespaces {
   home: typeof home;
+  error: typeof error;
 }
 
 type localeTypes = "en" | "es";
 
-interface I18nParamProps {
+export interface I18nParamProps {
   params: Promise<{
     locale: localeTypes;
   }>;
@@ -16,7 +18,7 @@ interface I18nParamProps {
 
 declare module "i18next" {
   interface CustomTypeOptions {
-    defaultNS: "home";
+    defaultNS: "home" | "error";
     resources: I18nNamespaces;
   }
 }
