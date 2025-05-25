@@ -177,7 +177,7 @@ const Confirmation = () => {
           <Trans
             i18nKey="addressToSend"
             values={{ name: guest.name }}
-            components={{ font: <p className="font-sans text-xl" /> }}
+            components={{ font: <span className="font-sans text-xl" /> }}
           />
         </p>
       </motion.section>
