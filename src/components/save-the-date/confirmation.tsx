@@ -22,17 +22,16 @@ const Confirmation = () => {
   const [isExploding, setIsExploding] = useState(false);
   const statusRef = useRef<HTMLDivElement>(null);
 
-  // Ejemplo de uso de useInView para una sección
   const weGotMarriedRef = useRef(null);
   const isWeGotMarriedInView = useInView(weGotMarriedRef, {
     once: true,
-    amount: 0.2, // La animación se activará cuando el 60% del componente sea visible
+    amount: 0.2,
   });
 
   const formalInvitationRef = useRef(null);
   const isFormalInvitationInView = useInView(formalInvitationRef, {
     once: true,
-    amount: 0.2, // La animación se activará cuando el 60% del componente sea visible
+    amount: 0.2,
   });
 
   const typingAction = (typewriter: TypewriterClass, text: string) => {
@@ -116,7 +115,6 @@ const Confirmation = () => {
         </section>
       </div>
 
-      {/* Ejemplo de animación cuando la sección es visible */}
       <motion.section
         ref={weGotMarriedRef}
         className="grid grid-cols-1 justify-items-center gap-2 bg-white opacity-85 py-5"
