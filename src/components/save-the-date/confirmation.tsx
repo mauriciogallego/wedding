@@ -82,11 +82,13 @@ const Confirmation = () => {
     >
       <div className="h-[94%] w-full">
         <Image
-          src="/assets/wedding.jpeg"
+          src="/assets/wedding.webp"
           alt="Wedding Save the Date"
           fill
           className="object-cover -z-10 opacity-85 fixed inset-0"
           priority
+          sizes="(max-width: 640px) 640px, (max-width: 1280px) 1280px, 1920px"
+          quality={80}
         />
         <section className="flex flex-col items-center justify-center h-1/3" />
 

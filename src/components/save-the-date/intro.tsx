@@ -82,9 +82,11 @@ export const Intro = ({ animationEnded }: IntroProps) => {
         <Loading />
 
         <Image
-          src="/assets/wedding.jpeg"
+          src="/assets/wedding.webp"
           alt="Wedding Save the Date"
           fill
+          sizes="(max-width: 640px) 640px, (max-width: 1280px) 1280px, 1920px"
+          quality={80}
           className="object-cover absolute w-full blur-sm -z-10"
         />
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full">
