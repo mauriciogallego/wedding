@@ -20,6 +20,7 @@
     "i18next": "^24.2.3",
     "i18next-resources-to-backend": "^1.2.1",
     "lucide-react": "^0.511.0",
+    "mixpanel-browser": "^2.65.0",
     "next": "15.2.2",
     "next-i18n-router": "^5.5.1",
     "react": "^19.0.0",

@@ -7,6 +7,8 @@ import { useGlitch } from "react-powerglitch";
 import Typewriter from "typewriter-effect";
 import Layout from "@/components/save-the-date/components/layout/layout";
 import { Loading } from "@/components/shared/loading/loading";
+import { safeTrack } from "@/utils/mixpanel";
+
 const TOTAL_SEGMENT = 20;
 const SEGMENT_COMPLETED = TOTAL_SEGMENT / 2.5;
 
@@ -61,14 +63,20 @@ export const Intro = ({ animationEnded }: IntroProps) => {
   }, [executeTimer]);
 
   useEffect(() => {
+    safeTrack("Intro rendered");
+  }, []);
+
+  useEffect(() => {
     if (segments > SEGMENT_COMPLETED) {
       glitch.startGlitch();
+      safeTrack("Glitch started");
       const cursor = document.querySelector(".Typewriter");
       if (cursor) {
         cursor.remove();
       }
       setTimeout(() => {
         animationEnded();
+        safeTrack("Glitch ended");
       }, 2000);
     }
   }, [segments, glitch, animationEnded]);

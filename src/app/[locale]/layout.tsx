@@ -7,6 +7,7 @@ import { localeTypes } from "../../../@types/i18next";
 import initTranslations from "../i18n";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
+import MixpanelInit from "@/components/MixpanelInit";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -55,6 +56,7 @@ export default async function RootLayout({
           resources={resources}
         />
         <Analytics />
+        <MixpanelInit />
       </body>
     </html>
   );
