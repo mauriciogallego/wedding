@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 import i18nConfig from "../i18nConfig";
 
 export async function middleware(request: NextRequest) {
-  // Only handle save-the-date routes
   if (request.nextUrl.pathname.includes("save-the-date")) {
     const userAgent = request.headers.get("user-agent") || "";
     const isMobile =
@@ -14,14 +13,16 @@ export async function middleware(request: NextRequest) {
     if (!isMobile) {
       return NextResponse.redirect(new URL("/desktop-warning", request.url));
     }
+    return i18nRouter(request, i18nConfig);
   }
 
-  return i18nRouter(request, i18nConfig);
+  if (request.nextUrl.pathname.includes("desktop-warning")) {
+    return i18nRouter(request, i18nConfig);
+  }
+
+  return NextResponse.redirect(new URL("/save-the-date", request.url));
 }
 
 export const config = {
-  matcher: [
-    // Only match save-the-date routes
-    "/save-the-date/:path*",
-  ],
+  matcher: "/((?!api|static|.*\\..*|_next).*)",
 };

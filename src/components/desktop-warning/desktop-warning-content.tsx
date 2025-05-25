@@ -3,6 +3,7 @@
 import { Trans } from "react-i18next";
 import { Card, CardContent } from "../shared/card/card";
 import { Smartphone } from "lucide-react";
+import QRCodeRedirect from "./components/qr-code-redirect";
 
 export const DesktopWarningContent = () => {
   return (
@@ -17,11 +18,16 @@ export const DesktopWarningContent = () => {
             <Trans i18nKey="title" />
           </h1>
 
-          <p className="text-gray-600 mb-6 leading-relaxed">
+          <p className="text-gray-600 mb-2 leading-relaxed">
             <Trans i18nKey="description" />
           </p>
 
-          <div className="text-sm text-gray-500">
+          <QRCodeRedirect
+            url={`${window.location.host}/save-the-date`}
+            size={128}
+          />
+
+          <div className="text-sm text-gray-500 mt-4">
             <p>
               <Trans i18nKey="qrCode" />
             </p>

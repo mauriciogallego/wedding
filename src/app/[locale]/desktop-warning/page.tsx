@@ -1,7 +1,7 @@
 import { AppProvider } from "@/providers/app-context";
 import TranslationsProvider from "@/providers/translation-provider";
 import { I18nParamProps } from "@/../@types/i18next";
-import initTranslations from "../i18n";
+import initTranslations from "../../i18n";
 import { DesktopWarningContent } from "@/components/desktop-warning/desktop-warning-content";
 
 const i18nNamespaces = ["error"];
