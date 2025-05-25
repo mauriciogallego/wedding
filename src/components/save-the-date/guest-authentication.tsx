@@ -12,6 +12,14 @@ interface Props {
   moveNextStep: () => void;
 }
 
+function normalizeName(name: string | undefined): string {
+  if (!name) return "";
+  return name
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
 export const GuestAuthentication = ({ moveNextStep }: Props) => {
   const { t } = useTranslation();
   const { sheetData, setGuest, guest } = useAppContext();
@@ -61,7 +69,10 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
 
   const onSubmit = (data: FormInputs) => {
     if (data.guestSelected) {
-      const guest = sheetData?.find((item) => item.name === data.guestSelected);
+      const normalizedGuestSelected = normalizeName(data.guestSelected);
+      const guest = sheetData?.find(
+        (item) => normalizeName(item.name) === normalizedGuestSelected
+      );
       if (guest) {
         setGuest({
           name: guest.name || "",
@@ -75,7 +86,8 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
       return;
     }
 
-    const value = data.name.toLowerCase().trim().split(" ").filter(Boolean);
+    const normalizedName = normalizeName(data.name);
+    const value = normalizedName.trim().split(" ").filter(Boolean);
     if (value.length === 0) return;
 
     const guestFound: string[] = [];
@@ -183,11 +195,18 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
                 }}
               />
               {showInput && (
-                <input
-                  {...nameInput}
-                  className="bg-black w-full h-10 font-semibold text-white outline-none placeholder:text-[#989898] mt-1"
-                  placeholder={t("placeholderName")}
-                />
+                <div className="relative mt-2">
+                  <span className="absolute left-0 top-1/2 -translate-y-1/2 pl-2 text-white text-lg">
+                    👉
+                  </span>
+                  <input
+                    {...nameInput}
+                    className="bg-black w-full h-10 font-semibold text-white outline-none placeholder:text-[#989898] pl-8"
+                    placeholder={t("placeholderName") || "Ej: Juan Pérez"}
+                    autoFocus
+                    inputMode="text"
+                  />
+                </div>
               )}
 
               {errors.name && (
