@@ -2,14 +2,12 @@
 
 import { QRCodeSVG } from "qrcode.react";
 
-export default function QRCodeRedirect({
-  url,
-  size = 128,
-}: {
+type Props = {
   url: string;
   size: number;
-}) {
-  console.log(url);
+};
+
+export default function QRCodeRedirect({ url, size = 128 }: Props) {
   return (
     <div className="flex flex-col items-center gap-4">
       <div className="cursor-pointer p-2 bg-white rounded-lg">
