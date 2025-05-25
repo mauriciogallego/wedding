@@ -25,13 +25,13 @@ const Confirmation = () => {
   const weGotMarriedRef = useRef(null);
   const isWeGotMarriedInView = useInView(weGotMarriedRef, {
     once: true,
-    amount: 0.2,
+    amount: 0.6,
   });
 
   const formalInvitationRef = useRef(null);
   const isFormalInvitationInView = useInView(formalInvitationRef, {
     once: true,
-    amount: 0.2,
+    amount: 0.6,
   });
 
   const typingAction = (typewriter: TypewriterClass, text: string) => {
@@ -125,8 +125,8 @@ const Confirmation = () => {
         transition={{
           duration: 0.5,
           ease: "easeInOut",
-          opacity: { duration: 0.3 },
-          y: { duration: 0.5 },
+          opacity: { duration: 0.6 },
+          y: { duration: 0.6, delay: 0.3 },
         }}
       >
         <p className="text-3xl font-sisterhood font-thin tracking-widest text-black pt-7 pb-2">
@@ -160,8 +160,8 @@ const Confirmation = () => {
         transition={{
           duration: 0.5,
           ease: "easeInOut",
-          opacity: { duration: 0.3 },
-          y: { duration: 0.5 },
+          opacity: { duration: 0.6 },
+          y: { duration: 0.6, delay: 0.3 },
         }}
       >
         <Envelop className="w-6 h-6 my-2" />
