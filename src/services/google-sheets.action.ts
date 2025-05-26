@@ -70,7 +70,11 @@ export default async function getSheetData() {
   return { data: combinedData };
 }
 
-export async function updateSheetData(guest: { row: number; status: string }) {
+export async function updateSheetData(guest: {
+  row: number;
+  status: string;
+  companions?: string;
+}) {
   const glAuth = await getGlAuth();
 
   const glSheets = google.sheets({ version: "v4", auth: glAuth });
@@ -82,6 +86,15 @@ export async function updateSheetData(guest: { row: number; status: string }) {
       valueInputOption: "RAW",
       requestBody: { values: [[guest.status]] },
     });
+
+    if (guest.companions) {
+      await glSheets.spreadsheets.values.update({
+        spreadsheetId: process.env.GOOGLE_SHEET_ID,
+        range: `invites!H${guest.row}:H${guest.row}`,
+        valueInputOption: "RAW",
+        requestBody: { values: [[guest.companions]] },
+      });
+    }
   } catch (error) {
     console.error(error);
   }
@@ -121,6 +134,23 @@ export async function updateNumberOfChildren(guest: {
       range: `invites!I${guest.row}:I${guest.row}`,
       valueInputOption: "RAW",
       requestBody: { values: [[guest.children]] },
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function updatePlusOne(guest: { row: number; plusOne: string }) {
+  const glAuth = await getGlAuth();
+
+  const glSheets = google.sheets({ version: "v4", auth: glAuth });
+
+  try {
+    await glSheets.spreadsheets.values.update({
+      spreadsheetId: process.env.GOOGLE_SHEET_ID,
+      range: `invites!J${guest.row}:J${guest.row}`,
+      valueInputOption: "RAW",
+      requestBody: { values: [[guest.plusOne]] },
     });
   } catch (error) {
     console.error(error);

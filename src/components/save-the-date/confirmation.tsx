@@ -71,6 +71,8 @@ const Confirmation = () => {
     updateSheetData({
       row: guest.row,
       status: confirmations[status],
+      // amount of people will be 1 if plus one is yes
+      companions: guest.plusOne === "Si" ? "1" : undefined,
     });
   };
 

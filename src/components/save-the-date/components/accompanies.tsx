@@ -10,6 +10,7 @@ import { confirmations, statusComponent } from "@/consts/confirmations";
 import {
   updateNumberOfChildren,
   updateNumberOfPeople,
+  updatePlusOne,
 } from "@/services/google-sheets.action";
 import { Guest, StatusGuest } from "@/types";
 import { getFirstName } from "@/utils";
@@ -33,13 +34,24 @@ export const Accompanies = ({
   const { t } = useTranslation();
 
   const handleNumberOfPeople = (numberOfPeople: any) => {
-    safeTrack("Attend with a plus - Number of people updated", {
+    safeTrack("Number of people updated", {
       guest: guest.name,
       numberOfPeople: numberOfPeople.toString(),
     });
     return updateNumberOfPeople({
       row: guest.row,
       companions: numberOfPeople.toString(),
+    });
+  };
+
+  const handlePlusOne = (plusOne: any) => {
+    safeTrack("Attend with a plus", {
+      guest: guest.name,
+      plusOne: plusOne.toString(),
+    });
+    return updatePlusOne({
+      row: guest.row,
+      plusOne: plusOne.toString(),
     });
   };
 
@@ -136,7 +148,7 @@ export const Accompanies = ({
                   values={{ name: getFirstName(guest.name) }}
                 />
               </p>
-              <Checkbox handleChange={handleNumberOfPeople} />
+              <Checkbox handleChange={handlePlusOne} />
             </>
           )}
         </div>
