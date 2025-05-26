@@ -8,7 +8,7 @@
   "date": "21 de marzo, 2026",
   "declineMessage": "Te extrañaremos, pero si de todas formas quieres participar de manera virtual, compartiremos un link donde se transmitirá la ceremonia",
   "formErrorMessage": "No hemos encontrado tu nombre en la lista de invitados, por favor verifica que lo hayas escrito correctamente.",
-  "formQuestion": "Aun que faltan muchos detalles, queremos saber que asistirás a nuestra boda.",
+  "formQuestion": "Aunque aún seguimos planeando algunos detalles, queremos saber si podrás acompañarnos",
   "formalInvitation": "Invitación Formal",
   "labelName": "escribe tu nombre y apellido",
   "loading": "Cargando",
@@ -22,11 +22,11 @@
   "noAttending": "No asistiré",
   "placeholderName": "Escribe aquí..",
   "plusOne": "<bold>{{name}}</bold>, ¿Vienes con un acompañante? 👀",
-  "remember": "<bold>Recuerda:</bold> puedes cambiar tu respuesta antes del <bold>20 de diciembre de 2025</bold>.",
+  "remember": "<bold>Recuerda:</bold> puedes cambiar tu respuesta <bold>hasta el 10 de diciembre de 2025</bold>.",
   "saveDate": "Guarda la fecha",
   "select": "Selecciona una opción",
   "numberOfPeople": "Tenemos <bold>{{people}}</bold> espacios reservados",
-  "selectNumberOfPeople": "Selecciona el número de personas",
+  "selectNumberOfPeople": "Personas",
   "selectYourName": "Selecciona tu nombre en la lista",
   "soon": "Proximamente",
   "weGotMarried": "Se acerca el gran dia!",
@@ -39,5 +39,5 @@
   "people": "personas",
   "child": "niño",
   "children": "niños",
-  "selectNumberOfChildren": "Selecciona el número de niños"
+  "selectNumberOfChildren": "Niños < 7 años"
 }

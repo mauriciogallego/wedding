@@ -199,7 +199,7 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
                 <div className="relative mt-2">
                   <input
                     {...nameInput}
-                    className="bg-black w-full h-10 font-semibold text-white outline-none placeholder:text-[#989898] pl-2"
+                    className="bg-black w-full h-10 font-semibold text-white outline-none placeholder:text-[#989898] pl-2 [caret:white block]"
                     placeholder={t("placeholderName") || "Ej: Juan Pérez"}
                     autoFocus
                     inputMode="text"

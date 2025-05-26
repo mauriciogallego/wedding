@@ -8,7 +8,7 @@
   "date": "March 21, 2026",
   "declineMessage": "We will miss you, but if you still want to participate virtually, we will share a link where the ceremony will be broadcasted",
   "formErrorMessage": "We couldn't find your name on the guest list, please check that you have written it correctly.",
-  "formQuestion": "Although there are many details missing, we want to know if you will attend our wedding.",
+  "formQuestion": "Although we are still planning some details, we want to know if you will attend our wedding.",
   "formalInvitation": "Formal Invitation",
   "labelName": "type your name and last name",
   "loading": "Loading",
@@ -22,13 +22,13 @@
   "noAttending": "I can't attend",
   "placeholderName": "Type here..",
   "plusOne": "{{name}}, Will you attend with a plus one?  👀",
-  "remember": "<bold>Remember:</bold> you can change your answer before <bold>December 20th, 2025</bold>.",
+  "remember": "<bold>Remember:</bold> you can change your answer until <bold>December 10th, 2025</bold>.",
   "saveDate": "Save the date",
   "select": "Select an option",
   "numberOfPeople": "We have {{people}} spaces reserved",
-  "selectNumberOfPeople": "Select the number of people",
+  "selectNumberOfPeople": "People",
   "selectYourName": "Select your name from the list",
-  "soon": "Soon",
+  "soon": "To follow",
   "weGotMarried": "We're Tying the Knot!",
   "wedding": "Wedding",
   "weddingNames": "Kiana & Mauricio",
@@ -39,5 +39,5 @@
   "people": "people",
   "child": "child",
   "children": "children",
-  "selectNumberOfChildren": "Select the number of children"
+  "selectNumberOfChildren": "Children < 7 years"
 }
