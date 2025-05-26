@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { localeTypes } from "../../../@types/i18next";
 import initTranslations from "../i18n";
-import "./globals.css";
+import "../globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import MixpanelInit from "@/components/MixpanelInit";
 
