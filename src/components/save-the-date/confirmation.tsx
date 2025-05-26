@@ -218,7 +218,7 @@ const Confirmation = () => {
           y: { duration: 0.6, delay: 0.3 },
         }}
       >
-        <p className="text-md font-semibold font-sans tracking-widest text-[#6699CC] p-5 text-center">
+        <p className="text-md font-medium font-sans tracking-wider text-[#6699CC] p-5 text-center">
           <Trans
             i18nKey="formQuestion"
             components={{
@@ -228,7 +228,7 @@ const Confirmation = () => {
         </p>
 
         <div className="space-y-4">
-          <p className="text-xs font-light font-sans tracking-wider text-[#bab8b8] italic text-center px-4">
+          <p className="text-xs font-light font-sans tracking-widest text-[#bab8b8] italic text-center px-4">
             <Trans
               i18nKey="remember"
               components={{ bold: <strong className="font-bold" /> }}
