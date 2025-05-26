@@ -6,19 +6,13 @@ import { useEffect, useRef, useState } from "react";
 import Layout from "./components/layout/layout";
 import { useAppContext } from "@/providers/app-context";
 import { FormInputs } from "@/types";
-import Typewriter from "typewriter-effect";
+import Typewriter, { TypewriterClass } from "typewriter-effect";
 import { safeTrack } from "@/utils/mixpanel";
+import { normalizeName } from "@/utils";
+import { TerminalHeader, TerminalRoot } from "../shared/terminal/terminal";
 
 interface Props {
   moveNextStep: () => void;
-}
-
-function normalizeName(name: string | undefined): string {
-  if (!name) return "";
-  return name
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
 }
 
 export const GuestAuthentication = ({ moveNextStep }: Props) => {
@@ -160,6 +154,28 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
   const disabled =
     getValues("name")?.trim() === "" || getValues("name") === undefined;
 
+  const terminalTypeWriter = (typewriter: TypewriterClass) => {
+    typewriter
+      .pauseFor(200)
+      .typeString(
+        '<br/><span class="text-green-500">$ npm install save-the-date</span>'
+      )
+      .pauseFor(1000)
+      .typeString(
+        '<br/><span class="text-white"><span class="text-green-300">success</span> installed save-the-date</span>'
+      )
+      .pauseFor(500)
+      .typeString(
+        `<br/><span class="text-white"><span class="text-amber-300">⚠️ important</span> ${t(
+          "labelName"
+        )} ✨</span>`
+      )
+      .callFunction(() => {
+        setShowInput(true);
+      })
+      .start();
+  };
+
   return (
     <Layout className="bg-[#e8e8e8]">
       <form
@@ -168,51 +184,19 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
       >
         <div className="m-auto w-full">
           <aside className="bg-black text-white p-6 rounded-lg w-[98%] max-w-lg font-mono min-h-[250px] flex flex-col justify-between mx-1">
-            <div className="flex justify-between items-center">
-              <div className="flex space-x-2 text-red-500">
-                <div className="w-3 h-3 rounded-full bg-red-500" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                <div className="w-3 h-3 rounded-full bg-green-500" />
-              </div>
-              <p className="text-sm">bash</p>
-            </div>
+            <TerminalHeader title="bash" />
             <div className="mt-4">
-              <p className="text-[#5689c0] font-bold -mb-5">
-                ~/Desktop/project/wedding
-              </p>
+              <TerminalRoot />
               <Typewriter
-                onInit={(typewriter) => {
-                  typewriter
-                    .pauseFor(200)
-                    .typeString(
-                      '<br/><span class="text-green-500">$ npm install save-the-date</span>'
-                    )
-                    .pauseFor(1000)
-                    .typeString(
-                      '<br/><span class="text-white"><span class="text-green-300">success</span> installed save-the-date</span>'
-                    )
-                    .pauseFor(500)
-                    .typeString(
-                      `<br/><span class="text-white"><span class="text-amber-300">⚠️ important</span> ${t(
-                        "labelName"
-                      )} ✨</span>`
-                    )
-                    .callFunction(() => {
-                      setShowInput(true);
-                    })
-                    .start();
-                }}
+                onInit={terminalTypeWriter}
                 options={{
-                  delay: 50,
+                  delay: 38,
                   cursor: "█",
                   cursorClassName: "text-white",
                 }}
               />
               {showInput && (
                 <div className="relative mt-2">
-                  <span className="absolute left-0 top-1/2 -translate-y-1/2 pl-2 text-white text-lg">
-                    👉
-                  </span>
                   <input
                     {...nameInput}
                     className="bg-black w-full h-10 font-semibold text-white outline-none placeholder:text-[#989898] pl-8"

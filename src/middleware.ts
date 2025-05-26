@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest) {
         userAgent
       );
 
-    if (!isMobile) {
+    if (!isMobile && process.env.NODE_ENV !== "development") {
       return NextResponse.redirect(new URL("/desktop-warning", request.url));
     }
     return i18nRouter(request, i18nConfig);
