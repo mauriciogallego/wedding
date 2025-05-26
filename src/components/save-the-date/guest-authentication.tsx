@@ -215,10 +215,10 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
 
               {guestFound && (
                 <div className="relative">
-                  <label className="text-amber-300 text-sm mb-1 block tracking-wider">
+                  <label className="text-amber-300 text-sm block tracking-wider mt-4">
                     {t("selectYourName")}
                   </label>
-                  <div className="flex items-center border border-[#5689c0] rounded-md bg-transparent px-2 mt-2">
+                  <div className="flex items-center border border-[#5689c0] rounded-md bg-transparent px-2 mt-3">
                     <svg
                       className="text-[#5689c0] mr-2"
                       width="16"
@@ -251,7 +251,7 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
               )}
 
               {!!guest?.name && (
-                <div className="flex items-center justify-center mt-12">
+                <div className="flex items-center justify-center mt-6">
                   <div className="bg-transparent border border-[#56c071] py-2 px-3">
                     <p className="tracking-wider font-mono text-sm text-[#56c071] font-bold">
                       {t("authenticated")}
@@ -264,7 +264,7 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
                 <button
                   type="submit"
                   disabled={disabled}
-                  className="tracking-wider w-full mt-12 px-4 py-2 font-mono text-[#ffffff] bg-primary rounded-lg hover:bg-primary/90 transition-colors cursor-pointer"
+                  className="tracking-wider w-full mt-6 px-4 py-2 font-mono text-[#ffffff] bg-primary rounded-lg hover:bg-primary/90 transition-colors cursor-pointer"
                 >
                   {guestFound ? t("confirm") : t("continue")}
                 </button>

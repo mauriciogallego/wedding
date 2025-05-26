@@ -177,7 +177,7 @@ const Confirmation = () => {
 
       <motion.section
         ref={formalInvitationRef}
-        className="grid grid-cols-1 justify-items-center gap-2 bg-white opacity-85 py-5"
+        className="grid grid-cols-1 justify-items-center gap-3 bg-white opacity-85 py-5"
         initial={{ opacity: 0, y: 50 }}
         animate={
           isFormalInvitationInView
@@ -191,7 +191,7 @@ const Confirmation = () => {
           y: { duration: 0.6, delay: 0.3 },
         }}
       >
-        <Envelop className="w-6 h-6 my-2" />
+        <Envelop className="w-10 h-10" />
 
         <p className="text-2xl font-sisterhood text-center font-thin tracking-widest text-black pt-7">
           <Trans i18nKey="formalInvitation" />
@@ -212,30 +212,31 @@ const Confirmation = () => {
       <div className="h-[185px]"></div>
 
       <section className="flex flex-col items-center justify-center bg-white opacity-85 space-y-5 py-5">
-        <div>
-          <p className="text-md font-semibold font-sans tracking-widest text-[#5689c0] p-5 text-center">
-            <Trans
-              i18nKey="formQuestion"
-              components={{
-                bold: <strong className="font-bold" />,
-              }}
-            />
-          </p>
+        <p className="text-md font-semibold font-sans tracking-widest text-[#5689c0] p-5 text-center">
+          <Trans
+            i18nKey="formQuestion"
+            components={{
+              bold: <strong className="font-bold" />,
+            }}
+          />
+        </p>
 
-          <p className="text-xs font-light font-sans tracking-wider text-[#5689c0] italic text-center px-1">
+        <div className="space-y-4">
+          <p className="text-xs font-light font-sans tracking-wider text-[#5689c0] italic text-center px-4">
             <Trans
               i18nKey="remember"
               components={{ bold: <strong className="font-bold" /> }}
             />
           </p>
-        </div>
-
-        <div className="flex items-center justify-between gap-4">
-          <Button onClick={() => confirm("confirm")}>
-            {t("yesAttending")}
-          </Button>
-          <Button onClick={() => confirm("decline")}>{t("noAttending")}</Button>
-          <Button onClick={() => confirm("maybe")}>{t("maybe")}</Button>
+          <div className="flex items-center justify-between gap-4">
+            <Button onClick={() => confirm("confirm")}>
+              {t("yesAttending")}
+            </Button>
+            <Button onClick={() => confirm("decline")}>
+              {t("noAttending")}
+            </Button>
+            <Button onClick={() => confirm("maybe")}>{t("maybe")}</Button>
+          </div>
         </div>
 
         {status && (

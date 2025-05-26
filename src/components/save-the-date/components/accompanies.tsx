@@ -85,27 +85,25 @@ export const Accompanies = ({
             <>
               <div className="flex justify-center items-center space-x-3">
                 <Calendar className="w-5 h-5 text-gray-500" />
-                <p className="text-gray-700 font-mono text-md">
-                  <Trans
-                    i18nKey="numberOfPeople"
-                    components={{
-                      bold: (
-                        <strong className="font-sisterhood text-5xl text-gray-700" />
-                      ),
-                    }}
-                    values={{
-                      people:
-                        parseInt(guest.companions) + parseInt(guest.children),
-                    }}
-                  />
+                <p className="text-gray-700 font-mono text-md text-center">
+                  <Trans i18nKey="weHave" />
+                </p>
+                <p className="font-sisterhood text-5xl text-gray-700 text-center">
+                  {parseInt(guest.companions) + parseInt(guest.children)}
+                </p>
+                <p className="text-gray-700 font-mono text-md text-center">
+                  <Trans i18nKey="spaceReserved" />
                 </p>
               </div>
 
               <Select onValueChange={handleNumberOfPeople}>
-                <SelectTrigger className="h-10 text-base text-black bg-gray-100">
-                  <SelectValue placeholder={t("selectNumberOfPeople")} />
+                <SelectTrigger className="h-10 text-base text-black bg-gray-100 border-[#3131318e] outline-none focus:outline-none focus:ring-0">
+                  <SelectValue
+                    placeholder={t("selectNumberOfPeople")}
+                    className="text-[#3131318e] outline-none"
+                  />
                 </SelectTrigger>
-                <SelectContent className="text-black bg-gray-100">
+                <SelectContent className="text-black bg-gray-100 border-none">
                   {Array.from(
                     { length: parseInt(guest.companions) },
                     (_, i) => (
