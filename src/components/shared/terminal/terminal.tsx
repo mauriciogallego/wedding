@@ -16,5 +16,5 @@ export const TerminalHeader = ({ title }: Props) => {
 };
 
 export const TerminalRoot = () => (
-  <p className="text-[#5689c0] font-bold -mb-5">~/Desktop/project/wedding</p>
+  <p className="text-[#6699CC] font-bold -mb-5">~/Desktop/project/wedding</p>
 );

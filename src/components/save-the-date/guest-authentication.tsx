@@ -218,9 +218,9 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
                   <label className="text-amber-300 text-sm block tracking-wider mt-4">
                     {t("selectYourName")}
                   </label>
-                  <div className="flex items-center border border-[#5689c0] rounded-md bg-transparent px-2 mt-3">
+                  <div className="flex items-center border border-[#6699CC] rounded-md bg-transparent px-2 mt-3">
                     <svg
-                      className="text-[#5689c0] mr-2"
+                      className="text-[#6699CC] mr-2"
                       width="16"
                       height="16"
                       viewBox="0 0 24 24"
@@ -234,7 +234,7 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
                     </svg>
                     <select
                       {...guestInputData}
-                      className="bg-transparent border-none text-[#5689c0] font-mono text-sm outline-none w-full p-2"
+                      className="bg-transparent border-none text-[#6699CC] font-mono text-sm outline-none w-full p-2"
                       defaultValue=""
                     >
                       <option value="" disabled>

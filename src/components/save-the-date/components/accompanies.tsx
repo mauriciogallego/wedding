@@ -17,21 +17,27 @@ import { getFirstName } from "@/utils";
 import { Calendar, Terminal } from "lucide-react";
 import { Trans, useTranslation } from "react-i18next";
 import { safeTrack } from "@/utils/mixpanel";
+import { useEffect, useRef } from "react";
 
 const CONFIRM_GUEST = "Si";
 const NUMBER_OF_PEOPLE = 1;
 const STATUS_CONFIRM = "confirm";
 
 export const Accompanies = ({
-  statusRef,
   status,
   guest,
 }: {
-  statusRef: React.RefObject<HTMLDivElement | null>;
   status: StatusGuest;
   guest: Guest;
 }) => {
   const { t } = useTranslation();
+  const statusRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (status && statusRef.current) {
+      statusRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [status]);
 
   const handleNumberOfPeople = (numberOfPeople: any) => {
     safeTrack("Number of people updated", {
@@ -67,10 +73,10 @@ export const Accompanies = ({
   };
 
   return (
-    <section ref={statusRef}>
-      <div className="bg-gray-600 p-6 rounded-lg border border-gray-200 m-2">
+    <section ref={statusRef} className="mt-4">
+      <div className="bg-[#bab8b8] p-6 rounded-lg border border-gray-200 m-2">
         <div className="flex items-center justify-between space-x-2 mb-2">
-          <Terminal className="w-4 h-4 text-white " />
+          <Terminal className="w-4 h-4 text-white" />
           <p className="text-white font-thin italic text-base text-center">
             {confirmations[status]}
           </p>
@@ -97,7 +103,7 @@ export const Accompanies = ({
               </div>
 
               <Select onValueChange={handleNumberOfPeople}>
-                <SelectTrigger className="h-10 text-base text-black bg-gray-100 border-[#3131318e] outline-none focus:outline-none focus:ring-0">
+                <SelectTrigger className="h-10 text-base text-black bg-gray-100 border-[#bab8b8] outline-none focus:outline-none focus:ring-0">
                   <SelectValue
                     placeholder={t("selectNumberOfPeople")}
                     className="text-[#3131318e] outline-none"

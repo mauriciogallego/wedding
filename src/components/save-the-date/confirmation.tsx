@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Typewriter, { TypewriterClass } from "typewriter-effect";
 import { Trans, useTranslation } from "react-i18next";
 import Image from "next/image";
@@ -13,27 +13,23 @@ import { updateSheetData } from "@/services/google-sheets.action";
 import { confirmations } from "@/consts/confirmations";
 import LocationOutline from "@/svg/location-outline";
 import Accompanies from "./components/accompanies";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { safeTrack } from "@/utils/mixpanel";
+import { useFrameMotion } from "@/hooks/use-frame-motion";
 
 const Confirmation = () => {
   const { t } = useTranslation();
   const { guest } = useAppContext();
   const [status, setStatus] = useState<StatusGuest | undefined>(undefined);
   const [isExploding, setIsExploding] = useState(false);
-  const statusRef = useRef<HTMLDivElement>(null);
-
-  const weGotMarriedRef = useRef(null);
-  const isWeGotMarriedInView = useInView(weGotMarriedRef, {
-    once: true,
-    amount: 0.6,
-  });
-
-  const formalInvitationRef = useRef(null);
-  const isFormalInvitationInView = useInView(formalInvitationRef, {
-    once: true,
-    amount: 0.6,
-  });
+  const {
+    weGotMarriedRef,
+    isWeGotMarriedInView,
+    formalInvitationRef,
+    isFormalInvitationInView,
+    formQuestionRef,
+    isFormQuestionInView,
+  } = useFrameMotion();
 
   const typingAction = (typewriter: TypewriterClass, text: string) => {
     typewriter
@@ -75,12 +71,6 @@ const Confirmation = () => {
       companions: guest.plusOne === "Si" ? "1" : undefined,
     });
   };
-
-  useEffect(() => {
-    if (status && statusRef.current) {
-      statusRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-  }, [status]);
 
   useEffect(() => {
     if (isExploding) {
@@ -156,19 +146,19 @@ const Confirmation = () => {
           y: { duration: 0.6, delay: 0.3 },
         }}
       >
-        <p className="text-3xl font-sisterhood font-thin tracking-widest text-black pt-7 pb-2">
+        <p className="text-3xl font-sisterhood font-thin tracking-widest text-[#bab8b8] pt-7 pb-2">
           <Trans i18nKey="weGotMarried" />
         </p>
 
-        <Ring className="w-6 h-6 my-2" />
+        <Ring className="w-6 h-6 my-2 fill-[#bab8b8]" />
 
-        <p className="text-md italic font-sans font-light tracking-widest text-[#5689c0] p-5 text-center">
+        <p className="text-md italic font-sans font-light tracking-widest text-[#6699CC] p-5 text-center">
           <Trans
             i18nKey="messageDate"
             components={{ bold: <strong className="font-bold" /> }}
           />
         </p>
-        <p className="text-md italic font-sans font-light tracking-widest text-[#5689c0] p-5 text-center">
+        <p className="text-md italic font-sans font-light tracking-widest text-black p-5 text-center">
           <Trans i18nKey="message" />
         </p>
       </motion.section>
@@ -177,7 +167,7 @@ const Confirmation = () => {
 
       <motion.section
         ref={formalInvitationRef}
-        className="grid grid-cols-1 justify-items-center gap-3 bg-white opacity-85 py-5"
+        className="grid grid-cols-1 justify-items-center gap-2 bg-white opacity-85 py-5"
         initial={{ opacity: 0, y: 50 }}
         animate={
           isFormalInvitationInView
@@ -191,28 +181,44 @@ const Confirmation = () => {
           y: { duration: 0.6, delay: 0.3 },
         }}
       >
-        <Envelop className="w-10 h-10" />
+        <Envelop className="w-8 h-8" />
 
-        <p className="text-2xl font-sisterhood text-center font-thin tracking-widest text-black pt-7">
+        <p className="text-2xl font-sisterhood text-center font-thin tracking-widest text-[#bab8b8] pt-7">
           <Trans i18nKey="formalInvitation" />
         </p>
-        <p className="text-5xl font-sisterhood text-center font-thin tracking-widest text-black pt-4 pb-3">
+        <p className="text-5xl font-sisterhood text-center font-thin tracking-widest text-[#bab8b8] pt-4 pb-3">
           <Trans i18nKey="soon" />
         </p>
 
-        <p className="text-3xl font-sisterhood font-thin text-center tracking-widest text-black pt-1 pb-3">
+        <p className="text-3xl font-sisterhood font-thin text-center tracking-widest text-[#bab8b8] pt-1 pb-3">
           <Trans
             i18nKey="addressToSend"
             values={{ name: guest.invitationName }}
             components={{ font: <span className="font-sans text-xl" /> }}
           />
         </p>
+        <span className="font-light font-sans text-black text-xl tracking-widest text-center">
+          {guest.invitationName}
+        </span>
       </motion.section>
 
       <div className="h-[185px]"></div>
 
-      <section className="flex flex-col items-center justify-center bg-white opacity-85 space-y-5 py-5">
-        <p className="text-md font-semibold font-sans tracking-widest text-[#5689c0] p-5 text-center">
+      <motion.section
+        ref={formQuestionRef}
+        className="grid grid-cols-1 justify-items-center gap-2 bg-white opacity-85 py-5"
+        initial={{ opacity: 0, y: 50 }}
+        animate={
+          isFormQuestionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }
+        }
+        transition={{
+          duration: 0.5,
+          ease: "easeInOut",
+          opacity: { duration: 0.6 },
+          y: { duration: 0.6, delay: 0.3 },
+        }}
+      >
+        <p className="text-md font-semibold font-sans tracking-widest text-[#6699CC] p-5 text-center">
           <Trans
             i18nKey="formQuestion"
             components={{
@@ -222,7 +228,7 @@ const Confirmation = () => {
         </p>
 
         <div className="space-y-4">
-          <p className="text-xs font-light font-sans tracking-wider text-[#5689c0] italic text-center px-4">
+          <p className="text-xs font-light font-sans tracking-wider text-[#bab8b8] italic text-center px-4">
             <Trans
               i18nKey="remember"
               components={{ bold: <strong className="font-bold" /> }}
@@ -239,20 +245,19 @@ const Confirmation = () => {
           </div>
         </div>
 
-        {status && (
-          <Accompanies statusRef={statusRef} status={status} guest={guest} />
-        )}
-      </section>
+        {status && <Accompanies status={status} guest={guest} />}
+      </motion.section>
       {isExploding && (
         <Confetti
           mode="boom"
-          particleCount={250}
-          shapeSize={15}
-          y={0.1}
-          launchSpeed={0.5}
+          colors={["#F8C3CD", "#E0B0D5", "#FFFDD0"]}
+          particleCount={150}
+          shapeSize={35}
+          y={0.3}
+          launchSpeed={0.9}
           spreadDeg={360}
-          effectInterval={0.01}
-          effectCount={10}
+          effectInterval={0.02}
+          effectCount={20}
         />
       )}
     </motion.div>

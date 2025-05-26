@@ -1,5 +1,5 @@
 {
-  "addressToSend": "to the name of: <br/> <font>{{name}}</font>",
+  "addressToSend": "to the name of:",
   "authenticated": "Authenticated",
   "child": "child",
   "children": "children",
