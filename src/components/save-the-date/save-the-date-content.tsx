@@ -7,17 +7,18 @@ import { Stepper } from "@/components/shared/stepper/stepper";
 import Confirmation from "./confirmation";
 import { useAppContext } from "@/providers/app-context";
 
-export const SaveTheDateContent = ({
-  initialData,
-}: {
+type Props = {
   initialData: {
     name: string;
     plusOne: string;
     children: string;
     companions: string;
+    invitationName: string;
     row: number;
   }[];
-}) => {
+};
+
+export const SaveTheDateContent = ({ initialData }: Props) => {
   const [currentStep, setCurrentStep] = useState(0);
   const { setSheetData } = useAppContext();
 

@@ -201,7 +201,7 @@ const Confirmation = () => {
         <p className="text-3xl font-sisterhood font-thin text-center tracking-widest text-black pt-1 pb-3">
           <Trans
             i18nKey="addressToSend"
-            values={{ name: guest.name }}
+            values={{ name: guest.invitationName }}
             components={{ font: <span className="font-sans text-xl" /> }}
           />
         </p>

@@ -12,6 +12,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     companions: "",
     plusOne: "",
     children: "",
+    invitationName: "",
     row: 0,
   });
 

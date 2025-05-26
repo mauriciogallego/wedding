@@ -18,6 +18,7 @@ export type Guest = {
   companions: string;
   plusOne: string;
   children: string;
+  invitationName: string;
   row: number;
 };
 

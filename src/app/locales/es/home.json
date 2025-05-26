@@ -1,5 +1,5 @@
 {
-  "addressToSend": "a nombre de: <font>{{name}}</font>",
+  "addressToSend": "a nombre de: <br/> <font>{{name}}</font>",
   "authenticated": "Autenticado",
   "choose": "Selecciona",
   "confirm": "Confirmar",
@@ -19,7 +19,7 @@
   "messageDate": "<bold>El 21 de marzo de 2026</bold> nos casamos en <bold>La Paz. Bolivia</bold>",
   "name": "Nombre",
   "no": "No",
-  "noAttending": "No podre asistir",
+  "noAttending": "No asistiré",
   "placeholderName": "Escribe aquí..",
   "plusOne": "<bold>{{name}}</bold>, ¿Vienes con un acompañante? 👀",
   "remember": "<bold>Recuerda:</bold> puedes cambiar tu respuesta antes del <bold>20 de diciembre de 2025</bold>.",

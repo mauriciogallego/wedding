@@ -3,6 +3,11 @@
 import { google } from "googleapis";
 import { GoogleAuth } from "@/types";
 
+interface SheetColumn {
+  range: string;
+  key: string;
+}
+
 let glAuth: GoogleAuth;
 
 async function getGlAuth() {
@@ -24,26 +29,45 @@ async function getGlAuth() {
   return glAuth;
 }
 
+const REQUIRED_COLUMNS: SheetColumn[] = [
+  { range: "invites!B2:B293", key: "name" },
+  { range: "invites!D2:D293", key: "companions" },
+  { range: "invites!E2:E293", key: "children" },
+  { range: "invites!F2:F293", key: "plusOne" },
+  { range: "invites!M2:M293", key: "invitationName" },
+];
+
+async function fetchColumnData(glSheets: any, column: SheetColumn) {
+  const response = await glSheets.spreadsheets.values.get({
+    spreadsheetId: process.env.GOOGLE_SHEET_ID,
+    range: column.range,
+  });
+  return response.data.values || [];
+}
+
+function combineColumnData(columnsData: string[][], rowCount: number) {
+  return Array.from({ length: rowCount }, (_, index) => ({
+    name: columnsData[0][index]?.[0] || "",
+    companions: columnsData[1][index]?.[0] || "",
+    children: columnsData[2][index]?.[0] || "",
+    plusOne: columnsData[3][index]?.[0] || "",
+    invitationName: columnsData[4][index]?.[0] || "",
+    row: index + 2,
+  }));
+}
+
 export default async function getSheetData() {
   const glAuth = await getGlAuth();
-
   const glSheets = google.sheets({ version: "v4", auth: glAuth });
 
-  const { data } = await glSheets.spreadsheets.values.get({
-    spreadsheetId: process.env.GOOGLE_SHEET_ID,
-    range: "invites!B2:G293",
-  });
+  const columnsData = await Promise.all(
+    REQUIRED_COLUMNS.map((column) => fetchColumnData(glSheets, column))
+  );
 
-  return {
-    data:
-      data.values?.map((value, index) => ({
-        name: value[0],
-        plusOne: value[4],
-        children: value[3],
-        companions: value[2],
-        row: index + 2,
-      })) || [],
-  };
+  const rowCount = columnsData[0].length;
+  const combinedData = combineColumnData(columnsData, rowCount);
+
+  return { data: combinedData };
 }
 
 export async function updateSheetData(guest: { row: number; status: string }) {

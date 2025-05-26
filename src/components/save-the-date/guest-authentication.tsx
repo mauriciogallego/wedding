@@ -88,6 +88,7 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
           plusOne: guest.plusOne || "",
           children: guest.children || "",
           row: guest.row || 0,
+          invitationName: guest.invitationName || "",
         });
         timeoutRef.current = setTimeout(moveNextStep, 500);
       }
@@ -136,6 +137,7 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
           plusOne: guest.plusOne || "",
           children: guest.children || "",
           row: guest.row || 0,
+          invitationName: guest.invitationName || "",
         });
         timeoutRef.current = setTimeout(moveNextStep, 2000);
       }
