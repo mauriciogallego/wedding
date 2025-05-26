@@ -34,7 +34,7 @@ const REQUIRED_COLUMNS: SheetColumn[] = [
   { range: "invites!D2:D293", key: "companions" },
   { range: "invites!E2:E293", key: "children" },
   { range: "invites!F2:F293", key: "plusOne" },
-  { range: "invites!M2:M293", key: "invitationName" },
+  { range: "invites!N2:N293", key: "invitationName" },
 ];
 
 async function fetchColumnData(glSheets: any, column: SheetColumn) {

@@ -116,7 +116,7 @@ export const Accompanies = ({
                   )}
                 </SelectContent>
               </Select>
-              {guest.children.length > 0 && (
+              {parseInt(guest.children) > 0 && (
                 <Select onValueChange={handleNumberOfChildren}>
                   <SelectTrigger className="h-10 text-base text-black bg-gray-100">
                     <SelectValue placeholder={t("selectNumberOfChildren")} />
