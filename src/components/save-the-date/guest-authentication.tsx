@@ -166,7 +166,7 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
       )
       .pauseFor(500)
       .typeString(
-        `<br/><span class="text-white"><span class="text-amber-300">⚠️ important</span> ${t(
+        `<br/><span class="text-white font-bold"><span class="text-amber-300">⚠️ important</span> ${t(
           "labelName"
         )} ✨</span>`
       )
@@ -199,7 +199,7 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
                 <div className="relative mt-2">
                   <input
                     {...nameInput}
-                    className="bg-black w-full h-10 font-semibold text-white outline-none placeholder:text-[#989898] pl-8"
+                    className="bg-black w-full h-10 font-semibold text-white outline-none placeholder:text-[#989898] pl-2"
                     placeholder={t("placeholderName") || "Ej: Juan Pérez"}
                     autoFocus
                     inputMode="text"
