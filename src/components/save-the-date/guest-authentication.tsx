@@ -92,17 +92,17 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
     safeTrack("Find guest", {
       name: data.name,
     });
-
     const normalizedName = normalizeName(data.name);
     const value = normalizedName.trim().split(" ").filter(Boolean);
     if (value.length === 0) return;
 
     const guestFound: string[] = [];
     const exactMatches: string[] = [];
-
     for (const invite of invites) {
       if (!invite) continue;
-      const inviteLower = invite.map((word) => word.toLowerCase());
+      const inviteLower = invite.map((word) =>
+        normalizeName(word.toLowerCase())
+      );
       const isExactMatch = inviteLower.join(" ") === value.join(" ");
 
       if (isExactMatch) {
@@ -111,7 +111,7 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
       }
 
       const matches = invite.filter((word: string) =>
-        value.includes(word.toLowerCase())
+        value.includes(normalizeName(word.toLowerCase()))
       ).length;
 
       const matchRatio = matches / invite.length;
