@@ -1,4 +1,3 @@
-import Checkbox from "@/components/shared/checkbox/checkbox";
 import {
   Select,
   SelectContent,
@@ -14,10 +13,11 @@ import {
 } from "@/services/google-sheets.action";
 import { Guest, StatusGuest } from "@/types";
 import { getFirstName } from "@/utils";
-import { Calendar, Terminal } from "lucide-react";
+import { Calendar, Loader2, Terminal } from "lucide-react";
 import { Trans, useTranslation } from "react-i18next";
 import { safeTrack } from "@/utils/mixpanel";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Button } from "@/components/shared/button/Button";
 
 const CONFIRM_GUEST = "Si";
 const NUMBER_OF_PEOPLE = 1;
@@ -31,46 +31,80 @@ export const Accompanies = ({
   guest: Guest;
 }) => {
   const { t } = useTranslation();
+  const [saved, setSaved] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [values, setValues] = useState({
+    numberOfPeople: "0",
+    numberOfChildren: "0",
+    plusOne: "0",
+  });
   const statusRef = useRef<HTMLDivElement>(null);
+
+  const handleNumberOfPeople = (numberOfPeople: string) => {
+    safeTrack("Number of people updated", {
+      guest: guest.name,
+      numberOfPeople: numberOfPeople,
+    });
+    setValues({
+      ...values,
+      numberOfPeople: numberOfPeople,
+    });
+    return;
+  };
+
+  const handlePlusOne = (plusOne: string) => {
+    safeTrack("Attend with a plus", {
+      guest: guest.name,
+      plusOne: plusOne,
+    });
+    setValues({
+      ...values,
+      plusOne: plusOne,
+    });
+  };
+
+  const handleNumberOfChildren = (numberOfChildren: string) => {
+    safeTrack("Attend with a plus - Number of children updated", {
+      guest: guest.name,
+      numberOfChildren: numberOfChildren,
+    });
+    setValues({
+      ...values,
+      numberOfChildren: numberOfChildren,
+    });
+  };
+
+  const handleConfirm = async () => {
+    setLoading(true);
+    safeTrack("Confirm attendance", {
+      guest: guest.name,
+    });
+
+    const promises = [
+      updateNumberOfPeople({
+        row: guest.row,
+        companions: values.numberOfPeople,
+      }),
+      updatePlusOne({
+        row: guest.row,
+        plusOne: values.plusOne,
+      }),
+      updateNumberOfChildren({
+        row: guest.row,
+        children: values.numberOfChildren,
+      }),
+    ];
+
+    await Promise.all(promises);
+    setSaved(true);
+    setLoading(false);
+  };
 
   useEffect(() => {
     if (status && statusRef.current) {
       statusRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   }, [status]);
-
-  const handleNumberOfPeople = (numberOfPeople: any) => {
-    safeTrack("Number of people updated", {
-      guest: guest.name,
-      numberOfPeople: numberOfPeople.toString(),
-    });
-    return updateNumberOfPeople({
-      row: guest.row,
-      companions: numberOfPeople.toString(),
-    });
-  };
-
-  const handlePlusOne = (plusOne: any) => {
-    safeTrack("Attend with a plus", {
-      guest: guest.name,
-      plusOne: plusOne.toString(),
-    });
-    return updatePlusOne({
-      row: guest.row,
-      plusOne: plusOne.toString(),
-    });
-  };
-
-  const handleNumberOfChildren = (numberOfChildren: any) => {
-    safeTrack("Attend with a plus - Number of children updated", {
-      guest: guest.name,
-      numberOfChildren: numberOfChildren.toString(),
-    });
-    return updateNumberOfChildren({
-      row: guest.row,
-      children: numberOfChildren.toString(),
-    });
-  };
 
   return (
     <section ref={statusRef} className="mt-4">
@@ -102,8 +136,8 @@ export const Accompanies = ({
                 </p>
               </div>
 
-              <Select onValueChange={handleNumberOfPeople}>
-                <SelectTrigger className="h-10 text-base text-black bg-gray-100 border-[#bab8b8] outline-none focus:outline-none focus:ring-0">
+              <Select onValueChange={handleNumberOfPeople} disabled={loading}>
+                <SelectTrigger className="h-10 text-base text-black bg-gray-100 border-[#bab8b8] outline-none focus:outline-none focus:ring-0 w-1/2">
                   <SelectValue
                     placeholder={t("selectNumberOfPeople")}
                     className="text-[#3131318e] outline-none"
@@ -114,23 +148,29 @@ export const Accompanies = ({
                     { length: parseInt(guest.companions) },
                     (_, i) => (
                       <SelectItem key={i} value={(i + 1).toString()}>
-                        {i + 1} persona
+                        {i + 1} {t("person")}
                       </SelectItem>
                     )
                   )}
                 </SelectContent>
               </Select>
               {parseInt(guest.children) > 0 && (
-                <Select onValueChange={handleNumberOfChildren}>
-                  <SelectTrigger className="h-10 text-base text-black bg-gray-100">
-                    <SelectValue placeholder={t("selectNumberOfChildren")} />
+                <Select
+                  onValueChange={handleNumberOfChildren}
+                  disabled={loading}
+                >
+                  <SelectTrigger className="h-10 text-base text-black bg-gray-100 border-[#bab8b8] outline-none focus:outline-none focus:ring-0 w-1/2">
+                    <SelectValue
+                      placeholder={t("selectNumberOfChildren")}
+                      className="text-[#3131318e] outline-none"
+                    />
                   </SelectTrigger>
                   <SelectContent className="text-black bg-gray-100">
                     {Array.from(
                       { length: parseInt(guest.children) },
                       (_, i) => (
                         <SelectItem key={i} value={(i + 1).toString()}>
-                          {i + 1} niño
+                          {i + 1} {t("child")}
                         </SelectItem>
                       )
                     )}
@@ -152,9 +192,33 @@ export const Accompanies = ({
                   values={{ name: getFirstName(guest.name) }}
                 />
               </p>
-              <Checkbox handleChange={handlePlusOne} />
+              <Select onValueChange={handlePlusOne} disabled={loading}>
+                <SelectTrigger className="h-10 text-base text-black bg-gray-100 border-[#bab8b8] outline-none focus:outline-none focus:ring-0 w-1/2">
+                  <SelectValue
+                    placeholder={t("selectPlusOne")}
+                    className="text-[#3131318e] outline-none"
+                  />
+                </SelectTrigger>
+                <SelectContent className="text-black bg-gray-100">
+                  <SelectItem value="1">{t("yes")}</SelectItem>
+                  <SelectItem value="0">{t("no")}</SelectItem>
+                </SelectContent>
+              </Select>
             </>
           )}
+          <div className="flex flex-col justify-center items-center space-x-3">
+            <Button onClick={handleConfirm} disabled={loading}>
+              {t("saveAnswer")}
+            </Button>
+            {saved && (
+              <p className="text-gray-700 font-mono text-xs text-center">
+                {t("answerSaved")}
+              </p>
+            )}
+            {loading && (
+              <Loader2 className="w-4 h-4 text-gray-500 animate-spin" />
+            )}
+          </div>
         </div>
       )}
     </section>

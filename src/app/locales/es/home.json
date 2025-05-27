@@ -22,15 +22,15 @@
   "name": "Nombre",
   "no": "No",
   "noAttending": "No asistiré",
-  "people": "personas",
-  "person": "persona",
+  "person": "Adulto",
   "placeholderName": "Escribe aquí..",
   "plusOne": "<bold>{{name}}</bold>, ¿Vienes con un acompañante? 👀",
   "remember": "<bold>Recuerda:</bold> puedes cambiar tu respuesta <br/> <bold>hasta el 10 de diciembre de 2025</bold>.",
   "saveDate": "Guarda la fecha",
   "select": "Selecciona una opción",
   "selectNumberOfChildren": "Niños < 7 años",
-  "selectNumberOfPeople": "Personas",
+  "selectNumberOfPeople": "Adultos",
+  "selectPlusOne": "Acompañante",
   "selectYourName": "Selecciona tu nombre en la lista",
   "soon": "Proximamente",
   "spaceReserved": "espacios reservados",
@@ -40,5 +40,7 @@
   "weddingNames": "Kiana & Mauricio",
   "where": "¿Donde?",
   "yes": "Si",
-  "yesAttending": "Asistiré"
+  "yesAttending": "Asistiré",
+  "saveAnswer": "Guardar respuesta",
+  "answerSaved": "Respuesta guardada"
 }

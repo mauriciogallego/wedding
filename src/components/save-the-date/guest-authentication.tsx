@@ -184,7 +184,7 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
       >
         <div className="m-auto w-full">
           <aside className="bg-black text-white p-6 rounded-lg w-[98%] max-w-lg font-mono min-h-[250px] flex flex-col justify-between mx-1">
-            <TerminalHeader title="bash" />
+            <TerminalHeader title={t("wedding")} />
             <div className="mt-4">
               <TerminalRoot />
               <Typewriter

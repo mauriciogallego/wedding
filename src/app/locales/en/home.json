@@ -22,15 +22,15 @@
   "name": "Name",
   "no": "No",
   "noAttending": "I can't",
-  "people": "people",
-  "person": "person",
+  "person": "Adult",
   "placeholderName": "Type here..",
-  "plusOne": "{{name}}, Will you attend with a plus one? 👀",
+  "plusOne": "<bold>{{name}}</bold>, Will you attend with a plus one? 👀",
   "remember": "<bold>Remember:</bold> you can change your answer until <br/> <bold>December 10th, 2025</bold>.",
   "saveDate": "Save the date",
   "select": "Select an option",
   "selectNumberOfChildren": "Children < 7 years",
-  "selectNumberOfPeople": "People",
+  "selectNumberOfPeople": "Adults",
+  "selectPlusOne": "Plus one",
   "selectYourName": "Select your name from the list",
   "soon": "To follow",
   "spaceReserved": "spaces reserved",
@@ -40,5 +40,7 @@
   "weddingNames": "Kiana & Mauricio",
   "where": "Where?",
   "yes": "Yes",
-  "yesAttending": "I'll attend"
+  "yesAttending": "I'll attend",
+  "saveAnswer": "Save answer",
+  "answerSaved": "Answer saved"
 }

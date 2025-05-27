@@ -28,6 +28,10 @@
 
 .btn-31:disabled {
   cursor: default;
+  opacity: 0.5;
+  pointer-events: none;
+  background-color: #000;
+  color: #fff;
 }
 
 .btn-31:-moz-focusring {

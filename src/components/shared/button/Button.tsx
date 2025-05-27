@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import "./Button.css";
+
 interface Props {
   children: ReactNode;
   onClick: () => void;
