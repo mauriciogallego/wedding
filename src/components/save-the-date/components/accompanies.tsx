@@ -106,6 +106,18 @@ export const Accompanies = ({
     }
   }, [status]);
 
+  useEffect(() => {
+    return () => {
+      setSaved(false);
+      setLoading(false);
+      setValues({
+        numberOfPeople: "0",
+        numberOfChildren: "0",
+        plusOne: "0",
+      });
+    };
+  }, []);
+
   return (
     <section ref={statusRef} className="mt-4">
       <div className="bg-[#bab8b8] p-6 rounded-lg border border-gray-200 m-2">

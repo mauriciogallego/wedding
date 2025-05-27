@@ -1,5 +1,6 @@
 {
   "addressToSend": "to the name of:",
+  "answerSaved": "Answer saved",
   "authenticated": "Authenticated",
   "child": "child",
   "children": "children",
@@ -10,7 +11,7 @@
   "date": "March 21, 2026",
   "declineMessage": "We will miss you, but if you still want to participate virtually, we will share a link where the ceremony will be broadcasted",
   "formErrorMessage": "We couldn't find your name on the guest list, please check that you have written it correctly.",
-  "formQuestion": "Although we are still planning some details, we want to know if you will attend our wedding.",
+  "formQuestion": "We are still planning some details, we want to know if you will attend our wedding.",
   "formalInvitation": "Formal Invitation",
   "labelName": "type your name and last name",
   "loading": "Loading",
@@ -26,6 +27,7 @@
   "placeholderName": "Type here..",
   "plusOne": "<bold>{{name}}</bold>, Will you attend with a plus one? 👀",
   "remember": "<bold>Remember:</bold> you can change your answer until <br/> <bold>December 10th, 2025</bold>.",
+  "saveAnswer": "Save answer",
   "saveDate": "Save the date",
   "select": "Select an option",
   "selectNumberOfChildren": "Children < 7 years",
@@ -40,7 +42,5 @@
   "weddingNames": "Kiana & Mauricio",
   "where": "Where?",
   "yes": "Yes",
-  "yesAttending": "I'll attend",
-  "saveAnswer": "Save answer",
-  "answerSaved": "Answer saved"
+  "yesAttending": "I'll attend"
 }

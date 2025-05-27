@@ -16,11 +16,14 @@ import Accompanies from "./components/accompanies";
 import { motion } from "framer-motion";
 import { safeTrack } from "@/utils/mixpanel";
 import { useFrameMotion } from "@/hooks/use-frame-motion";
+import { Loader2 } from "lucide-react";
 
 const Confirmation = () => {
   const { t } = useTranslation();
   const { guest } = useAppContext();
   const [status, setStatus] = useState<StatusGuest | undefined>(undefined);
+  const [saved, setSaved] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [isExploding, setIsExploding] = useState(false);
   const {
     weGotMarriedRef,
@@ -40,8 +43,10 @@ const Confirmation = () => {
       .start();
   };
 
-  const confirm = (status: StatusGuest) => {
+  const confirm = async (status: StatusGuest) => {
+    setLoading(true);
     setStatus(status);
+
     if (status === "confirm") {
       safeTrack("I will attend", {
         guest: guest?.name,
@@ -64,12 +69,18 @@ const Confirmation = () => {
       });
     }
 
-    updateSheetData({
+    await updateSheetData({
       row: guest.row,
       status: confirmations[status],
       // amount of people will be 1 if plus one is yes
       companions: guest.plusOne === "Si" ? "1" : undefined,
     });
+
+    setSaved(true);
+    setTimeout(() => {
+      setSaved(false);
+    }, 3000);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -234,14 +245,35 @@ const Confirmation = () => {
               components={{ bold: <strong className="font-bold" /> }}
             />
           </p>
+          <div className="flex items-center justify-center gap-2">
+            {saved && (
+              <p className="text-gray-700 font-mono text-xs text-center">
+                {t("answerSaved")}
+              </p>
+            )}
+            {loading && (
+              <Loader2 className="w-4 h-4 text-gray-500 text-center animate-spin" />
+            )}
+          </div>
           <div className="flex items-center justify-between gap-4">
-            <Button onClick={() => confirm("confirm")}>
+            <Button
+              onClick={() => confirm("confirm")}
+              disabled={saved || loading}
+            >
               {t("yesAttending")}
             </Button>
-            <Button onClick={() => confirm("decline")}>
+            <Button
+              onClick={() => confirm("decline")}
+              disabled={saved || loading}
+            >
               {t("noAttending")}
             </Button>
-            <Button onClick={() => confirm("maybe")}>{t("maybe")}</Button>
+            <Button
+              onClick={() => confirm("maybe")}
+              disabled={saved || loading}
+            >
+              {t("maybe")}
+            </Button>
           </div>
         </div>
 

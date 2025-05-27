@@ -1,5 +1,6 @@
 {
   "addressToSend": "a nombre de:",
+  "answerSaved": "Respuesta guardada",
   "authenticated": "Autenticado",
   "child": "niño",
   "children": "niños",
@@ -10,7 +11,7 @@
   "date": "21 de marzo, 2026",
   "declineMessage": "Te extrañaremos, pero si de todas formas quieres participar de manera virtual, compartiremos un link donde se transmitirá la ceremonia",
   "formErrorMessage": "No hemos encontrado tu nombre en la lista de invitados, por favor verifica que lo hayas escrito correctamente.",
-  "formQuestion": "Aún estamos planeando algunos detalles, pero queremos saber si podrás acompañarnos",
+  "formQuestion": "Aún estamos planeando algunos detalles, pero queremos saber si podrás acompañarnos.",
   "formalInvitation": "Invitación Formal",
   "labelName": "escribe tu nombre y apellido",
   "loading": "Cargando",
@@ -26,6 +27,7 @@
   "placeholderName": "Escribe aquí..",
   "plusOne": "<bold>{{name}}</bold>, ¿Vienes con un acompañante? 👀",
   "remember": "<bold>Recuerda:</bold> puedes cambiar tu respuesta <br/> <bold>hasta el 10 de diciembre de 2025</bold>.",
+  "saveAnswer": "Guardar respuesta",
   "saveDate": "Guarda la fecha",
   "select": "Selecciona una opción",
   "selectNumberOfChildren": "Niños < 7 años",
@@ -40,7 +42,5 @@
   "weddingNames": "Kiana & Mauricio",
   "where": "¿Dónde?",
   "yes": "Sí",
-  "yesAttending": "Asistiré",
-  "saveAnswer": "Guardar respuesta",
-  "answerSaved": "Respuesta guardada"
+  "yesAttending": "Asistiré"
 }
