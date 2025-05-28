@@ -113,7 +113,7 @@ export async function updateNumberOfPeople(guest: {
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
       range: `invites!H${guest.row}:H${guest.row}`,
       valueInputOption: "RAW",
-      requestBody: { values: [[guest.companions]] },
+      requestBody: { values: [[parseInt(guest.companions)]] },
     });
   } catch (error) {
     console.error(error);
@@ -133,7 +133,7 @@ export async function updateNumberOfChildren(guest: {
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
       range: `invites!I${guest.row}:I${guest.row}`,
       valueInputOption: "RAW",
-      requestBody: { values: [[guest.children]] },
+      requestBody: { values: [[parseInt(guest.children)]] },
     });
   } catch (error) {
     console.error(error);
@@ -150,7 +150,7 @@ export async function updatePlusOne(guest: { row: number; plusOne: string }) {
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
       range: `invites!J${guest.row}:J${guest.row}`,
       valueInputOption: "RAW",
-      requestBody: { values: [[guest.plusOne]] },
+      requestBody: { values: [[parseInt(guest.plusOne)]] },
     });
   } catch (error) {
     console.error(error);
