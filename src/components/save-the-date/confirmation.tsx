@@ -208,6 +208,12 @@ const Confirmation = () => {
         <span className="font-light font-sans text-black text-xl tracking-widest text-center">
           {guest.invitationName}
         </span>
+        <span className="font-light font-sans text-black text-xs tracking-widest text-center">
+          {guest.plusOne === "Si" ? `${t("withCompanion")}` : undefined}
+          {guest.companions > "1"
+            ? `${guest.companions} ${t("companions")}`
+            : undefined}
+        </span>
       </motion.section>
 
       <div className="h-[185px]"></div>
