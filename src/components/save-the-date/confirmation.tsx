@@ -257,18 +257,21 @@ const Confirmation = () => {
           </div>
           <div className="flex items-center justify-between gap-4">
             <Button
+              data-testid="attend-button"
               onClick={() => confirm("confirm")}
               disabled={saved || loading}
             >
               {t("yesAttending")}
             </Button>
             <Button
+              data-testid="decline-button"
               onClick={() => confirm("decline")}
               disabled={saved || loading}
             >
               {t("noAttending")}
             </Button>
             <Button
+              data-testid="maybe-button"
               onClick={() => confirm("maybe")}
               disabled={saved || loading}
             >
@@ -281,6 +284,7 @@ const Confirmation = () => {
       </motion.section>
       {isExploding && (
         <Confetti
+          data-testid="confetti"
           mode="boom"
           colors={["#F8C3CD", "#E0B0D5", "#FFFDD0"]}
           particleCount={150}

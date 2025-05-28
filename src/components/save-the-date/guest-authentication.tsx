@@ -177,101 +177,108 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
   };
 
   return (
-    <Layout className="bg-[#e8e8e8]">
+    <Layout className="bg-slate-200">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full space-y-6 flex flex-col items-center justify-center"
+        className="bg-black text-white p-6 rounded-lg w-[96%] max-w-lg font-mono min-h-[250px] flex flex-col justify-between shadow-[0_0_15px_rgba(0,0,0,0.5)] relative z-10"
       >
-        <div className="m-auto w-full">
-          <aside className="bg-black text-white p-6 rounded-lg w-[98%] max-w-lg font-mono min-h-[250px] flex flex-col justify-between mx-1">
-            <TerminalHeader title={t("wedding")} />
-            <div className="mt-4">
-              <TerminalRoot />
-              <Typewriter
-                onInit={terminalTypeWriter}
-                options={{
-                  delay: 38,
-                  cursor: "█",
-                  cursorClassName: "text-white",
-                }}
-              />
-              {showInput && (
-                <div className="relative mt-2">
-                  <input
-                    {...nameInput}
-                    className="bg-black w-full h-10 font-semibold text-white outline-none placeholder:text-[#989898] pl-2 [caret:white block]"
-                    placeholder={t("placeholderName") || "Ej: Juan Pérez"}
-                    autoFocus
-                    inputMode="text"
-                  />
-                </div>
-              )}
+        <aside>
+          <TerminalHeader title={t("wedding")} />
+          <div className="mt-4">
+            <TerminalRoot />
+            <Typewriter
+              onInit={terminalTypeWriter}
+              options={{
+                delay: 38,
+                cursor: "█",
+                cursorClassName: "text-white",
+              }}
+            />
+            {showInput && (
+              <div className="relative mt-2">
+                <input
+                  {...nameInput}
+                  data-testid="guest-name-input"
+                  className="bg-black w-full h-10 font-semibold text-white outline-none placeholder:text-[#989898] pl-2 [caret:white block]"
+                  placeholder={t("placeholderName") || "Ej: Juan Pérez"}
+                  autoFocus
+                  inputMode="text"
+                />
+              </div>
+            )}
 
-              {errors.name && (
-                <p className="text-red-500 font-semibold">
-                  {errors.name.message}
-                </p>
-              )}
+            {errors.name && (
+              <p
+                data-testid="error-message"
+                className="text-red-500 font-semibold"
+              >
+                {errors.name.message}
+              </p>
+            )}
 
-              {guestFound && (
-                <div className="relative">
-                  <label className="text-amber-300 text-sm block tracking-wider mt-4">
-                    {t("selectYourName")}
-                  </label>
-                  <div className="flex items-center border border-[#6699CC] rounded-md bg-transparent px-2 mt-3">
-                    <svg
-                      className="text-[#6699CC] mr-2"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M4 17l6-6-6-6M12 19h8"></path>
-                    </svg>
-                    <select
-                      {...guestInputData}
-                      className="bg-transparent border-none text-[#6699CC] font-mono text-sm outline-none w-full p-2"
-                      defaultValue=""
-                    >
-                      <option value="" disabled>
-                        {t("select")}
+            {guestFound && (
+              <div className="relative">
+                <label className="text-amber-300 text-sm block tracking-wider mt-4">
+                  {t("selectYourName")}
+                </label>
+                <div className="flex items-center border border-[#6699CC] rounded-md bg-transparent px-2 mt-3">
+                  <svg
+                    className="text-[#6699CC] mr-2"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M4 17l6-6-6-6M12 19h8"></path>
+                  </svg>
+                  <select
+                    {...guestInputData}
+                    data-testid="guest-select"
+                    className="bg-transparent border-none text-[#6699CC] font-mono text-sm outline-none w-full p-2"
+                    defaultValue=""
+                  >
+                    <option value="" disabled>
+                      {t("select")}
+                    </option>
+                    {guestFound.map((guest, index) => (
+                      <option key={index} value={guest}>
+                        {guest}
                       </option>
-                      {guestFound.map((guest, index) => (
-                        <option key={index} value={guest}>
-                          {guest}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                    ))}
+                  </select>
                 </div>
-              )}
+              </div>
+            )}
 
-              {!!guest?.name && (
-                <div className="flex items-center justify-center mt-6">
-                  <div className="bg-transparent border border-[#56c071] py-2 px-3">
-                    <p className="tracking-wider font-mono text-sm text-[#56c071] font-bold">
-                      {t("authenticated")}
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              {showInput && !guest?.name && (
-                <button
-                  type="submit"
-                  disabled={disabled}
-                  className="tracking-wider w-full mt-6 px-4 py-2 font-mono text-[#ffffff] bg-primary rounded-lg hover:bg-primary/90 transition-colors cursor-pointer"
+            {!!guest?.name && (
+              <div className="flex items-center justify-center mt-6">
+                <div
+                  data-testid="authentication-success"
+                  className="bg-transparent border border-[#56c071] py-2 px-3"
                 >
-                  {guestFound ? t("confirm") : t("continue")}
-                </button>
-              )}
-            </div>
-          </aside>
-        </div>
+                  <p className="tracking-wider font-mono text-sm text-[#56c071] font-bold">
+                    {t("authenticated")}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {showInput && !guest?.name && (
+              <button
+                type="submit"
+                data-testid="submit-button"
+                disabled={disabled}
+                className="tracking-wider w-full mt-6 px-4 py-2 font-mono text-[#ffffff] bg-primary rounded-lg hover:bg-primary/90 transition-colors cursor-pointer"
+              >
+                {guestFound ? t("confirm") : t("continue")}
+              </button>
+            )}
+          </div>
+        </aside>
       </form>
     </Layout>
   );
