@@ -77,9 +77,6 @@ const Confirmation = () => {
     });
 
     setSaved(true);
-    setTimeout(() => {
-      setSaved(false);
-    }, 3000);
     setLoading(false);
   };
 
@@ -259,21 +256,21 @@ const Confirmation = () => {
             <Button
               data-testid="attend-button"
               onClick={() => confirm("confirm")}
-              disabled={saved || loading}
+              disabled={loading}
             >
               {t("yesAttending")}
             </Button>
             <Button
               data-testid="decline-button"
               onClick={() => confirm("decline")}
-              disabled={saved || loading}
+              disabled={loading}
             >
               {t("noAttending")}
             </Button>
             <Button
               data-testid="maybe-button"
               onClick={() => confirm("maybe")}
-              disabled={saved || loading}
+              disabled={loading}
             >
               {t("maybe")}
             </Button>
