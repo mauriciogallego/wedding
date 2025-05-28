@@ -87,12 +87,19 @@ export async function updateSheetData(guest: {
       requestBody: { values: [[guest.status]] },
     });
 
-    if (guest.companions) {
+    if (guest.status === "Confirmado") {
       await glSheets.spreadsheets.values.update({
         spreadsheetId: process.env.GOOGLE_SHEET_ID,
         range: `invites!H${guest.row}:H${guest.row}`,
         valueInputOption: "RAW",
-        requestBody: { values: [[guest.companions]] },
+        requestBody: { values: [[1]] },
+      });
+    } else {
+      await glSheets.spreadsheets.values.update({
+        spreadsheetId: process.env.GOOGLE_SHEET_ID,
+        range: `invites!H${guest.row}:J${guest.row}`,
+        valueInputOption: "RAW",
+        requestBody: { values: [[0, 0, 0]] },
       });
     }
   } catch (error) {
