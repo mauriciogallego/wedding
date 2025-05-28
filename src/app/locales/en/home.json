@@ -1,5 +1,5 @@
 {
-  "addressToSend": "to the name of:",
+  "addressToSend": "addressed to:",
   "answerSaved": "Answer saved",
   "authenticated": "Authenticated",
   "child": "child",
@@ -11,18 +11,18 @@
   "date": "March 21, 2026",
   "declineMessage": "We will miss you, but if you still want to participate virtually, we will share a link where the ceremony will be broadcasted",
   "formErrorMessage": "We couldn't find your name on the guest list, please check that you have written it correctly.",
-  "formQuestion": "We are still planning some details, we want to know if you will attend our wedding.",
+  "formQuestion": "We are still in the planning stages, but we'd love to know if you'll be able to join us.",
   "formalInvitation": "Formal Invitation",
   "labelName": "type your name and last name",
   "loading": "Loading",
   "location": "La Paz, Bolivia",
-  "maybe": "I don't know yet",
+  "maybe": "Unsure",
   "maybeMessage": "No problem, you have time to decide. Confirm as soon as you can to be part of our day.",
   "message": "We are excited to imagine that day surrounded by those we love.",
   "messageDate": "<bold>March 21st, 2026</bold> we get married in <bold>La Paz, Bolivia</bold>",
   "name": "Name",
   "no": "No",
-  "noAttending": "I can't",
+  "noAttending": "Decline",
   "person": "Adult",
   "placeholderName": "Type here..",
   "plusOne": "<bold>{{name}}</bold>, Will you attend with a plus one? 👀",
@@ -42,5 +42,5 @@
   "weddingNames": "Kiana & Mauricio",
   "where": "Where?",
   "yes": "Yes",
-  "yesAttending": "I'll attend"
+  "yesAttending": "Attend"
 }
