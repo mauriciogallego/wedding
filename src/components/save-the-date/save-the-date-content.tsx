@@ -14,6 +14,7 @@ type Props = {
     children: string;
     companions: string;
     invitationName: string;
+    totalPeople: number;
     row: number;
   }[];
 };

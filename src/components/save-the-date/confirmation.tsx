@@ -208,8 +208,8 @@ const Confirmation = () => {
         </span>
         <span className="font-light font-sans text-black text-xs tracking-widest text-center">
           {guest.plusOne === "Si" ? `${t("withCompanion")}` : undefined}
-          {guest.companions > "1"
-            ? `${guest.companions} ${t("companions")}`
+          {guest.totalPeople > 1
+            ? `${guest.totalPeople} ${t("companions")}`
             : undefined}
         </span>
       </motion.section>

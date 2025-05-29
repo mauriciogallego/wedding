@@ -141,7 +141,7 @@ export const Accompanies = ({
                   <Trans i18nKey="weHave" />
                 </p>
                 <p className="font-sisterhood text-5xl text-gray-700 text-center">
-                  {parseInt(guest.companions) + parseInt(guest.children)}
+                  {guest.totalPeople}
                 </p>
                 <p className="text-gray-700 font-mono text-md text-center">
                   <Trans i18nKey="spaceReserved" />

@@ -13,6 +13,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     plusOne: "",
     children: "",
     invitationName: "",
+    totalPeople: 0,
     row: 0,
   });
 

@@ -52,6 +52,9 @@ function combineColumnData(columnsData: string[][], rowCount: number) {
     children: columnsData[2][index]?.[0] || "",
     plusOne: columnsData[3][index]?.[0] || "",
     invitationName: columnsData[4][index]?.[0] || "",
+    totalPeople:
+      parseInt(columnsData[1][index]?.[0] || "0") +
+      parseInt(columnsData[2][index]?.[0] || "0"),
     row: index + 2,
   }));
 }

@@ -77,12 +77,13 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
       });
       if (guest) {
         setGuest({
-          name: guest.name || "",
-          companions: guest.companions || "",
-          plusOne: guest.plusOne || "",
-          children: guest.children || "",
-          row: guest.row || 0,
-          invitationName: guest.invitationName || "",
+          name: guest.name,
+          companions: guest.companions,
+          plusOne: guest.plusOne,
+          children: guest.children,
+          row: guest.row,
+          invitationName: guest.invitationName,
+          totalPeople: guest.totalPeople,
         });
         timeoutRef.current = setTimeout(moveNextStep, 500);
       }
@@ -126,12 +127,13 @@ export const GuestAuthentication = ({ moveNextStep }: Props) => {
       const guest = sheetData?.find((item) => item.name === guestName);
       if (guest) {
         setGuest({
-          name: guest.name || "",
-          companions: guest.companions || "",
-          plusOne: guest.plusOne || "",
-          children: guest.children || "",
-          row: guest.row || 0,
-          invitationName: guest.invitationName || "",
+          name: guest.name,
+          companions: guest.companions,
+          plusOne: guest.plusOne,
+          children: guest.children,
+          row: guest.row,
+          invitationName: guest.invitationName,
+          totalPeople: guest.totalPeople,
         });
         timeoutRef.current = setTimeout(moveNextStep, 2000);
       }
