@@ -74,6 +74,24 @@ export const Accompanies = ({
     });
   };
 
+  const handleConfirmPlusOne = async () => {
+    setLoading(true);
+    safeTrack("Confirm attendance", {
+      guest: guest.name,
+    });
+
+    const promises = [
+      updatePlusOne({
+        row: guest.row,
+        plusOne: values.plusOne,
+      }),
+    ];
+
+    await Promise.all(promises);
+    setSaved(true);
+    setLoading(false);
+  };
+
   const handleConfirm = async () => {
     setLoading(true);
     safeTrack("Confirm attendance", {
@@ -84,10 +102,6 @@ export const Accompanies = ({
       updateNumberOfPeople({
         row: guest.row,
         companions: values.numberOfPeople,
-      }),
-      updatePlusOne({
-        row: guest.row,
-        plusOne: values.plusOne,
       }),
       updateNumberOfChildren({
         row: guest.row,
@@ -230,7 +244,7 @@ export const Accompanies = ({
                 </SelectContent>
               </Select>
               <div className="flex flex-col justify-center items-center space-x-3">
-                <Button onClick={handleConfirm} disabled={loading}>
+                <Button onClick={handleConfirmPlusOne} disabled={loading}>
                   {t("saveAnswer")}
                 </Button>
                 {saved && (
