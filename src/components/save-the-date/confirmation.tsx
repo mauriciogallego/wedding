@@ -10,13 +10,13 @@ import { Button } from "../shared/button/Button";
 import { StatusGuest } from "@/types";
 import Confetti from "react-confetti-boom";
 import { updateSheetData } from "@/services/google-sheets.action";
-import { confirmations } from "@/consts/confirmations";
 import LocationOutline from "@/svg/location-outline";
 import Accompanies from "./components/accompanies";
 import { motion } from "framer-motion";
 import { safeTrack } from "@/utils/mixpanel";
 import { useFrameMotion } from "@/hooks/use-frame-motion";
 import { Loader2 } from "lucide-react";
+import { statusGuest } from "@/consts/confirmations";
 
 const Confirmation = () => {
   const { t } = useTranslation();
@@ -47,7 +47,7 @@ const Confirmation = () => {
     setLoading(true);
     setStatus(status);
 
-    if (status === "confirm") {
+    if (status === statusGuest.confirm) {
       safeTrack("I will attend", {
         guest: guest?.name,
         status,
@@ -55,14 +55,14 @@ const Confirmation = () => {
       setIsExploding(true);
     }
 
-    if (status === "decline") {
+    if (status === statusGuest.decline) {
       safeTrack("I will not attend", {
         guest: guest?.name,
         status,
       });
     }
 
-    if (status === "maybe") {
+    if (status === statusGuest.maybe) {
       safeTrack("I don't know yet", {
         guest: guest?.name,
         status,
@@ -71,7 +71,7 @@ const Confirmation = () => {
 
     await updateSheetData({
       row: guest.row,
-      status: confirmations[status],
+      status,
     });
 
     setSaved(true);

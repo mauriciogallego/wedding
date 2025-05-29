@@ -1,7 +1,8 @@
 "use server";
 
 import { google } from "googleapis";
-import { GoogleAuth } from "@/types";
+import { GoogleAuth, StatusGuest } from "@/types";
+import { confirmations, statusGuest } from "@/consts/confirmations";
 
 interface SheetColumn {
   range: string;
@@ -75,8 +76,7 @@ export default async function getSheetData() {
 
 export async function updateSheetData(guest: {
   row: number;
-  status: string;
-  companions?: string;
+  status: StatusGuest;
 }) {
   const glAuth = await getGlAuth();
 
@@ -87,10 +87,10 @@ export async function updateSheetData(guest: {
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
       range: `invites!G${guest.row}:G${guest.row}`,
       valueInputOption: "RAW",
-      requestBody: { values: [[guest.status]] },
+      requestBody: { values: [[confirmations[guest.status]]] },
     });
 
-    if (guest.status === "Confirmado") {
+    if (guest.status === statusGuest.confirm) {
       await glSheets.spreadsheets.values.update({
         spreadsheetId: process.env.GOOGLE_SHEET_ID,
         range: `invites!H${guest.row}:H${guest.row}`,

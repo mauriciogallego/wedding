@@ -189,6 +189,19 @@ export const Accompanies = ({
                   </SelectContent>
                 </Select>
               )}
+              <div className="flex flex-col justify-center items-center space-x-3">
+                <Button onClick={handleConfirm} disabled={loading}>
+                  {t("saveAnswer")}
+                </Button>
+                {saved && (
+                  <p className="text-gray-700 font-mono text-xs text-center">
+                    {t("answerSaved")}
+                  </p>
+                )}
+                {loading && (
+                  <Loader2 className="w-4 h-4 text-gray-500 animate-spin" />
+                )}
+              </div>
             </>
           )}
           {guest.plusOne === CONFIRM_GUEST && (
@@ -216,21 +229,21 @@ export const Accompanies = ({
                   <SelectItem value="0">{t("no")}</SelectItem>
                 </SelectContent>
               </Select>
+              <div className="flex flex-col justify-center items-center space-x-3">
+                <Button onClick={handleConfirm} disabled={loading}>
+                  {t("saveAnswer")}
+                </Button>
+                {saved && (
+                  <p className="text-gray-700 font-mono text-xs text-center">
+                    {t("answerSaved")}
+                  </p>
+                )}
+                {loading && (
+                  <Loader2 className="w-4 h-4 text-gray-500 animate-spin" />
+                )}
+              </div>
             </>
           )}
-          <div className="flex flex-col justify-center items-center space-x-3">
-            <Button onClick={handleConfirm} disabled={loading}>
-              {t("saveAnswer")}
-            </Button>
-            {saved && (
-              <p className="text-gray-700 font-mono text-xs text-center">
-                {t("answerSaved")}
-              </p>
-            )}
-            {loading && (
-              <Loader2 className="w-4 h-4 text-gray-500 animate-spin" />
-            )}
-          </div>
         </div>
       )}
     </section>
