@@ -21,7 +21,7 @@
     "i18next-resources-to-backend": "^1.2.1",
     "lucide-react": "^0.511.0",
     "mixpanel-browser": "^2.65.0",
-    "next": "15.2.2",
+    "next": "15.2.8",
     "next-i18n-router": "^5.5.1",
     "qrcode.react": "^4.2.0",
     "react": "^19.0.0",
