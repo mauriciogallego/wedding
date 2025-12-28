@@ -6,7 +6,7 @@ const Countdown = () => {
   const [targetDate, setTargetDate] = useState<number | null>(null);
 
   useEffect(() => {
-    const weddingDate = new Date("2026-03-21T16:00:00-04:00");
+    const weddingDate = new Date("2026-03-27T16:00:00-04:00");
     setTargetDate(weddingDate.getTime());
   }, []);
 
